@@ -10,7 +10,7 @@
     <Grid>
         <TextBlock Text="Add Position" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 20 0 0" Foreground="DodgerBlue"/>
         <StackPanel VerticalAlignment="Center" >
-            <ComboBox x:Name="PositonsCOmboBOx"  ItemsSource="{Binding DutyTypes}"  SelectedItem="{Binding SelectedDutyTypes}" FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
+            <ComboBox x:Name="PositonsCOmboBOx"  ItemsSource="{Binding DutyTypes}"  SelectedItem="{Binding SelectedDutyType}" FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock FontSize="18" Text="{Binding Path=Nmae}" />
