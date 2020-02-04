@@ -1,5 +1,4 @@
 ﻿using DutyFier.Core.Entities;
-using DutyFierCore.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DutyFier.Core.Models
