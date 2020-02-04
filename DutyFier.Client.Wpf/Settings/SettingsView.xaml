@@ -3,10 +3,102 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:TestMain"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             
+             d:DesignHeight="555" d:DesignWidth="824" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
     <Grid>
-            
+        <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.15}">
+            <Grid  VerticalAlignment="Stretch"  >
+                <TabControl BorderThickness="0" Background="#0000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border Name="Panel" CornerRadius="4" Margin="2 2 2 0" Height="30" Width="150">
+                                            <ContentPresenter x:Name="ContentSite"
+                                                VerticalAlignment="Center"
+                                                              HorizontalAlignment="Center"
+                                                              ContentSource="Header"
+                                                              Margin="10,2"
+                                                              
+                                            />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Panel" Property="Background" Value="Teal"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="Panel" Property="Background" Value="#0000"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="Types" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8.5*"/>
+                                <RowDefinition Height="1.5*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid  Grid.Row="0" x:Name="dataGrid" Margin="10 10 10 0"  FontSize="14"></DataGrid>
+                            <StackPanel HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
+                                <Button HorizontalAlignment="Left"  Click="Button_Click_1" Width="100" Margin="20 0 0 20" Content="Save" VerticalAlignment="Bottom">
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+
+                    </TabItem>
+                    <TabItem  Header="Cadets" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8.5*"/>
+                                <RowDefinition Height="1.5*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid PreviewKeyDown="cadetsGrid_PreviewKeyDown" Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding Persons}"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid"   >
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}"  />
+                                    <DataGridTextColumn  Header="Name" Binding="{Binding Path=FirstName}"   />
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=LastName}"  />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Grid.Row="1" Margin="0 0 0 20 " HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
+                                <Button  x:Name="AddCadetButton" Click="AddCadet_OnClick"   Content="Add" Width="150" Margin="0 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button x:Name="EditCadetButton" Click="EditCadetButton_OnClick"   Content="Edit" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button x:Name="RemoveCadetButton" Click="RemoveCadetButton_OnClick"   Content="Remove" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Types" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8.5*"/>
+                                <RowDefinition Height="1.5*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid Grid.Row="0" ColumnWidth="*" ItemsSource="{Binding Positions}" AutoGenerateColumns="False" Margin="10 10 10 0"   FontSize="14" x:Name="dutiesGrid"   >
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Binding="{Binding Path = DutyType}" Header="Type of duty" />
+                                    <DataGridTextColumn Binding="{Binding Path = Name}" Header="Position" />
+                                    <DataGridTextColumn Binding="{Binding Path = Weight}" Header="Weight" />
+                                    <DataGridCheckBoxColumn Binding="{Binding Path= IsSeniorPosition}" Header="Sen"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0 0 0 20">
+                                <Button x:Name="AddPositionButton" Click="AddPositionButton_OnClick"  FontSize="18" Content="Add Position" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button x:Name="AddTypeButton" Click="AddTypeButton_OnClick"  FontSize="18" Content="Add type" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <!--<Button x:Name="RemovePositionButton" Click="RemovePositionButton_OnClick"  FontSize="18" Content="Remove" Width="150" Margin="40 50 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>-->
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+
+                </TabControl>
+            </Grid>
+        </materialDesign:TransitioningContent>
     </Grid>
 </UserControl>

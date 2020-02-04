@@ -18,9 +18,9 @@ namespace DutyFier.Client.Wpf.Statistics
     /// <summary>
     /// Логика взаимодействия для StatisticksView.xaml
     /// </summary>
-    public partial class StatisticksView : UserControl
+    public partial class StatisticsView : UserControl
     {
-        public StatisticksView()
+        public StatisticsView()
         {
             InitializeComponent();
         }

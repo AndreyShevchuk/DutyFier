@@ -1,10 +1,8 @@
 ﻿using DutyFier.Core.Entities;
 using DutyFier.Core.Interfaces;
-using DutyFierCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace DutyFier.Core.Models
 {
@@ -112,7 +110,7 @@ namespace DutyFier.Core.Models
                 {
                     person.Score += person.Factor * (request.AdditionalWeight + daysOfWeekWeights.Find(a => a.Day.Equals(request.Date.DayOfWeek)).Weight);
                 }
-                MessageBox.Show(person.Score + "");
+                //MessageBox.Show(person.Score + "");
             }
             // ret
             return duty;

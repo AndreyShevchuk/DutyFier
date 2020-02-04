@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DutyFier.Client.Wpf.Statistics
 {
-    class StatisticksViewModel
+    class StatisticsViewModel
     {
     }
 }
