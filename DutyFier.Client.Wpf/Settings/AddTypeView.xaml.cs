@@ -18,7 +18,7 @@ namespace DutyFier.Client.Wpf.Settings
     /// <summary>
     /// Логика взаимодействия для AddTypeView.xaml
     /// </summary>
-    public partial class AddTypeView : UserControl
+    public partial class AddTypeView : Window
     {
         public AddTypeView()
         {

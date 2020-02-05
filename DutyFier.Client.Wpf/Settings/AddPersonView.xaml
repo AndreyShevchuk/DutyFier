@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
         mc:Ignorable="d"
-        Title="AddCadetWindow"  Height="450" Width="300" WindowStyle="None" MouseDown="AddCadetWindow_OnMouseDown" WindowStartupLocation="CenterScreen">
+        Title="AddCadetWindow"  Height="450" Width="300" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid >
         <StackPanel Orientation="Vertical" DataContext="{Binding _person}">
             <TextBlock HorizontalAlignment="Center" Margin="0 20 0 0" Foreground="DodgerBlue" FontWeight="Bold" Text="Add executor" FontSize="24" />
@@ -20,7 +20,7 @@
         <StackPanel Margin="0 0 0 20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
             <WrapPanel   HorizontalAlignment="Right" >
                 <Button  IsCancel="True" Command="{Binding AddComand}" MinWidth="60">Cancel</Button>
-                <Button  IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="10,0,10,0">OK</Button>
+                <Button  IsDefault="True"  MinWidth="60" Margin="10,0,10,0">OK</Button>
 
             </WrapPanel>
         </StackPanel>

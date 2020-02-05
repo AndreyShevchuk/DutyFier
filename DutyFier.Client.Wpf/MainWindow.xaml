@@ -6,29 +6,29 @@
         xmlns:local="clr-namespace:DutyFier.Client.Wpf"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         
-        x:Name="Window1" mc:Ignorable="d" Loaded="Window1_Loaded" WindowStartupLocation="CenterScreen" Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize"  >
+        x:Name="Window1" mc:Ignorable="d" WindowStartupLocation="CenterScreen" Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize"  >
     
-    <Grid x:Name="MainGrid"  MouseDown="Grid_MouseDown" >
+    <Grid x:Name="MainGrid" >
         <Grid  >
             <Grid x:Name="GridForWindow" Margin="200 35 0 0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"     />
             <Grid VerticalAlignment="Top"  Height="35" Background="#FF0D47A1" >
                 <StackPanel x:Name="ArrowsStackPanel" Visibility="Visible" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button  BorderThickness="0"  Click="BackButton_OnClick" Background="#0000">
+                    <Button  BorderThickness="0" Background="#0000">
                         <materialDesign:PackIcon Kind="ArrowLeftBold" Height="30" Width="35"/>
                     </Button>
-                    <Button  BorderThickness="0"  Click="NextButton_OnClick" Background="#0000">
+                    <Button  BorderThickness="0" Background="#0000">
                         <materialDesign:PackIcon Height="30" Width="35" Kind="ArrowRightBold"/>
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button  ToolTip="Hide" x:Name="ButtonMinimize" BorderThickness="0" Padding="0" Background="#0000" HorizontalAlignment="Right" Height="30" Width="30" Margin="0 0 7 0" Click="ButtonMinimize_Click">
+                    <Button  ToolTip="Hide" x:Name="ButtonMinimize" BorderThickness="0" Padding="0" Background="#0000" HorizontalAlignment="Right" Height="30" Width="30" Margin="0 0 7 0" >
                         <materialDesign:PackIcon Height="20" Width="20"  Foreground="WhiteSmoke"  Kind="WindowMinimize"/>
                     </Button>
-                    <Button  ToolTip="Maximize" BorderThickness="0" Background="#0000" x:Name="MaximixeWindow" Click="MaximixeWindow_OnClick" >
+                    <Button  ToolTip="Maximize" BorderThickness="0" Background="#0000" x:Name="MaximixeWindow" >
                         <materialDesign:PackIcon Kind="WindowMaximize"  />
                     </Button>
-                    <Button ToolTip="Close" x:Name="ButtonPower" BorderThickness="0" Padding="0" Background="#0000" HorizontalAlignment="Right" Height="30" Width="30" Margin="0 0 7 0" Click="ButtonPower_Click">
+                    <Button ToolTip="Close" x:Name="ButtonPower" BorderThickness="0" Padding="0" Background="#0000" HorizontalAlignment="Right" Height="30" Width="30" Margin="0 0 7 0" >
                         <materialDesign:PackIcon  Foreground="WhiteSmoke" Height="20" Width="20"  Kind="Power"/>
                     </Button>
 
@@ -52,7 +52,7 @@
                         <TextBlock Text="Settings" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem x:Name="GenerateItem" MouseDown="GenerateItem_OnMouseDown" Height="60">
+                <ListViewItem x:Name="GenerateItem" Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Magic" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Generate" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
