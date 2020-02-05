@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DutyFier.Client.Wpf"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"    
         
         x:Name="Window1" mc:Ignorable="d" WindowStartupLocation="CenterScreen" Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize"  >
     
