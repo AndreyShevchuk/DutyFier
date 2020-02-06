@@ -7,6 +7,9 @@
         xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
         mc:Ignorable="d"
         Title="AddCadetWindow"  Height="450" Width="300" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <local:AddPersonViewModel/>
+    </Window.DataContext>
     <Grid >
         <StackPanel Orientation="Vertical" DataContext="{Binding _person}">
             <TextBlock HorizontalAlignment="Center" Margin="0 20 0 0" Foreground="DodgerBlue" FontWeight="Bold" Text="Add executor" FontSize="24" />
