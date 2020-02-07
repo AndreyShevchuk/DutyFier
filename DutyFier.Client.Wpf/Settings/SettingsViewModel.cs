@@ -1,4 +1,4 @@
-﻿using DutyFier.Client.Wpf.Settings.Infrastructure;
+﻿
 using DutyFier.Core.Entities;
 using DutyFier.Core.Models;
 using DutyFier.Core.Repository;

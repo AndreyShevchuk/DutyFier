@@ -10,20 +10,22 @@ namespace DutyFier.Client.Wpf.Settings
     class AddPersonViewModel
     {
         
-        public Person _person { get; set; }
-        public string FirstName { get { return _person.FirstName; } set { _person.FirstName = value; } }
-        public string LastName { get { return _person.LastName; } set { _person.LastName = value; } }
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public AddPersonViewModel()
         {
-            get
-            {
-                return addCommand ??
-                    (addCommand = new RelayCommand(obj =>
-                    {
-                        //логика добавления в БД
-                    }));
-            }
+            AddCommand = new RelayCommand(OnAdd, CanAdd);
+        }
+
+        public RelayCommand AddCommand { get; set; }
+        public void OnAdd()
+        {
+            //TODO adding to DB logic
+        }
+        public bool CanAdd()
+        {
+            return ((FirstName != null && LastName != null));
         }
 
     }

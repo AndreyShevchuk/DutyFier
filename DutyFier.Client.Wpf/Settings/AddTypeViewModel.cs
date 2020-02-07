@@ -13,19 +13,18 @@ namespace DutyFier.Client.Wpf.Settings
         public AddTypeViewModel()
         {
             dutyType = new DutyType();
+            AddCommand = new RelayCommand(OnAdd, CanAdd);
         }
-        public string Name { get { return dutyType.Name; } set { dutyType.Name = value; } }
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        public string Name { get; set; }
+        public RelayCommand AddCommand { get; set; }
+
+        public void OnAdd()
         {
-            get
-            {
-                return addCommand ??
-                    (addCommand = new RelayCommand(obj =>
-                    {
-                        //логика добавления в БД
-                    }));
-            }
+            //TODO adding to DB logic
+        }
+        public bool CanAdd()
+        {
+            return Name != null;
         }
     }
 }

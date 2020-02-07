@@ -9,29 +9,101 @@ namespace DutyFier.Client.Wpf
 {
     class RelayCommand : ICommand
     {
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
+        Action _TargetExecuteMethod;
+        Func<bool> _TargetCanExecuteMethod;
 
-        public event EventHandler CanExecuteChanged
+        public RelayCommand(Action executeMethod)
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            _TargetExecuteMethod = executeMethod;
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public RelayCommand(Action executeMethod, Func<bool> canExecuteMethod)
         {
-            this.execute = execute;
-            this.canExecute = canExecute;
+            _TargetExecuteMethod = executeMethod;
+            _TargetCanExecuteMethod = canExecuteMethod;
         }
 
-        public bool CanExecute(object parameter)
+        public void RaiseCanExecuteChanged()
         {
-            return this.canExecute == null || this.canExecute(parameter);
+            CanExecuteChanged(this, EventArgs.Empty);
+        }
+        #region ICommand Members
+
+        bool ICommand.CanExecute(object parameter)
+        {
+            if (_TargetCanExecuteMethod != null)
+            {
+                return _TargetCanExecuteMethod();
+            }
+            if (_TargetExecuteMethod != null)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void Execute(object parameter)
+        // Beware - should use weak references if command instance lifetime is longer than lifetime of UI objects that get hooked up to command
+        // Prism commands solve this in their implementation
+        public event EventHandler CanExecuteChanged = delegate { };
+
+        void ICommand.Execute(object parameter)
         {
-            this.execute(parameter);
+            if (_TargetExecuteMethod != null)
+            {
+                _TargetExecuteMethod();
+            }
         }
+        #endregion
+    }
+
+    public class RelayCommand<T> : ICommand
+    {
+        Action<T> _TargetExecuteMethod;
+        Func<T, bool> _TargetCanExecuteMethod;
+
+        public RelayCommand(Action<T> executeMethod)
+        {
+            _TargetExecuteMethod = executeMethod;
+        }
+
+        public RelayCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
+        {
+            _TargetExecuteMethod = executeMethod;
+            _TargetCanExecuteMethod = canExecuteMethod;
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged(this, EventArgs.Empty);
+        }
+        #region ICommand Members
+
+        bool ICommand.CanExecute(object parameter)
+        {
+            if (_TargetCanExecuteMethod != null)
+            {
+                T tparm = (T)parameter;
+                return _TargetCanExecuteMethod(tparm);
+            }
+            if (_TargetExecuteMethod != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        // Beware - should use weak references if command instance lifetime is longer than lifetime of UI objects that get hooked up to command
+        // Prism commands solve this in their implementation
+        public event EventHandler CanExecuteChanged = delegate { };
+
+        void ICommand.Execute(object parameter)
+        {
+            if (_TargetExecuteMethod != null)
+            {
+                _TargetExecuteMethod((T)parameter);
+            }
+        }
+        #endregion
     }
 }
+

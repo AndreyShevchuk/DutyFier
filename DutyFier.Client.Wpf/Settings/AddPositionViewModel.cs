@@ -15,24 +15,28 @@ namespace DutyFier.Client.Wpf.Settings
         public AddPositionViewModel()
         {
             _position = new Position();
-            dutyTypes = new DutyTypeRepository().GetAll().ToList();
+            AddCommand = new RelayCommand(OnAdd,CanAdd);
+            //dutyTypes = new DutyTypeRepository().GetAll().ToList();
         }
         public List<DutyType> DutyTypes { get; }
-        public DutyType SelectedDutyType { get { return _position.DutyType; } set { _position.DutyType = value; } }
-        public string Name { get { return _position.Name; } set { _position.Name = value; } }
-        public double Weight { get { return _position.Weight; } set { _position.Weight = value; } }
-        public bool IsSeniorPosition { get { return _position.IsSeniorPosition; } set { _position.IsSeniorPosition = value; } }
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        public DutyType SelectedDutyType { get; set; }
+        public string Name { get; set; }
+        public double Weight { get; set; }
+        public bool IsSeniorPosition { get; set; }
+        public RelayCommand AddCommand { get; set; }
+
+        private void OnAdd()
         {
-            get
-            {
-                return addCommand ??
-                    (addCommand = new RelayCommand(obj =>
-                    {
-                        //логика добавления в БД
-                    }));
-            }
+            _position = new Position();
+            _position.DutyType = SelectedDutyType;
+            _position.Name = Name;
+            _position.Weight = Weight;
+            _position.IsSeniorPosition = IsSeniorPosition;
+            //TODO add to DB logic
+        }
+        private bool CanAdd()
+        {
+            return _position != null;
         }
     }
 }

@@ -9,9 +9,7 @@
              mc:Ignorable="d" 
              
              d:DesignHeight="555" d:DesignWidth="824" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-    <UserControl.DataContext>
-        <local:SettingsViewModel/>
-    </UserControl.DataContext>
+    
     <Grid>
         <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.15}">
             <Grid  VerticalAlignment="Stretch"  >
@@ -55,7 +53,7 @@
                                 <DataGridTemplateColumn>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <CheckBox>
+                                            <CheckBox/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

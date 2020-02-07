@@ -163,10 +163,6 @@
       <DependentUpon>AddTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\AddTypeViewModel.cs" />
-    <Compile Include="Settings\Infrastructure\CommandParameterMultiConverter.cs" />
-    <Compile Include="Settings\Infrastructure\DelegateCommand.cs" />
-    <Compile Include="Settings\Infrastructure\GroupDataGridCheckBoxColumn.cs" />
-    <Compile Include="Settings\Infrastructure\PositionToBooleanConverter.cs" />
     <Compile Include="Settings\SettingsViewModel.cs" />
     <Compile Include="Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
