@@ -3,10 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:DutyFier.Client.Wpf.Generate"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Calendar HorizontalAlignment="Left" VerticalAlignment="Top"  SelectionMode="MultipleRange" />
+        <ListBox Grid.Column="0" ItemsSource="{Binding DatesPosition.Keys}" SelectedItem="{Binding SelectPosition}"
+                 HorizontalAlignment="Left" Height="356" Margin="283,0,0,0" VerticalAlignment="Top" Width="261">
             
+            
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+
+        </ListBox>
+        <ListBox HorizontalAlignment="Left" Height="356" Margin="549,0,0,0" VerticalAlignment="Top" Width="251"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="442,386,0,0" VerticalAlignment="Top" Width="76"/>
+
     </Grid>
 </UserControl>
