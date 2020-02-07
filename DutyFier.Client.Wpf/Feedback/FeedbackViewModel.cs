@@ -13,7 +13,18 @@ namespace DutyFier.Client.Wpf.Feedback
         public List<PersonDutyFeedback> feedbacks;
         public FeedbackViewModel()
         {
-            feedbacks = new PersonDutyFeedbackRepository().GetAll().ToList();
+            Feedbacks = new PersonDutyFeedbackRepository().GetAll().ToList();
+        }
+        public List<PersonDutyFeedback> Feedbacks
+        {
+            get
+            {
+                return feedbacks;
+            }
+            set
+            {
+                feedbacks = value;
+            }
         }
     }
 }
