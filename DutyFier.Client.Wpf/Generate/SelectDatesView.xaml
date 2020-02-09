@@ -10,20 +10,13 @@
 
 
     <Grid>
-
-
-        <!--<Calendar SelectedDate="{Binding SelectDates, Mode=OneWayToSource,  UpdateSourceTrigger=PropertyChanged}"
-                  DisplayDate="{Binding SelectDates, Mode=OneTime,  UpdateSourceTrigger=PropertyChanged }"
-                  
-                  HorizontalAlignment="Left" VerticalAlignment="Top"  SelectionMode="MultipleRange" />-->
-        <Calendar Name="TournamentCalendar" SelectionMode="MultipleRange" Margin="5">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedDatesChanged">
-                    <cal:ActionMessage MethodName="AssignDates">
-                        <cal:Parameter Value="{Binding SelectedDates, ElementName=TournamentCalendar}"/>
-                    </cal:ActionMessage>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
+        <Calendar x:Name="calendar"
+                  SelectionMode="MultipleRange">
+            <i:Interaction.Behaviors>
+                <!--<local:CalendarSelectedDatesBlendBehavior  SelectedDates="{Binding SelectedDates}"/>-->
+                <!--<local:CalendarSelectedDatesBlendBehavior
+                    SelectedDates="{Binding SelectedDates}" />-->
+            </i:Interaction.Behaviors>
         </Calendar>
 
 
