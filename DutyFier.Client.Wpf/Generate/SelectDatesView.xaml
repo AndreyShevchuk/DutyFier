@@ -7,8 +7,27 @@
              xmlns:local="clr-namespace:DutyFier.Client.Wpf.Generate"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
     <Grid>
-        <Calendar HorizontalAlignment="Left" VerticalAlignment="Top"  SelectionMode="MultipleRange" />
+
+
+        <!--<Calendar SelectedDate="{Binding SelectDates, Mode=OneWayToSource,  UpdateSourceTrigger=PropertyChanged}"
+                  DisplayDate="{Binding SelectDates, Mode=OneTime,  UpdateSourceTrigger=PropertyChanged }"
+                  
+                  HorizontalAlignment="Left" VerticalAlignment="Top"  SelectionMode="MultipleRange" />-->
+        <Calendar Name="TournamentCalendar" SelectionMode="MultipleRange" Margin="5">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedDatesChanged">
+                    <cal:ActionMessage MethodName="AssignDates">
+                        <cal:Parameter Value="{Binding SelectedDates, ElementName=TournamentCalendar}"/>
+                    </cal:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+        </Calendar>
+
+
+
         <ListBox Grid.Column="0" ItemsSource="{Binding DatesPosition.Keys}" SelectedItem="{Binding SelectPosition}"
                  HorizontalAlignment="Left" Height="356" Margin="283,0,0,0" VerticalAlignment="Top" Width="261">
             

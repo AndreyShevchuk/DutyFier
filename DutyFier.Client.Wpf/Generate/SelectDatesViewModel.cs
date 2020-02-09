@@ -52,6 +52,11 @@ namespace DutyFier.Client.Wpf.Generate
             DatesPosition.Add(new Position() { Name = "Tsp" }, new ObservableCollection<DateTime>());
             DatesPosition.Add(new Position() { Name = "isi2" }, new ObservableCollection<DateTime>());
             DatesPosition.Add(new Position() { Name = "isi3" }, new ObservableCollection<DateTime>());
+
+
+
+            selectDates = new ObservableCollection<DateTime>();
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
