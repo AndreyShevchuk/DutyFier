@@ -7,13 +7,29 @@ namespace DutyFier.Core.Entities
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public double Score { get; set; }
         public double Factor { get; set; }
         public virtual ICollection<Position> Positions { get; set; }
         public virtual ICollection<PersonDutyFeedback> PersonDutyFeedbacks { get; set; }
 
         public Person()
         {
+            Positions = new HashSet<Position>();
+            PersonDutyFeedbacks = new HashSet<PersonDutyFeedback>();
+        }
+
+        public Person(string firstName, string lastName, double factor)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Factor = factor;
+            Positions = new HashSet<Position>();
+            PersonDutyFeedbacks = new HashSet<PersonDutyFeedback>();
+        }
+        public Person(Person person)
+        {
+            FirstName = person.FirstName;
+            LastName = person.LastName;
+            Factor = person.Factor;
             Positions = new HashSet<Position>();
             PersonDutyFeedbacks = new HashSet<PersonDutyFeedback>();
         }

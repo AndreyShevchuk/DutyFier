@@ -17,6 +17,7 @@ namespace DutyFier.Core.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+                // TODO: import connection string from AppConfiguration
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=DutyFier;Trusted_Connection=True;");
             }
         }
@@ -25,7 +26,6 @@ namespace DutyFier.Core.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<DutyRequest>();
-            modelBuilder.Entity<Person>().Ignore(c => c.Score);
             //modelBuilder.Entity<DutyType>()
             //    .HasMany(p => p.Positions)
             //    .WithRequired(p => p.DutyType);

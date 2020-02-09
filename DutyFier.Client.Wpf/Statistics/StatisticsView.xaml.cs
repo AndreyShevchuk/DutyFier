@@ -23,6 +23,7 @@ namespace DutyFier.Client.Wpf.Statistics
         public StatisticsView()
         {
             InitializeComponent();
+            DataContext = new StatisticsViewModel();
         }
     }
 }
