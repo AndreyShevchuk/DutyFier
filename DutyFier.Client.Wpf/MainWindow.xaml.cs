@@ -1,4 +1,5 @@
 ﻿using DutyFier.Client.Wpf.Feedback;
+using DutyFier.Client.Wpf.Generate;
 using DutyFier.Client.Wpf.Settings;
 using DutyFier.Client.Wpf.Statistics;
 using System;
@@ -39,7 +40,11 @@ namespace DutyFier.Client.Wpf
             //userControls.Add(1, new GenerateStepOne());
             //userControls.Add(2, generate2);
             //userControls.Add(3, new GenerateStepThree());
+
+            var sv = new SelectDatesView();
+            sv.DataContext = new SelectDatesViewModel();
             //userControls.Add(4, generate4);
+            userControls.Add(1, sv); 
             statisticWindow = new StatisticsView();
             settingsViev = new SettingsView();
             feedbackViev = new FeedbackView();
