@@ -1,8 +1,6 @@
 ﻿using DutyFier.Core.Entities;
 using System.Data.Entity;
 
-//using Microsoft.EntityFrameworkCore;
-
 namespace DutyFier.Core.Models
 {
     public class DutyFierContext : DbContext
@@ -26,7 +24,7 @@ namespace DutyFier.Core.Models
         {
 
             modelBuilder.Ignore<DutyRequest>();
-            modelBuilder.Entity<Person>().Ignore(c => c.Score);
+            //modelBuilder.Entity<Person>().Ignore(c => c.Score);
             //modelBuilder.Entity<DutyType>()
             //    .HasMany(p => p.Positions)
             //    .WithRequired(p => p.DutyType);

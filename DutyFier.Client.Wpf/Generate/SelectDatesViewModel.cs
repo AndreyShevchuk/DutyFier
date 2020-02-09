@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DutyFier.Client.Wpf.Generate
 {
@@ -53,11 +51,9 @@ namespace DutyFier.Client.Wpf.Generate
             DatesPosition.Add(new Position() { Name = "isi2" }, new ObservableCollection<DateTime>());
             DatesPosition.Add(new Position() { Name = "isi3" }, new ObservableCollection<DateTime>());
 
-
-
             selectDates = new ObservableCollection<DateTime>();
-
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

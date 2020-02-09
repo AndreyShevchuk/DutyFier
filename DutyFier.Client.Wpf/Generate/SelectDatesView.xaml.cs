@@ -24,7 +24,7 @@ namespace DutyFier.Client.Wpf.Generate
         public SelectDatesView()
         {
             InitializeComponent();
-            DataContext = new CalendarViewModel();
+            DataContext = new SelectDatesViewModel();
         }
     }
 }
