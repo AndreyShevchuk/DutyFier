@@ -1,5 +1,7 @@
 ﻿using DutyFier.Core.Entities;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
+
+//using Microsoft.EntityFrameworkCore;
 
 namespace DutyFier.Core.Models
 {
@@ -13,19 +15,18 @@ namespace DutyFier.Core.Models
         public DbSet<DutyType> DutyTypes { get; set; }
         public DbSet<Duty> Duties { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        public DutyFierContext()
+            : base()
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                // TODO: import connection string from AppConfiguration
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=DutyFier;Trusted_Connection=True;");
-            }
+
         }
 
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             modelBuilder.Ignore<DutyRequest>();
+            modelBuilder.Entity<Person>().Ignore(c => c.Score);
             //modelBuilder.Entity<DutyType>()
             //    .HasMany(p => p.Positions)
             //    .WithRequired(p => p.DutyType);

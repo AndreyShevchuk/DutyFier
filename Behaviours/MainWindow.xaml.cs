@@ -13,15 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-namespace DutyFier.Client.Wpf.Generate
+namespace Behaviours
 {
     /// <summary>
-    /// Логика взаимодействия для SelectDatesView.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class SelectDatesView : UserControl
+    public partial class MainWindow : Window
     {
-        public SelectDatesView()
+        public MainWindow()
         {
             InitializeComponent();
             DataContext = new CalendarViewModel();

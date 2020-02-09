@@ -1,0 +1,28 @@
+﻿<Window x:Class="Behaviours.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:local="clr-namespace:Behaviours"
+        Title="MainWindow" Height="450" Width="800">
+
+    <StackPanel>
+        <Calendar x:Name="calendar"
+                  SelectionMode="MultipleRange">
+            <i:Interaction.Behaviors>
+                <local:CalendarSelectedDatesBlendBehavior  SelectedDates="{Binding SelectedDates}"/>
+                <!--<local:CalendarSelectedDatesBlendBehavior
+                    SelectedDates="{Binding SelectedDates}" />-->
+            </i:Interaction.Behaviors>
+        </Calendar>
+        <TextBlock Text="Selected dates: " FontWeight="Bold" />
+        <ItemsControl ItemsSource="{Binding SelectedDates}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <!-- TextBlock for displaying a DateTime object from the
+                    SelectedDates property of the view model -->
+                    <TextBlock Text="{Binding Path=., StringFormat=d}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</Window>
