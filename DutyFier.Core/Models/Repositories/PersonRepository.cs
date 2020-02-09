@@ -1,8 +1,8 @@
 ﻿using DutyFier.Core.Entities;
 using DutyFier.Core.Interfaces;
 using DutyFier.Core.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace DutyFier.Core.Repository
@@ -35,10 +35,11 @@ namespace DutyFier.Core.Repository
 
         public ICollection<Person> GetAll()
         {
-            return context.Persons
-                .Include(e => e.PersonDutyFeedbacks)
-                .Include(e => e.Positions)
-                .ToList();
+           return context.Persons.ToList<Person>();
+            //return context.Persons
+            //    .Include(e => e.PersonDutyFeedbacks)
+            //    .Include(e => e.Positions)
+            //    .ToList();
         }
 
         public Person GetOne(int id)

@@ -34,5 +34,6 @@ namespace DutyFier.Core.Entities
             hashCode = hashCode * -1521134295 + IsSeniorPosition.GetHashCode();
             return hashCode;
         }
+
     }
 }
