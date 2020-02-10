@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Windows;
+using System.Windows.Controls;
 
 namespace DutyFier.Client.Wpf.Generate
 {
@@ -12,8 +13,72 @@ namespace DutyFier.Client.Wpf.Generate
     {
         public Dictionary<Position, ObservableCollection<DateTime>> DatesPosition { get; set; }
 
-        private ObservableCollection<DateTime> selectDates;
-        public ObservableCollection<DateTime> SelectDates { 
+        private SelectedDatesCollection selectDates;
+
+        private RelayCommand comadAcpet;
+        public RelayCommand ComadAcpet
+        {
+            get
+            {
+                return comadAcpet ??
+                (comadAcpet = new RelayCommand(obj =>
+                {
+                    DatesPosition[selectPosition].Clear();
+                    foreach (var item in selectDates)
+                    {
+                        DatesPosition[selectPosition].Add(item);
+                    }
+                },
+                (obj) => CheckActivityButton()));
+            }
+        }
+
+        private  bool CheckActivityButton()
+        {
+            if (selectDates == null)
+            {
+                return false;
+            }
+            if (selectPosition == null)
+            {
+                return false;
+            }
+            foreach (var item in selectDates)
+            {
+                if (!DatesPosition[selectPosition].Contains(item))
+                {
+                    return true;
+                }
+            }
+            if(selectDates.Count != DatesPosition[selectPosition].Count)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private RelayCommand comandSelectDates;
+        public RelayCommand ComandSelectDates
+        {
+            get
+            {
+                  return comandSelectDates ??
+                  (comandSelectDates = new RelayCommand(obj =>
+                  {
+                      if (selectDates == null)   /// Ініціалізуємо колекцію з календарря щоб могли доступатись з ViewModel  ==> потрыбно xерез xaml ініцалізувати
+                      {
+                          selectDates = (SelectedDatesCollection)obj;
+                      }
+                      if (selectPosition == null) // помилка на дурака
+                      {
+                          MessageBox.Show("Вибери тип наояду");
+                          return;
+                      };
+                  },
+                  (obj) => true));
+            }
+        }
+        public SelectedDatesCollection SelectDates { 
             get 
             {
                 return selectDates;
@@ -32,26 +97,40 @@ namespace DutyFier.Client.Wpf.Generate
             {
                 return selectPosition;
             }
+
             set
             {
                 selectPosition = value;
-                OnPropertyChanged("SelectPosition");
-                //out ObservableCollection<DateTime> temp;
-                //DatesPosition.TryGetValue(value,out temp);
-                //SelectDates = temp;
+
+                if (selectDates != null)
+                {
+                    selectDates.Clear();
+                }
+
+                if (DatesPosition[selectPosition] == null)
+                {
+                    DatesPosition[selectPosition] = new ObservableCollection<DateTime>();
+                }
+                else
+                {
+                    foreach (var item in DatesPosition[selectPosition])
+                    {
+                        if (selectDates != null)
+                        {
+                            selectDates.Add(item);
+                        }
+                    }
+                }
             }
         }
-
 
         public SelectDatesViewModel()
         {
             DatesPosition = new Dictionary<Position, ObservableCollection<DateTime>>();
-            DatesPosition.Add(new Position() { Name = "Kpp" }, new ObservableCollection<DateTime>());
-            DatesPosition.Add(new Position() { Name = "Tsp" }, new ObservableCollection<DateTime>());
-            DatesPosition.Add(new Position() { Name = "isi2" }, new ObservableCollection<DateTime>());
-            DatesPosition.Add(new Position() { Name = "isi3" }, new ObservableCollection<DateTime>());
-
-            selectDates = new ObservableCollection<DateTime>();
+            DatesPosition.Add(new Position() { Name = "Kpp" }, null);
+            DatesPosition.Add(new Position() { Name = "Tsp" }, null);
+            DatesPosition.Add(new Position() { Name = "isi2" }, null);
+            DatesPosition.Add(new Position() { Name = "isi3" }, null);
         }
 
 

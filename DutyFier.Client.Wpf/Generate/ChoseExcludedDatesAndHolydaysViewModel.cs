@@ -8,5 +8,6 @@ namespace DutyFier.Client.Wpf.Generate
 {
     class ChoseExcludedDatesAndHolydaysViewModel
     {
+
     }
 }

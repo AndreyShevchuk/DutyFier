@@ -7,6 +7,36 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <Grid>
+        <Calendar x:Name="Calendar" SelectionMode="MultipleRange">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedDatesChanged">
+                    <i:InvokeCommandAction 
+                Command="{Binding ComandSelectDates}"
+                CommandParameter="{Binding SelectedDates, ElementName=Calendar}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Calendar>
 
-       
+        <ListBox HorizontalAlignment="Left" Height="330" Margin="288,10,0,0" VerticalAlignment="Top" Width="240"/>
+
+
+        <ListBox HorizontalAlignment="Left" Height="330" Margin="288,10,0,0" 
+                 VerticalAlignment="Top" Width="240" Grid.Column="0" 
+                 ItemsSource="{Binding DatesPosition.Keys}"
+                 SelectedItem="{Binding SelectPosition}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                        <TextBlock Text="{Binding Path=Id}" />
+                        <TextBlock Text="{Binding Path=Weight}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Command="{Binding ComadAcpet}" 
+                Content="Accept" HorizontalAlignment="Left" Margin="10,340,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
 </UserControl>
