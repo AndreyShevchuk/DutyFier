@@ -133,7 +133,6 @@ namespace DutyFier.Client.Wpf.Generate
             DatesPosition.Add(new Position() { Name = "isi3" }, null);
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

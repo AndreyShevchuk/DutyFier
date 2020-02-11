@@ -1,4 +1,5 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,9 +13,10 @@ namespace DutyFier.Client.Wpf.Generate
 {
     class ChoseExcludedDatesAndHolydaysViewModel
     {
-
         private Person selctPerson;
+        
         private SelectedDatesCollection selectDates;
+
         public Person SelcetPerson {
             get 
             {
@@ -31,7 +33,7 @@ namespace DutyFier.Client.Wpf.Generate
 
                 if (ExcludedDates[selctPerson] == null)
                 {
-                    ExcludedDates[selctPerson] = new c();
+                    ExcludedDates[selctPerson] = new ObservableCollection<DateTime>();
                 }
                 else
                 {
@@ -114,6 +116,7 @@ namespace DutyFier.Client.Wpf.Generate
         }
         public ChoseExcludedDatesAndHolydaysViewModel()
         {
+            
             ExcludedDates = new Dictionary<Person, ObservableCollection<DateTime>>();
             ExcludedDates.Add(new Person { FirstName = "Andrey1", Id = 1 }, new ObservableCollection<DateTime>());
             ExcludedDates.Add(new Person { FirstName = "Andrey2", Id = 2 }, new ObservableCollection<DateTime>());

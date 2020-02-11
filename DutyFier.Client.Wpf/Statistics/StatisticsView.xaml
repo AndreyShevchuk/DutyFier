@@ -7,10 +7,11 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="555" d:DesignWidth="824">
-    <Grid DataContext="StatisticsViewModel">
+    <Grid >
         <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.15}">
             <Grid >
-                <DataGrid FontSize="14" x:Name="StatisticGrid" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" ColumnHeaderHeight="50" ItemsSource="{Binding Persons}">
+                <DataGrid FontSize="14" x:Name="StatisticGrid" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" ColumnHeaderHeight="50" 
+                          ItemsSource="{Binding Persons}">
                     <!--<DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="FontSize" Value="25"/>
