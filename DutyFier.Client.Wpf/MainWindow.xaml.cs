@@ -40,11 +40,12 @@ namespace DutyFier.Client.Wpf
             //userControls.Add(1, new GenerateStepOne());
             //userControls.Add(2, generate2);
             //userControls.Add(3, new GenerateStepThree());
-
-            var sv = new SelectDatesView();
-            sv.DataContext = new SelectDatesViewModel();
+            var ass = new ChoseExcludedDatesAndHolydaysView();
+            ass.DataContext = new ChoseExcludedDatesAndHolydaysViewModel();
+            //var sv = new SelectDatesView();
+            //sv.DataContext = new SelectDatesViewModel();
             //userControls.Add(4, generate4);
-            userControls.Add(1, sv); 
+            userControls.Add(1, ass); 
             statisticWindow = new StatisticsView();
             settingsViev = new SettingsView();
             feedbackViev = new FeedbackView();
