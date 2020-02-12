@@ -4,9 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DutyFier.Client.Wpf.Generate"
+             xmlns:materialDesign="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
-            
+        <DataGrid ItemsSource="{Binding DutyRequests}"
+                  SelectedItem="{Binding SelectDutyReqest}"
+                  AutoGenerateColumns="False" ColumnWidth="*" x:Name="DataGrid3" FontSize="20" Grid.ColumnSpan="2" >
+            <DataGrid.Columns>
+                <materialDesign:DataGridTextColumn Binding="{Binding Path = Date}" Header="Date" Width="*" FontSize="20" />
+                <materialDesign:DataGridTextColumn Binding="{Binding Path = Type}" Header="Type" Width="*" FontSize="20" />
+                <materialDesign:DataGridTextColumn Binding="{Binding Path= Positions.Count}" Header="Count of executors"  Width="*"/>
+                <DataGridCheckBoxColumn Binding="{Binding Path = SeniorIncluded}" Header="Senior included" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
+
 </UserControl>

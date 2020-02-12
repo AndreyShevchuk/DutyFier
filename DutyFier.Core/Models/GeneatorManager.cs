@@ -32,5 +32,11 @@ namespace DutyFier.Core.Models
         {
 
         }
+
+        public void ComandChangeExecutorsDuty (Duty duty)  // ResaultVievModel
+        {
+
+        } 
+
     }
 }

@@ -23,6 +23,7 @@ namespace DutyFier.Client.Wpf.Generate
         public PreView()
         {
             InitializeComponent();
+            DataContext = new PreViewModel();
         }
     }
 }
