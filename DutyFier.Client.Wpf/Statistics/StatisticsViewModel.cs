@@ -1,31 +1,46 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Models;
 using DutyFier.Core.Repository;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DutyFier.Client.Wpf.Statistics
 {
-    class StatisticsViewModel
+    class StatisticsViewModel :INotifyPropertyChanged
     {
-        public List<Person> Persons { get; set; }
-        public List<PersonDutyFeedback> Feedbacks { get; set; }
+        private StatisticModel _statisticModel;
 
         public StatisticsViewModel()
         {
-           // Persons = new PersonRepository().GetAll().ToList();
-           // Feedbacks = new PersonDutyFeedbackRepository().GetAll().ToList();
-            //InizializeScore();
+            // TODO: use Unity as IoT
+            _statisticModel = new StatisticModel(new PersonRepository(), new PersonDutyFeedbackRepository());
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         //moved from old project
 
-        //private void InizializeScore()
-        //{
-        //    for (int i = 0; i < Persons.Count; i++)
-        //        Persons[i].Score = Feedbacks.Where(a => a.Person.Equals(Persons[i])).Select(a => a.Scrore).Sum();
-        //}
+        private void InizializeScore()
+        {
+            
+        }
+
+        public List<Person> Persons
+        {
+            get
+            {
+                return _statisticModel.GetPersons();
+            }
+        }
+
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }

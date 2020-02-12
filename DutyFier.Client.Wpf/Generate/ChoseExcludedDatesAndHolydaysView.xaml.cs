@@ -15,14 +15,12 @@ using System.Windows.Shapes;
 
 namespace DutyFier.Client.Wpf.Generate
 {
-    /// <summary>
-    /// Логика взаимодействия для ChoseExcludedDatesAndHolydaysView.xaml
-    /// </summary>
     public partial class ChoseExcludedDatesAndHolydaysView : UserControl
     {
         public ChoseExcludedDatesAndHolydaysView()
         {
             InitializeComponent();
+            DataContext = new ChoseExcludedDatesAndHolydaysViewModel();
         }
     }
 }

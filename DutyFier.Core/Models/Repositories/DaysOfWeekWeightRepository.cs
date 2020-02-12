@@ -1,8 +1,8 @@
 ﻿using DutyFier.Core.Entities;
 using DutyFier.Core.Interfaces;
 using DutyFier.Core.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace DutyFier.Core.Repository

@@ -28,10 +28,12 @@ namespace DutyFier.Core.Models
 
         public IEnumerable<Duty> Generate(List<DutyRequest> requests, List<ExcludeDates> excludes, List<ChangeOnDateWeigth> changeOnDateWeigths)
         {
-            var persons = this._personsRepository.
-                GetAll().
-                ToList()
-                ;
+            if (requests.Count == 0)
+            {
+                return new List<Duty>();
+            }
+
+            var persons = this._personsRepository.GetAll().ToList();
             var feedbacks = this._feedbackRepository.
                 GetAll().
                 ToList()
@@ -44,63 +46,48 @@ namespace DutyFier.Core.Models
                 GetAll().
                 ToList()
                 ;
+            var coverPerson = PersonScoreCover.GetPersonScoreCoverList(persons, feedbacks, generetedDuty);
+            
 
-            List<Duty> duties = new List<Duty>();
-            // load all persons from database
-            // calculate score for each person
-            for (int i = 0; i < persons.Count; i++)
-            {
-                persons[i].Score = feedbacks.
-                   Where(a => a.Person.Equals(persons[i])).
-                   Sum(a => a.Source) + generetedDuty.
-                   Where(a => !a.IsApproved).
-                   SelectMany(a => a.Executors).
-                   Where(a => a.Person.Equals(persons[i])).
-                   Sum(a => a.Score)
-                ;
-            }
-
-            // for each duty request -- create next duty from this duty request
-            for (int i = 0; i < requests.Count; i++)
-            {
-                duties.Add(GenerateSingleDuty(persons, daysOfWeekWeights, requests[i], excludes, changeOnDateWeigths));
-            }
-            return duties;
+            return requests
+                .Select(request => GenerateSingleDuty(coverPerson, daysOfWeekWeights, request, excludes, changeOnDateWeigths))
+                .ToList()
+            ;
         }
 
-        private Duty GenerateSingleDuty(List<Person> persons, List<DaysOfWeekWeight> daysOfWeekWeights, DutyRequest request, List<ExcludeDates> excludes, List<ChangeOnDateWeigth> changeOnDateWeigths)
+       
+
+        private PersonScoreCover GetBestCandidat(List<PersonScoreCover> persons, DutyRequest request, List<ExcludeDates> excludes, Position position)
+        {
+            return persons.Where(a => a.Positions.Contains(position)).
+                // Sort that persons
+                OrderBy(a => a.Score).
+                // Exclude person hwo has exclude in this day
+                Where(a => !excludes.
+                        Where(b => b.DateTimes.
+                            Contains(request.Date)).
+                        Select(b => b.Person).
+                        Contains(a)).
+                First()
+            ;
+        }
+
+        private Duty GenerateSingleDuty(List<PersonScoreCover> persons, List<DaysOfWeekWeight> daysOfWeekWeights, DutyRequest request, List<ExcludeDates> excludes, List<ChangeOnDateWeigth> changeOnDateWeigths)
         {
             Duty duty = new Duty() { Date = request.Date };
             // for each position:
-            Person person;
+            PersonScoreCover person;
             for (int i = 0; i < request.Positions.Count; i++)
             {
-                // Get all person who cound be in this duty
-                person = persons.Where(a => a.Positions.Contains(request.Positions[i]))
-                // Sort that persons
-                    .OrderBy(a => a.Score)
-                // Exclude person hwo has exclude in this day
-                    .Where(a => !excludes.
-                            Where(b => b.DateTimes.
-                                Contains(request.Date)).
-                            Select(b => b.Person).
-                            Contains(a)).
-                    First()
-                    ;
+                // Get best person who can be in this duty
+                person = GetBestCandidat(persons, request, excludes, request.Positions[i]);
 
                 //Person can`t be in two or more duty on a single day and it can`t be in a duty two days incommon
-                var excludeDatesWithChosenPerson = excludes.Where(a => a.Person.Equals(person));
-                if (excludeDatesWithChosenPerson.Count() == 0)
-                {
-                    excludes.Add(new ExcludeDates(person, new HashSet<DateTime> { request.Date, request.Date.AddDays(1) }));
-                }
-                else
-                {
-                    excludeDatesWithChosenPerson.First().DateTimes.Add(request.Date);
-                    excludeDatesWithChosenPerson.First().DateTimes.Add(request.Date.AddDays(1));
-                }
+                AddExludeDatesForPersonInDuty(excludes, person, request);
+
                 // Adding new executer with this person
                 duty.Executors.Add(new Executor() { Person = person, Position = request.Positions[i] });
+
                 //Adding new score to person
                 if (changeOnDateWeigths.Select(a => a.ChangedDateTime).Contains(request.Date))
                 {
@@ -112,8 +99,21 @@ namespace DutyFier.Core.Models
                 }
                 //MessageBox.Show(person.Score + "");
             }
-            // ret
             return duty;
+        }
+
+        private void AddExludeDatesForPersonInDuty(List<ExcludeDates> excludes , PersonScoreCover person, DutyRequest request)
+        {
+            var excludeDatesWithChosenPerson = excludes.Where(a => a.Person.Equals(person));
+            if (excludeDatesWithChosenPerson.Count() == 0)
+            {
+                excludes.Add(new ExcludeDates(person, new HashSet<DateTime> { request.Date, request.Date.AddDays(1) }));
+            }
+            else
+            {
+                excludeDatesWithChosenPerson.First().DateTimes.Add(request.Date);
+                excludeDatesWithChosenPerson.First().DateTimes.Add(request.Date.AddDays(1));
+            }
         }
     }
 }

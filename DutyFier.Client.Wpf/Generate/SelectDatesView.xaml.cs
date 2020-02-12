@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace DutyFier.Client.Wpf.Generate
 {
     /// <summary>
@@ -23,6 +24,7 @@ namespace DutyFier.Client.Wpf.Generate
         public SelectDatesView()
         {
             InitializeComponent();
+            DataContext = new SelectDatesViewModel();
         }
     }
 }

@@ -13,17 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DutyFier.Client.Wpf.Statistics
+namespace Behaviours
 {
     /// <summary>
-    /// Логика взаимодействия для StatisticksView.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class StatisticsView : UserControl
+    public partial class MainWindow : Window
     {
-        public StatisticsView()
+        public MainWindow()
         {
             InitializeComponent();
-            DataContext = new StatisticsViewModel();
+            DataContext = new CalendarViewModel();
         }
     }
 }
