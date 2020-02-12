@@ -15,8 +15,8 @@ namespace DutyFier.Client.Wpf.Statistics
 
         public StatisticsViewModel()
         {
-            Persons = new PersonRepository().GetAll().ToList();
-            Feedbacks = new PersonDutyFeedbackRepository().GetAll().ToList();
+           // Persons = new PersonRepository().GetAll().ToList();
+           // Feedbacks = new PersonDutyFeedbackRepository().GetAll().ToList();
             //InizializeScore();
         }
 

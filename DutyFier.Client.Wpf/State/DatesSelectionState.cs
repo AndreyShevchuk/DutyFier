@@ -8,7 +8,7 @@ namespace DutyFier.Client.Wpf.State
 {
     class DatesSelectionState : IGenerationState
     {
-        public object Context { get; set; }
+        public GenerateContext Context { get; set; }
         public bool IsBackwardStateAllowed { get;  set; }
         public bool IsForwardStateAllowed { get; set; }
         public DatesSelectionState( )

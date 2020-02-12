@@ -8,7 +8,7 @@ namespace DutyFier.Client.Wpf.State
 {
     interface IGenerationState
     {
-        object Context { get; set; }
+        GenerateContext Context { get; set; }
         bool IsBackwardStateAllowed { get; set; }
         bool IsForwardStateAllowed { get; set; }
         IGenerationState GoForward();

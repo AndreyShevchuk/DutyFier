@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DutyFier.Client.Wpf"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"    
         
         x:Name="Window1" mc:Ignorable="d" WindowStartupLocation="CenterScreen" Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize"  >
-    
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid x:Name="MainGrid" >
         <Grid  >
-            <Grid x:Name="GridForWindow" Margin="200 35 0 0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"     />
+            <Grid  x:Name="GridForWindow" Margin="200 35 0 0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.Children  />
+            </Grid>
             <Grid VerticalAlignment="Top"  Height="35" Background="#FF0D47A1" >
                 <StackPanel x:Name="ArrowsStackPanel" Visibility="Visible" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button  BorderThickness="0" Background="#0000">
+                    <Button  Command="{Binding BackwardCommand}" x:Name="BackButton" Click="BackButton_Click"  BorderThickness="0" Background="#0000">
                         <materialDesign:PackIcon Kind="ArrowLeftBold" Height="30" Width="35"/>
                     </Button>
-                    <Button  BorderThickness="0" Background="#0000">
+                    <Button Command="{Binding ForwardCommand }" x:Name="NextButton" Click="NextButton_Click"  BorderThickness="0" Background="#0000">
                         <materialDesign:PackIcon Height="30" Width="35" Kind="ArrowRightBold"/>
                     </Button>
                 </StackPanel>
@@ -37,30 +42,52 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        <Grid Width="200" Margin="0 34 0 0" HorizontalAlignment="Left" Background="#FF0D47A1">
+        <Grid  Width="200" Margin="0 34 0 0" HorizontalAlignment="Left" Background="#FF0D47A1">
             <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.1}">
                 <Grid  x:Name="GridSelecter"  Background="WhiteSmoke" Width="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Margin="0 100 0 0"/>
             </materialDesign:TransitioningContent>
             <ListView x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke" SelectionChanged="ListVievButtons_SelectionChanged">
                 <ListViewItem Height="60">
-                    <StackPanel Orientation="Horizontal">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding StatisticsCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <StackPanel  Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Home" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="Home" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
+                        <TextBlock Text="Home" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20">
+                            
+                        </TextBlock>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding SettingsCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Settings" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Settings" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="GenerateItem" Height="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding GenerateCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Magic" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Generate" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding FeedbackCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="FeedbackOutline" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="FeedBack" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>

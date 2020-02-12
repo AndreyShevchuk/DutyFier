@@ -1,4 +1,5 @@
 ﻿using DutyFier.Client.Wpf.Feedback;
+using DutyFier.Client.Wpf.Generate;
 using DutyFier.Client.Wpf.Settings;
 using DutyFier.Client.Wpf.Statistics;
 using System;
@@ -28,18 +29,19 @@ namespace DutyFier.Client.Wpf
         private SettingsView settingsViev;
         private FeedbackView feedbackViev;
         private int generateWindowIndex = 1;
-        // private GenerateStepTwo generate2;  /// Нада буде поправити код в generate2
-        // private GenerateStepFour generate4;  /// Нада буде поправити код в generate2
+        private ChoseExcludedDatesAndHolydaysView generate2 = new ChoseExcludedDatesAndHolydaysView();  /// Нада буде поправити код в generate2
+        private ResultView generate4 = new ResultView();
 
         public MainWindow()
         {
+            this.DataContext = new MainWindowViewModel();
             //generate2 = new GenerateStepTwo();
             //generate4 = new GenerateStepFour();
             InitializeComponent();
-            //userControls.Add(1, new GenerateStepOne());
-            //userControls.Add(2, generate2);
-            //userControls.Add(3, new GenerateStepThree());
-            //userControls.Add(4, generate4);
+            userControls.Add(1, new SelectDatesView());
+            userControls.Add(2, generate2);
+            userControls.Add(3, new PreView());
+            userControls.Add(4, generate4);
             statisticWindow = new StatisticsView();
             settingsViev = new SettingsView();
             feedbackViev = new FeedbackView();
@@ -121,36 +123,24 @@ namespace DutyFier.Client.Wpf
                 WindowState = WindowState.Normal;
             }
         }
-        private void BackButton_OnClick(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (generateWindowIndex > +1)
-            {
-                generateWindowIndex--;
-                GridForWindow.Children.Clear();
-                GridForWindow.Children.Add(userControls[generateWindowIndex]);
-            }
-            else
-            {
-
-            }
-        }
-        private void NextButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            generateWindowIndex++;
             GridForWindow.Children.Clear();
-
-            if (generateWindowIndex == 3)   // Треба буде видалити коли добавим стани оскільки зараз працює на статичних полях і погано написаному Generate2
-            {
-
-            }
-            else if (generateWindowIndex == 4)
-            {
-            }
-
             GridForWindow.Children.Add(userControls[generateWindowIndex]);
+            generateWindowIndex--;
+        }
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            GridForWindow.Children.Clear();
+            GridForWindow.Children.Add(userControls[generateWindowIndex]);
+            generateWindowIndex++;
 
 
         }
+
+        
+
     }
 }
 

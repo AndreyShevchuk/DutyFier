@@ -8,15 +8,18 @@ namespace DutyFier.Client.Wpf.State
 {
     class DatesExcludingState : IGenerationState
     {
-        public object Context { get; set; }
-        public object SelectedDatesContex { get; set; }
+        public GenerateContext Context { get; set; }
         public bool IsBackwardStateAllowed { get; set; }
         public bool IsForwardStateAllowed { get; set; }
-        public DatesExcludingState(object contextDates)
+        public DatesExcludingState()
+        {
+                
+        }
+        public DatesExcludingState( GenerateContext context)
         {
             IsBackwardStateAllowed = true;
             IsForwardStateAllowed = true;
-            SelectedDatesContex = contextDates;
+            this.Context = context;
         }
 
         public IGenerationState GoBackward()
@@ -26,7 +29,7 @@ namespace DutyFier.Client.Wpf.State
 
         public IGenerationState GoForward()
         {
-            return new PreviewState();
+            return new PreviewState(Context);
         }
     }
 }

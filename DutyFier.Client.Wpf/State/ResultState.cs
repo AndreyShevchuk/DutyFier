@@ -8,24 +8,20 @@ namespace DutyFier.Client.Wpf.State
 {
     class ResultState : IGenerationState
     {
-        public object Context { get; set; }
-        public object SelectedDatesContex { get; set; }
-        public object DatesExcludingContext { get; set; }
-        public object PreviewContext { get; set; }
+        public GenerateContext Context { get; set; }
+       
         public bool IsBackwardStateAllowed { get; set; }
         public bool IsForwardStateAllowed { get; set; }
-        public ResultState(object selectedDatesContext, object datesExcludingContext, object previewContext)
+        public ResultState(GenerateContext context)
         {
             IsBackwardStateAllowed = true;
             IsForwardStateAllowed = false;
-            SelectedDatesContex = selectedDatesContext;
-            DatesExcludingContext = datesExcludingContext;
-            PreviewContext = previewContext;
+            this.Context = context;
         }
 
         public IGenerationState GoBackward()
         {
-            return new PreviewState(SelectedDatesContex, DatesExcludingContext);
+            return new PreviewState(Context);
         }
 
         public IGenerationState GoForward()
