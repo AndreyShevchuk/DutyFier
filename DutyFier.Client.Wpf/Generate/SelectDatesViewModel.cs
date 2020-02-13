@@ -15,13 +15,13 @@ namespace DutyFier.Client.Wpf.Generate
 
         private SelectedDatesCollection selectDates;
 
-        private RelayCommand comadAcpet;
-        public RelayCommand ComadAcpet
+        private RelayCommands comadAcpet;
+        public RelayCommands ComadAcpet
         {
             get
             {
                 return comadAcpet ??
-                (comadAcpet = new RelayCommand(obj =>
+                (comadAcpet = new RelayCommands(obj =>
                 {
                     DatesPosition[selectPosition].Clear();
                     foreach (var item in selectDates)
@@ -57,13 +57,13 @@ namespace DutyFier.Client.Wpf.Generate
             return false;
         }
 
-        private RelayCommand comandSelectDates;
-        public RelayCommand ComandSelectDates
+        private RelayCommands comandSelectDates;
+        public RelayCommands ComandSelectDates
         {
             get
             {
                   return comandSelectDates ??
-                  (comandSelectDates = new RelayCommand(obj =>
+                  (comandSelectDates = new RelayCommands(obj =>
                   {
                       if (selectDates == null)   /// Ініціалізуємо колекцію з календарря щоб могли доступатись з ViewModel  ==> потрыбно xерез xaml ініцалізувати
                       {

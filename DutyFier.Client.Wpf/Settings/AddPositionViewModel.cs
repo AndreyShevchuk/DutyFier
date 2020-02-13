@@ -15,7 +15,7 @@ namespace DutyFier.Client.Wpf.Settings
         public AddPositionViewModel()
         {
             _position = new Position();
-            AddCommand = new RelayCommand(OnAdd,CanAdd);
+            AddCommand = new RelayCommands(OnAdd,CanAdd);
             //dutyTypes = new DutyTypeRepository().GetAll().ToList();
         }
         public List<DutyType> DutyTypes { get; }
@@ -23,7 +23,7 @@ namespace DutyFier.Client.Wpf.Settings
         public string Name { get; set; }
         public double Weight { get; set; }
         public bool IsSeniorPosition { get; set; }
-        public RelayCommand AddCommand { get; set; }
+        public RelayCommands AddCommand { get; set; }
 
         private void OnAdd()
         {

@@ -15,10 +15,10 @@ namespace DutyFier.Client.Wpf.Settings
         public string LastName { get; set; }
         public AddPersonViewModel()
         {
-            AddCommand = new RelayCommand(OnAdd, CanAdd);
+            AddCommand = new RelayCommands(OnAdd, CanAdd);
         }
 
-        public RelayCommand AddCommand { get; set; }
+        public RelayCommands AddCommand { get; set; }
         public void OnAdd()
         {
             //TODO adding to DB logic

@@ -13,19 +13,19 @@ namespace DutyFier.Client.Wpf.Generate
         public ObservableCollection<Duty> Dutys { get; set; }
         public Duty SelectedDuty { get; set; }
         
-        private RelayCommand comandChangeExecutors;
+        private RelayCommands comandChangeExecutors;
         public ResultViewModel()
         {
             Dutys = new ObservableCollection<Duty>();
         }
 
 
-        public RelayCommand ComandChangeExecutors
+        public RelayCommands ComandChangeExecutors
         {
             get
             {
                 return comandChangeExecutors ??
-                (comandChangeExecutors = new RelayCommand(obj =>
+                (comandChangeExecutors = new RelayCommands(obj =>
                 {
                     
                 },

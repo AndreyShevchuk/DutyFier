@@ -21,21 +21,21 @@ namespace DutyFier.Client.Wpf
 
         public MainWindowViewModel()
         {
-            StatisticsCommand = new RelayCommand(statisticsCommand, Can);
-            SettingsCommand = new RelayCommand(settingsCommand, Can);
-            GenerateCommand = new RelayCommand(generateCommand, Can);
-            FeedbackCommand = new RelayCommand(feedbackCommand, Can);
-            ForwardCommand = new RelayCommand(forwardCommand, CanForward);
-            BackwardCommand = new RelayCommand(backwardCommand, CanBacward);
+            StatisticsCommand = new RelayCommands(statisticsCommand, Can);
+            SettingsCommand = new RelayCommands(settingsCommand, Can);
+            GenerateCommand = new RelayCommands(generateCommand, Can);
+            FeedbackCommand = new RelayCommands(feedbackCommand, Can);
+            ForwardCommand = new RelayCommands(forwardCommand, CanForward);
+            BackwardCommand = new RelayCommands(backwardCommand, CanBacward);
             state =  new DatesSelectionState();
         }
 
-        public RelayCommand ForwardCommand { get; set; }
-        public RelayCommand BackwardCommand { get; set; }
-        public RelayCommand StatisticsCommand { get; set; }
-        public RelayCommand SettingsCommand { get; set; }
-        public RelayCommand GenerateCommand { get; set; }
-        public RelayCommand FeedbackCommand { get; set; }
+        public RelayCommands ForwardCommand { get; set; }
+        public RelayCommands BackwardCommand { get; set; }
+        public RelayCommands StatisticsCommand { get; set; }
+        public RelayCommands SettingsCommand { get; set; }
+        public RelayCommands GenerateCommand { get; set; }
+        public RelayCommands FeedbackCommand { get; set; }
         public void forwardCommand()
         {
            

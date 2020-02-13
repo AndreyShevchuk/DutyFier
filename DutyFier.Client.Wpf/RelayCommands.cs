@@ -7,17 +7,17 @@ using System.Windows.Input;
 
 namespace DutyFier.Client.Wpf
 {
-    class RelayCommand : ICommand
+    class RelayCommands : ICommand
     {
         Action _TargetExecuteMethod;
         Func<bool> _TargetCanExecuteMethod;
 
-        public RelayCommand(Action executeMethod)
+        public RelayCommands(Action executeMethod)
         {
             _TargetExecuteMethod = executeMethod;
         }
 
-        public RelayCommand(Action executeMethod, Func<bool> canExecuteMethod)
+        public RelayCommands(Action executeMethod, Func<bool> canExecuteMethod)
         {
             _TargetExecuteMethod = executeMethod;
             _TargetCanExecuteMethod = canExecuteMethod;
