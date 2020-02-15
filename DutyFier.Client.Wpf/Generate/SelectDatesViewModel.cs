@@ -33,7 +33,7 @@ namespace DutyFier.Client.Wpf.Generate
             }
         }
 
-        private  bool CheckActivityButton()
+        private bool CheckActivityButton()
         {
             if (selectDates == null)
             {
@@ -50,7 +50,7 @@ namespace DutyFier.Client.Wpf.Generate
                     return true;
                 }
             }
-            if(selectDates.Count != DatesPosition[selectPosition].Count)
+            if (selectDates.Count != DatesPosition[selectPosition].Count)
             {
                 return true;
             }
@@ -62,28 +62,29 @@ namespace DutyFier.Client.Wpf.Generate
         {
             get
             {
-                  return comandSelectDates ??
-                  (comandSelectDates = new RelayCommand(obj =>
-                  {
-                      if (selectDates == null)   /// Ініціалізуємо колекцію з календарря щоб могли доступатись з ViewModel  ==> потрыбно xерез xaml ініцалізувати
+                return comandSelectDates ??
+                (comandSelectDates = new RelayCommand(obj =>
+                {
+                    if (selectDates == null)   /// Ініціалізуємо колекцію з календарря щоб могли доступатись з ViewModel  ==> потрыбно xерез xaml ініцалізувати
                       {
-                          selectDates = (SelectedDatesCollection)obj;
-                      }
-                      if (selectPosition == null) // помилка на дурака
+                        selectDates = (SelectedDatesCollection)obj;
+                    }
+                    if (selectPosition == null) // помилка на дурака
                       {
-                          MessageBox.Show("Вибери тип наояду");
-                          return;
-                      };
-                  },
-                  (obj) => true));
+                        MessageBox.Show("Вибери тип наояду");
+                        return;
+                    };
+                },
+                (obj) => true));
             }
         }
-        public SelectedDatesCollection SelectDates { 
-            get 
+        public SelectedDatesCollection SelectDates
+        {
+            get
             {
                 return selectDates;
             }
-            set 
+            set
             {
                 selectDates = value;
                 OnPropertyChanged("SelectDates");

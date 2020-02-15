@@ -139,8 +139,10 @@ namespace DutyFier.Client.Wpf
 
         }
 
-        
-
+        private void ButtonPower_Click_1(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
 
