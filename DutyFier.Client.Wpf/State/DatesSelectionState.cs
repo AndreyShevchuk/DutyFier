@@ -1,21 +1,24 @@
-﻿using System;
+﻿using DutyFier.Client.Wpf.Generate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace DutyFier.Client.Wpf.State
 {
     class DatesSelectionState : IGenerationState
     {
+        public UserControl UK { get; set; }
         public GenerateContext Context { get; set; }
         public bool IsBackwardStateAllowed { get;  set; }
         public bool IsForwardStateAllowed { get; set; }
-        public DatesSelectionState( )
+        public DatesSelectionState()
         {
             IsBackwardStateAllowed = false;
             IsForwardStateAllowed = true;
-            
+            UK = new SelectDatesView();
         }
 
         public IGenerationState GoBackward()

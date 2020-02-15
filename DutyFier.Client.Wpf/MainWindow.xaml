@@ -32,11 +32,19 @@
                 <Grid.Children></Grid.Children>
             </Grid>
             <Grid VerticalAlignment="Top"  Height="35" Background="#FF0D47A1" >
-                <StackPanel x:Name="ArrowsStackPanel" Visibility="Visible" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button  Command="{Binding BackwardCommand}" x:Name="BackButton" Click="BackButton_Click"  BorderThickness="0" Background="#0000">
+                <StackPanel  Visibility="{Binding IsVisible}" x:Name="ArrowsStackPanel" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button IsEnabled="{Binding IsBackwardEnable}"
+                            Command="{Binding BackwardCommand}" 
+                            CommandParameter="{Binding Children, ElementName=GridForWindow }" 
+                            x:Name="BackButton" BorderThickness="0" Background="#0000">
+                       
                         <materialDesign:PackIcon Kind="ArrowLeftBold" Height="30" Width="35"/>
                     </Button>
-                    <Button Command="{Binding ForwardCommand }" x:Name="NextButton" Click="NextButton_Click"  BorderThickness="0" Background="#0000">
+                    <Button IsEnabled="{Binding IsForwardEnable}"
+                            Command="{Binding ForwardCommand}"
+                            CommandParameter="{Binding Children, ElementName=GridForWindow}"
+                            x:Name="NextButton" BorderThickness="0" Background="#0000">
+                       
                         <materialDesign:PackIcon Height="30" Width="35" Kind="ArrowRightBold"/>
                     </Button>
                 </StackPanel>
@@ -64,7 +72,7 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
                             <i:InvokeCommandAction 
-                            Command="{Binding ComandHome}"
+                            Command="{Binding StatisticsCommand}"
                             CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -77,18 +85,39 @@
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Selected">
+                            <i:InvokeCommandAction 
+                            Command="{Binding SettingCommand}"
+                            CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Settings" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Settings" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="GenerateItem" Height="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Selected">
+                            <i:InvokeCommandAction 
+                            Command="{Binding SelectDatesCommand}"
+                            CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Magic" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Generate" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Selected">
+                            <i:InvokeCommandAction 
+                            Command="{Binding SelectDatesCommand}"
+                            CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="FeedbackOutline" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="FeedBack" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>

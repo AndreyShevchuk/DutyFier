@@ -25,30 +25,13 @@ namespace DutyFier.Client.Wpf
     public partial class MainWindow : Window
     {
         
-        private Dictionary<int, UserControl> userControls = new Dictionary<int, UserControl>();
-        private StatisticsView statisticWindow;
-        private SettingsView settingsViev;
-        private FeedbackView feedbackViev;
-        private int generateWindowIndex = 1;
-        private ChoseExcludedDatesAndHolydaysView generate2 = new ChoseExcludedDatesAndHolydaysView();  /// Нада буде поправити код в generate2
-        private ResultView generate4 = new ResultView();
+        
 
         public MainWindow()
         {
-            this.DataContext = new MainWindowViewModel();
-            //generate2 = new GenerateStepTwo();
-            //generate4 = new GenerateStepFour();
+            
             InitializeComponent();
-            userControls.Add(1, new SelectDatesView());
-            userControls.Add(2, generate2);
-            userControls.Add(3, new PreView());
-            userControls.Add(4, generate4);
-            statisticWindow = new StatisticsView();
-            settingsViev = new SettingsView();
-            feedbackViev = new FeedbackView();
-            GridForWindow.Children.Add(statisticWindow);
-            ArrowsStackPanel.Visibility = Visibility.Hidden;
-            //DataContext = new MainWindowViewModel();
+            this.DataContext = new MainWindowViewModel();
         }
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
         {
@@ -87,34 +70,8 @@ namespace DutyFier.Client.Wpf
             System.Windows.Application.Current.Resources.MergedDictionaries.RemoveAt(2);
             System.Windows.Application.Current.Resources.MergedDictionaries.Insert(2, new ResourceDictionary() { Source = uri2 });
         }
-        //private void ListVievButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    int index = ListVievButtons.SelectedIndex;
-        //    MoveSelecter(index);
-        //    switch (index)
-        //    {
-        //        case 0:
-        //            DisplayGenerateWindow(statisticWindow);
-        //            break;
-        //        case 1:
-        //            DisplayGenerateWindow(settingsViev);
-        //            break;
-        //        case 2:
-        //            DisplayGenerateWindow(userControls[1]);
-        //            ArrowsStackPanel.Visibility = Visibility.Visible;
-        //            break;
-        //        case 3:
-        //            DisplayGenerateWindow(feedbackViev);
-        //            break;
-        //    }
-        //}
         
-        private void DisplayGenerateWindow(UserControl userControl)
-        {
-            ArrowsStackPanel.Visibility = Visibility.Hidden;
-            GridForWindow.Children.Clear();
-            GridForWindow.Children.Add(userControl);
-        }
+        
 
         private void MaximixeWindow_OnClick(object sender, RoutedEventArgs e)
         {
@@ -126,21 +83,6 @@ namespace DutyFier.Client.Wpf
             {
                 WindowState = WindowState.Normal;
             }
-        }
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            GridForWindow.Children.Clear();
-            GridForWindow.Children.Add(userControls[generateWindowIndex]);
-            generateWindowIndex--;
-        }
-        private void NextButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-            GridForWindow.Children.Clear();
-            GridForWindow.Children.Add(userControls[generateWindowIndex]);
-            generateWindowIndex++;
-
-
         }
 
         private void ButtonPower_Click_1(object sender, RoutedEventArgs e)
