@@ -3,16 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:DutyFier.Client.Wpf"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"    
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"  
+        x:Name="Window1" mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         
-        x:Name="Window1" mc:Ignorable="d" WindowStartupLocation="CenterScreen" Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize"  >
-    <Grid x:Name="MainGrid" >
-        <Grid  >
-            <Grid  x:Name="GridForWindow" Margin="200 35 0 0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Grid.Children  />
+      
+    Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize">
+
+    <!--<Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>-->
+        
+    <Grid x:Name="MainGrid">
+        <Grid>
+            <Grid  x:Name="GridForWindow" Margin="200 35 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Initialized">
+                        <i:InvokeCommandAction 
+                            Command="{Binding ComandGetChildrenPanel}"
+                            CommandParameter="{Binding Children, ElementName=GridForWindow}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+
+                <Grid.Children></Grid.Children>
             </Grid>
             <Grid VerticalAlignment="Top"  Height="35" Background="#FF0D47A1" >
                 <StackPanel x:Name="ArrowsStackPanel" Visibility="Visible" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left">
@@ -42,8 +59,16 @@
             <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.1}">
                 <Grid  x:Name="GridSelecter"  Background="WhiteSmoke" Width="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Margin="0 100 0 0"/>
             </materialDesign:TransitioningContent>
-            <ListView x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke" SelectionChanged="ListVievButtons_SelectionChanged">
+            <ListView x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke">
                 <ListViewItem Height="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Selected">
+                            <i:InvokeCommandAction 
+                            Command="{Binding ComandHome}"
+                            CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                     <StackPanel  Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Home" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Home" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20">

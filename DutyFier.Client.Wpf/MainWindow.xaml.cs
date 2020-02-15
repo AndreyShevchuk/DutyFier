@@ -24,6 +24,7 @@ namespace DutyFier.Client.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         private Dictionary<int, UserControl> userControls = new Dictionary<int, UserControl>();
         private StatisticsView statisticWindow;
         private SettingsView settingsViev;
@@ -47,6 +48,7 @@ namespace DutyFier.Client.Wpf
             feedbackViev = new FeedbackView();
             GridForWindow.Children.Add(statisticWindow);
             ArrowsStackPanel.Visibility = Visibility.Hidden;
+            //DataContext = new MainWindowViewModel();
         }
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
         {
@@ -85,33 +87,35 @@ namespace DutyFier.Client.Wpf
             System.Windows.Application.Current.Resources.MergedDictionaries.RemoveAt(2);
             System.Windows.Application.Current.Resources.MergedDictionaries.Insert(2, new ResourceDictionary() { Source = uri2 });
         }
-        private void ListVievButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int index = ListVievButtons.SelectedIndex;
-            MoveSelecter(index);
-            switch (index)
-            {
-                case 0:
-                    DisplayGenerateWindow(statisticWindow);
-                    break;
-                case 1:
-                    DisplayGenerateWindow(settingsViev);
-                    break;
-                case 2:
-                    DisplayGenerateWindow(userControls[1]);
-                    ArrowsStackPanel.Visibility = Visibility.Visible;
-                    break;
-                case 3:
-                    DisplayGenerateWindow(feedbackViev);
-                    break;
-            }
-        }
+        //private void ListVievButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    int index = ListVievButtons.SelectedIndex;
+        //    MoveSelecter(index);
+        //    switch (index)
+        //    {
+        //        case 0:
+        //            DisplayGenerateWindow(statisticWindow);
+        //            break;
+        //        case 1:
+        //            DisplayGenerateWindow(settingsViev);
+        //            break;
+        //        case 2:
+        //            DisplayGenerateWindow(userControls[1]);
+        //            ArrowsStackPanel.Visibility = Visibility.Visible;
+        //            break;
+        //        case 3:
+        //            DisplayGenerateWindow(feedbackViev);
+        //            break;
+        //    }
+        //}
+        
         private void DisplayGenerateWindow(UserControl userControl)
         {
             ArrowsStackPanel.Visibility = Visibility.Hidden;
             GridForWindow.Children.Clear();
             GridForWindow.Children.Add(userControl);
         }
+
         private void MaximixeWindow_OnClick(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Normal)
