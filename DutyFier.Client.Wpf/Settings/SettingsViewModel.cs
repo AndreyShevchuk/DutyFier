@@ -2,7 +2,6 @@
 using DutyFier.Core.Entities;
 using DutyFier.Core.Models;
 using DutyFier.Core.Repository;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

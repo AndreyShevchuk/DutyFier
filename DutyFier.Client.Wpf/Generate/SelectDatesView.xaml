@@ -9,13 +9,13 @@
 
     <Grid>
         <Calendar x:Name="Calendar" SelectionMode="MultipleRange">
-            <i:Interaction.Triggers>
+            <!--<i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectedDatesChanged">
                     <i:InvokeCommandAction 
                 Command="{Binding ComandSelectDates}"
                 CommandParameter="{Binding SelectedDates, ElementName=Calendar}" />
                 </i:EventTrigger>
-            </i:Interaction.Triggers>
+            </i:Interaction.Triggers>-->
         </Calendar>
 
         <ListBox HorizontalAlignment="Left" Height="330" Margin="288,10,0,0" VerticalAlignment="Top" Width="240"/>
