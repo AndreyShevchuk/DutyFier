@@ -17,7 +17,7 @@ namespace DutyFier.Client.Wpf.Generate
 {
     public partial class ChoseExcludedDatesAndHolydaysView : UserControl
     {
-        public ChoseExcludedDatesAndHolydaysView()
+        public ChoseExcludedDatesAndHolydaysView(State.GenerateContext context)
         {
             InitializeComponent();
             DataContext = new ChoseExcludedDatesAndHolydaysViewModel();

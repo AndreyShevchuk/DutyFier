@@ -17,7 +17,6 @@ namespace DutyFier.Client.Wpf
     {
         private UIElementCollection childrenPanel;
         private IGenerationState state;
-        private GenerateContext generateContext;
         public Visibility IsVisible { get; set; }
         public bool IsForwardEnable{ get; set; }
         public bool IsBackwardEnable { get; set; }
@@ -38,7 +37,7 @@ namespace DutyFier.Client.Wpf
             ForwardCommand =  new RelayCommands<UIElementCollection>(forwardCommand, CanForward);
             BackwardCommand = new RelayCommands<UIElementCollection>(backwardCommand, CanBacward);
             state = new DatesSelectionState();
-            IsBackwardEnable = false;
+            IsBackwardEnable = true;
             IsForwardEnable = true;
         }
 
@@ -65,9 +64,9 @@ namespace DutyFier.Client.Wpf
         {
 
             childrenPanel = obj;
-            var generate = new SelectDatesView();
+           
             childrenPanel.Clear();
-            childrenPanel.Add(generate);
+            childrenPanel.Add(state.UK);
             IsVisible = Visibility.Visible;
         }
         public void feedbackCommand(UIElementCollection obj)
@@ -83,7 +82,6 @@ namespace DutyFier.Client.Wpf
         {
             return true;
         }
-        UIElementCollection obj;
         public void forwardCommand(UIElementCollection obj)
         {
 

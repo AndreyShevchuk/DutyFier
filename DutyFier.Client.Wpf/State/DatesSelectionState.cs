@@ -16,9 +16,17 @@ namespace DutyFier.Client.Wpf.State
         public bool IsForwardStateAllowed { get; set; }
         public DatesSelectionState()
         {
+            Context = new GenerateContext();
             IsBackwardStateAllowed = false;
             IsForwardStateAllowed = true;
-            UK = new SelectDatesView();
+            UK = new SelectDatesView(Context);
+        }
+        public DatesSelectionState(GenerateContext context)
+        {
+            Context = context;
+            IsBackwardStateAllowed = false;
+            IsForwardStateAllowed = true;
+            UK = new SelectDatesView(Context);
         }
 
         public IGenerationState GoBackward()
