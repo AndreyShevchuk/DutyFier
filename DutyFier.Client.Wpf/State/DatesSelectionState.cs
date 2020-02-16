@@ -12,7 +12,7 @@ namespace DutyFier.Client.Wpf.State
     {
         public UserControl UK { get; set; }
         public GenerateContext Context { get; set; }
-        public bool IsBackwardStateAllowed { get;  set; }
+        public bool IsBackwardStateAllowed { get; set; }
         public bool IsForwardStateAllowed { get; set; }
         public DatesSelectionState()
         {
