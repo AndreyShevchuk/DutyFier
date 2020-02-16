@@ -12,10 +12,17 @@ namespace DutyFier.Core.Entities
         public int DutyTypeId { get; set; }
         public DutyType DutyType { get; set; }
 
+        public DutyRequest()
+        {
+            AdditionalWeight = 1; // <===   ????
+            Positions = new List<Position>();
+            Date = new DateTime();
+            DutyType = new DutyType();
+        }
 
         public DutyRequest(double additionalWeight, DateTime date, List<Position> positions, DutyType dutyType)
         {
-            AdditionalWeight = additionalWeight;
+            AdditionalWeight = additionalWeight; // <===   ????
             Date = date;
             Positions = positions;
             DutyType = dutyType;

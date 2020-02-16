@@ -14,9 +14,9 @@
                   AutoGenerateColumns="False" ColumnWidth="*" x:Name="DataGrid3" FontSize="20" Grid.ColumnSpan="2" >
             <DataGrid.Columns>
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = Date}" Header="Date" Width="*" FontSize="20" />
-                <materialDesign:DataGridTextColumn Binding="{Binding Path = Type}" Header="Type" Width="*" FontSize="20" />
+                <materialDesign:DataGridTextColumn Binding="{Binding Path = DutyType}" Header="Type" Width="*" FontSize="20" />
                 <materialDesign:DataGridTextColumn Binding="{Binding Path= Positions.Count}" Header="Count of executors"  Width="*"/>
-                <DataGridCheckBoxColumn Binding="{Binding Path = SeniorIncluded}" Header="Senior included" Width="*" />
+                <!--<DataGridCheckBoxColumn Binding="{Binding Path = SeniorIncluded}" Header="Senior included" Width="*" />-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
