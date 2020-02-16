@@ -14,10 +14,6 @@ namespace DutyFier.Client.Wpf.State
         public GenerateContext Context { get; set; }
         public bool IsBackwardStateAllowed { get; set; }
         public bool IsForwardStateAllowed { get; set; }
-        public DatesExcludingState()
-        {
-                
-        }
         public DatesExcludingState( GenerateContext context)
         {
             IsBackwardStateAllowed = true;
