@@ -58,7 +58,7 @@
             <materialDesign:TransitioningContent x:Name="TransitionEff"  OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.1}">
                 <Grid  x:Name="GridSelecter"   Background="WhiteSmoke" Width="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Margin="0 100 0 0"/>
             </materialDesign:TransitioningContent>
-            <ListView x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke">
+            <ListView SelectionChanged="ListVievButtons_SelectionChanged" x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke">
                 <ListViewItem Height="60">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
@@ -105,7 +105,7 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
                             <i:InvokeCommandAction 
-                            Command="{Binding SelectDatesCommand}"
+                            Command="{Binding FeedbackCommand}"
                             CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>

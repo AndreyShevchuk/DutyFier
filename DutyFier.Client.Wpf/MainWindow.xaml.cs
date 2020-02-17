@@ -39,6 +39,11 @@ namespace DutyFier.Client.Wpf
             TransitionEff.OnApplyTemplate();
             GridSelecter.Margin = new Thickness(0, (100 + (60 * index)), 0, 0);
         }
+
+        private void ListVievButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MoveSelecter(ListVievButtons.SelectedIndex);
+        }
     }
 }
 
