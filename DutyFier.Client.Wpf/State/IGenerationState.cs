@@ -9,7 +9,7 @@ namespace DutyFier.Client.Wpf.State
 {
     interface IGenerationState
     {
-        UserControl UK { get; set; } 
+        UserControl CurrentStateControl { get; set; } 
         GenerateContext Context { get; set; }
         bool IsBackwardStateAllowed { get; set; }
         bool IsForwardStateAllowed { get; set; }

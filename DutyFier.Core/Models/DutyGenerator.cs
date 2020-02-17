@@ -34,41 +34,16 @@ namespace DutyFier.Core.Models
             }
 
             var persons = this._personsRepository.GetAll().ToList();
-            var feedbacks = this._feedbackRepository.
-                GetAll().
-                ToList()
-                ;
-            var generetedDuty = this._dutyRepository.
-                GetAll().
-                ToList()
-                ;
-            var daysOfWeekWeights = this._daysOfWeekWeights.
-                GetAll().
-                ToList()
-                ;
+            var feedbacks = this._feedbackRepository.GetAll().ToList();
+            var generetedDuty = this._dutyRepository.GetAll().ToList();
+            var daysOfWeekWeights = this._daysOfWeekWeights.GetAll().ToList();
+
             var coverPerson = PersonScoreCover.GetPersonScoreCoverList(persons, feedbacks, generetedDuty);
             
 
             return requests
                 .Select(request => GenerateSingleDuty(coverPerson, daysOfWeekWeights, request, excludes, changeOnDateWeigths))
                 .ToList()
-            ;
-        }
-
-       
-
-        private PersonScoreCover GetBestCandidat(List<PersonScoreCover> persons, DutyRequest request, List<ExcludeDates> excludes, Position position)
-        {
-            return persons.Where(a => a.Positions.Contains(position)).
-                // Sort that persons
-                OrderBy(a => a.Score).
-                // Exclude person hwo has exclude in this day
-                Where(a => !excludes.
-                        Where(b => b.DateTimes.
-                            Contains(request.Date)).
-                        Select(b => b.Person).
-                        Contains(a)).
-                First()
             ;
         }
 
@@ -100,6 +75,21 @@ namespace DutyFier.Core.Models
                 //MessageBox.Show(person.Score + "");
             }
             return duty;
+        }
+
+        private PersonScoreCover GetBestCandidat(List<PersonScoreCover> persons, DutyRequest request, List<ExcludeDates> excludes, Position position)
+        {
+            return persons.Where(a => a.Positions.Contains(position)).
+                // Sort that persons
+                OrderBy(a => a.Score).
+                // Exclude person hwo has exclude in this day
+                Where(a => !excludes.
+                        Where(b => b.DateTimes.
+                            Contains(request.Date)).
+                        Select(b => b.Person).
+                        Contains(a)).
+                First()
+            ;
         }
 
         private void AddExludeDatesForPersonInDuty(List<ExcludeDates> excludes , PersonScoreCover person, DutyRequest request)

@@ -27,7 +27,6 @@ namespace DutyFier.Client.Wpf.State
                         t.Positions.Add(key);
                         t.DutyType = key.DutyType;
                         dutyReqests.Add(t);
-                        
                     }
                 }
                 return dutyReqests;

@@ -118,7 +118,7 @@ namespace DutyFier.Client.Wpf
             SelectDatesCommand = new RelayCommands<UIElementCollection>(generateCommand, CanChange);
             FeedbackCommand = new RelayCommands<UIElementCollection>(feedbackCommand, CanChange);
             ForwardCommand = new RelayCommands<UIElementCollection>(forwardCommand, CanForward);
-            BackwardCommand = new RelayCommands<UIElementCollection>(backwardCommand, CanBacward);
+            BackwardCommand = new RelayCommands<UIElementCollection>(backwardCommand, CanBackward);
             MinimizeCommand = new RelayCommands(minimizeCommand, Can);
             ChangeWindowStateCommand = new RelayCommands(changeWindowStateCommand, Can);
             DarkModeCommand = new RelayCommands(darkModeCommand, Can);
@@ -221,7 +221,7 @@ namespace DutyFier.Client.Wpf
             childrenPanel = obj;
            
             childrenPanel.Clear();
-            childrenPanel.Add(state.UK);
+            childrenPanel.Add(state.CurrentStateControl);
             IsVisible = Visibility.Visible;
         }
         public void feedbackCommand(UIElementCollection obj)
@@ -244,7 +244,7 @@ namespace DutyFier.Client.Wpf
             IsBackwardEnable = state.IsBackwardStateAllowed;
             childrenPanel = obj;
             childrenPanel.Clear();
-            childrenPanel.Add(state.UK);
+            childrenPanel.Add(state.CurrentStateControl);
         }
         public void backwardCommand(UIElementCollection obj)
         {
@@ -253,13 +253,13 @@ namespace DutyFier.Client.Wpf
             IsForwardEnable = state.IsForwardStateAllowed;
             childrenPanel = obj;
             childrenPanel.Clear();
-            childrenPanel.Add(state.UK);
+            childrenPanel.Add(state.CurrentStateControl);
         }
         public bool CanForward(UIElementCollection obj)
         {
             return true;
         }
-        public bool CanBacward(UIElementCollection obj)
+        public bool CanBackward(UIElementCollection obj)
         {
             return true;
         }

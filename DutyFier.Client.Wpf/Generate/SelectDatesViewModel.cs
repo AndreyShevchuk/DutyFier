@@ -16,7 +16,7 @@ namespace DutyFier.Client.Wpf.Generate
 
         private SelectedDatesCollection selectDates;
 
-        private RelayCommand comadAcpet;
+        private RelayCommand commandAccept;
 
         public RelayCommands<SelectedDatesCollection> GetSelectedDatesCollectionComand { get; set; }
 
@@ -25,7 +25,7 @@ namespace DutyFier.Client.Wpf.Generate
             this.generateContext = generateContext;
             DatesPosition = this.generateContext.PositionsDate;
 
-            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true );
+            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true);
         }
 
         private void SelectDateColetion(SelectedDatesCollection obj)
@@ -37,8 +37,8 @@ namespace DutyFier.Client.Wpf.Generate
         {
             get
             {
-                return comadAcpet ??
-                (comadAcpet = new RelayCommand(obj =>
+                return commandAccept ??
+                (commandAccept = new RelayCommand(obj =>
                 {
                     DatesPosition[selectPosition].Clear();
                     foreach (var item in selectDates)
@@ -84,7 +84,7 @@ namespace DutyFier.Client.Wpf.Generate
                 {
                     if (selectPosition == null) // помилка на дурака
                     {
-                        MessageBox.Show("Вибери тип наояду");
+                        MessageBox.Show("Вибери тип наряду");
                         return;
                     };
                 },

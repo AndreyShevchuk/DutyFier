@@ -8,7 +8,9 @@ namespace DutyFier.Core.Models
     class PersonScoreCover : Person
     {
         public double Score { get; set; }
+
         public PersonScoreCover(string firstName, string lastName, double factor, double score) : base(firstName,lastName,factor) => Score = score;
+
         public PersonScoreCover(Person person, double score) : base(person) => Score = score;
         public PersonScoreCover() { }
         public static List<PersonScoreCover> GetPersonScoreCoverList(List<Person> persons, List<PersonDutyFeedback> feedbacks, List<Duty> generetedDuty)
