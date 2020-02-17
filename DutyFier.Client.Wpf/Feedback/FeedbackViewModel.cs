@@ -1,4 +1,5 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Interfaces;
 using DutyFier.Core.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DutyFier.Client.Wpf.Feedback
         public List<PersonDutyFeedback> feedbacks;
         public FeedbackViewModel()
         {
-            //Feedbacks = new PersonDutyFeedbackRepository().GetAll().ToList();
+            //Feedbacks = 
         }
         public List<PersonDutyFeedback> Feedbacks
         {

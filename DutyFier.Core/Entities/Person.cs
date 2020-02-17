@@ -17,28 +17,22 @@ namespace DutyFier.Core.Entities
             PersonDutyFeedbacks = new HashSet<PersonDutyFeedback>();
         }
 
-        public Person(string firstName, string lastName, double factor)
+        public Person(string firstName, string lastName, double factor) : base()
         {
             FirstName = firstName;
             LastName = lastName;
             Factor = factor;
-            Positions = new HashSet<Position>();
-            PersonDutyFeedbacks = new HashSet<PersonDutyFeedback>();
         }
-        public Person(Person person)
+        public Person(Person person) : base()
         {
             FirstName = person.FirstName;
             LastName = person.LastName;
             Factor = person.Factor;
-            Positions = new HashSet<Position>();
-            PersonDutyFeedbacks = new HashSet<PersonDutyFeedback>();
         }
-
 
         public override bool Equals(object obj)
         {
-            return obj is Person person &&
-                   Id == person.Id;
+            return obj is Person person && Id == person.Id;
         }
 
         public override int GetHashCode()

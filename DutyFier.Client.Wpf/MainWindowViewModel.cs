@@ -12,11 +12,17 @@ using DutyFier.Client.Wpf.Statistics;
 using DutyFier.Client.Wpf.Settings;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Unity;
+using DutyFier.Core.Repository;
+using DutyFier.Core.Interfaces;
+using DutyFier.Core.Entities;
+using Unity.Lifetime;
+using Unity.Interception;
+using Unity.Interception.Interceptors.InstanceInterceptors.TransparentProxyInterception;
 
 namespace DutyFier.Client.Wpf
 {
     class MainWindowViewModel : INotifyPropertyChanged
-
     {
         private UIElementCollection childrenPanel;
         private IGenerationState state;
@@ -26,13 +32,14 @@ namespace DutyFier.Client.Wpf
         private bool isBackwardEnable;
         private WindowState windowState;
         private bool isDarkModeOn;
-
+        public static IUnityContainer Container { get; set; }
         public Visibility IsVisible
         {
             get
             {
                 return visibility;
             }
+
             set
             {
                 visibility = value;
@@ -46,6 +53,7 @@ namespace DutyFier.Client.Wpf
             {
                 return isForwardEnable;
             }
+
             set
             {
                 isForwardEnable = value;
@@ -58,6 +66,7 @@ namespace DutyFier.Client.Wpf
             {
                 return isBackwardEnable;
             }
+
             set
             {
                 isBackwardEnable = value;
@@ -71,6 +80,7 @@ namespace DutyFier.Client.Wpf
             {
                 return windowState;
             }
+
             set
             {
                 windowState = value;
@@ -83,6 +93,7 @@ namespace DutyFier.Client.Wpf
             {
                 return isDarkModeOn;
             }
+
             set
             {
                 isDarkModeOn = value;
@@ -118,6 +129,31 @@ namespace DutyFier.Client.Wpf
             isBackwardEnable = false;
             IsDarkModeOn = false;
             IsVisible = Visibility.Hidden;
+
+            Container = new UnityContainer();
+
+            Container.RegisterType<IRepository<DaysOfWeekWeight>, DaysOfWeekWeightRepository>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRepository<Duty>, DutyRepository>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRepository<DutyType>, DutyTypeRepository>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRepository<PersonDutyFeedback>, PersonDutyFeedbackRepository>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRepository<Position>, PositionRepository>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRepository<Person>, PersonRepository>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRepository<Executor>, ExecuterRepository>(new ContainerControlledLifetimeManager());
+            Container.AddNewExtension<Interception>();
+            Container.Configure<Interception>()
+                .SetInterceptorFor<IRepository<DaysOfWeekWeight>>(new TransparentProxyInterceptor());
+            Container.Configure<Interception>()
+                .SetInterceptorFor<IRepository<DutyType>>(new TransparentProxyInterceptor());
+            Container.Configure<Interception>()
+                .SetInterceptorFor<IRepository<PersonDutyFeedback>>(new TransparentProxyInterceptor());
+            Container.Configure<Interception>()
+                .SetInterceptorFor<IRepository<Position>>(new TransparentProxyInterceptor());
+            Container.Configure<Interception>()
+                .SetInterceptorFor<IRepository<Person>>(new TransparentProxyInterceptor());
+            Container.Configure<Interception>()
+                .SetInterceptorFor<IRepository<Executor>>(new TransparentProxyInterceptor());
+            Container.Configure<Interception>()
+                .SetInterceptorFor<IRepository<Duty>>(new TransparentProxyInterceptor());
         }
 
         public void powerOffCommand()

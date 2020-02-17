@@ -29,6 +29,7 @@ namespace DutyFier.Client.Wpf
             
             InitializeComponent();
             this.DataContext = new MainWindowViewModel();
+            Core.Models.SeedData.StartData(); 
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {

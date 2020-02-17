@@ -238,7 +238,7 @@ namespace DutyFier.Core.Models
                 tt.Positions.AddRange(listPosition);
                 tt.SaveChanges();
             }
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }
