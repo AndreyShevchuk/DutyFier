@@ -1,7 +1,7 @@
-﻿using DutyFier.Core.Entities;
+﻿using DutyFier.Client.Wpf.State;
+using DutyFier.Core.Entities;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -11,11 +11,28 @@ namespace DutyFier.Client.Wpf.Generate
 {
     class SelectDatesViewModel : INotifyPropertyChanged
     {
-        public Dictionary<Position, ObservableCollection<DateTime>> DatesPosition { get; set; }
+        private GenerateContext generateContext;
+        public Dictionary<Position, List<DateTime>> DatesPosition { get; set; }
 
         private SelectedDatesCollection selectDates;
 
         private RelayCommand comadAcpet;
+
+        public RelayCommands<SelectedDatesCollection> GetSelectedDatesCollectionComand { get; set; }
+
+        public SelectDatesViewModel(GenerateContext generateContext)
+        {
+            this.generateContext = generateContext;
+            DatesPosition = this.generateContext.PositionsDate;
+
+            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true );
+        }
+
+        private void SelectDateColetion(SelectedDatesCollection obj)
+        {
+            SelectDates = obj;
+        }
+
         public RelayCommand ComadAcpet
         {
             get
@@ -65,12 +82,8 @@ namespace DutyFier.Client.Wpf.Generate
                 return comandSelectDates ??
                 (comandSelectDates = new RelayCommand(obj =>
                 {
-                    if (selectDates == null)   /// Ініціалізуємо колекцію з календарря щоб могли доступатись з ViewModel  ==> потрыбно xерез xaml ініцалізувати
-                      {
-                        selectDates = (SelectedDatesCollection)obj;
-                    }
                     if (selectPosition == null) // помилка на дурака
-                      {
+                    {
                         MessageBox.Show("Вибери тип наояду");
                         return;
                     };
@@ -98,40 +111,15 @@ namespace DutyFier.Client.Wpf.Generate
             {
                 return selectPosition;
             }
-
             set
             {
                 selectPosition = value;
-
-                if (selectDates != null)
+                selectDates.Clear();
+                foreach (var item in DatesPosition[selectPosition])
                 {
-                    selectDates.Clear();
-                }
-
-                if (DatesPosition[selectPosition] == null)
-                {
-                    DatesPosition[selectPosition] = new ObservableCollection<DateTime>();
-                }
-                else
-                {
-                    foreach (var item in DatesPosition[selectPosition])
-                    {
-                        if (selectDates != null)
-                        {
-                            selectDates.Add(item);
-                        }
-                    }
+                    selectDates.Add(item);
                 }
             }
-        }
-
-        public SelectDatesViewModel()
-        {
-            DatesPosition = new Dictionary<Position, ObservableCollection<DateTime>>();
-            DatesPosition.Add(new Position() { Name = "Kpp" }, null);
-            DatesPosition.Add(new Position() { Name = "Tsp" }, null);
-            DatesPosition.Add(new Position() { Name = "isi2" }, null);
-            DatesPosition.Add(new Position() { Name = "isi3" }, null);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

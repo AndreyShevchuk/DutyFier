@@ -20,7 +20,7 @@ namespace DutyFier.Client.Wpf.State
             IsBackwardStateAllowed = true;
             IsForwardStateAllowed = true;
             this.Context = context;
-            UK = new PreView();
+            UK = new PreView(Context);
         }
 
         public IGenerationState GoBackward()

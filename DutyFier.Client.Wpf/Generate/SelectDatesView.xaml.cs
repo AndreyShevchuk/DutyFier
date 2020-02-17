@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DutyFier.Client.Wpf.State;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,15 @@ namespace DutyFier.Client.Wpf.Generate
     /// </summary>
     public partial class SelectDatesView : UserControl
     {
-        public SelectDatesView()
+        //public SelectDatesView()
+        //{
+        //    InitializeComponent();
+        //    DataContext = new SelectDatesViewModel();
+        //}
+        public SelectDatesView(GenerateContext generateContext)
         {
             InitializeComponent();
-            DataContext = new SelectDatesViewModel();
+            DataContext = new SelectDatesViewModel(generateContext);
         }
     }
 }

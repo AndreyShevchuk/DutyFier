@@ -1,4 +1,5 @@
-﻿using DutyFier.Core.Entities;
+﻿using DutyFier.Client.Wpf.State;
+using DutyFier.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,10 +14,9 @@ namespace DutyFier.Client.Wpf.Generate
         public ObservableCollection<DutyRequest> DutyRequests { get; set; }
         public DutyRequest SelectDutyReqest { get; set; }
 
-
-        public PreViewModel()
+        public PreViewModel(GenerateContext context)
         {
-            DutyRequests = new ObservableCollection<DutyRequest>();
+            DutyRequests = context.DutyRequests;
         }
     }
 }

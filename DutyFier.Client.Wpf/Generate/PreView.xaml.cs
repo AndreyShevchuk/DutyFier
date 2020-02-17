@@ -20,10 +20,10 @@ namespace DutyFier.Client.Wpf.Generate
     /// </summary>
     public partial class PreView : UserControl
     {
-        public PreView()
+        public PreView(State.GenerateContext context)
         {
             InitializeComponent();
-            DataContext = new PreViewModel();
+            DataContext = new PreViewModel(context);
         }
     }
 }

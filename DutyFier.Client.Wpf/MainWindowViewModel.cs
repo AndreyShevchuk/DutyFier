@@ -113,6 +113,7 @@ namespace DutyFier.Client.Wpf
             DarkModeCommand = new RelayCommands(darkModeCommand, Can);
             PowerOffCommand = new RelayCommands(powerOffCommand, Can);
             state = new DatesSelectionState();
+            IsBackwardEnable = false;
             IsForwardEnable = true;
             isBackwardEnable = false;
             IsDarkModeOn = false;
@@ -182,9 +183,9 @@ namespace DutyFier.Client.Wpf
         {
 
             childrenPanel = obj;
-            var generate = new SelectDatesView();
+           
             childrenPanel.Clear();
-            childrenPanel.Add(generate);
+            childrenPanel.Add(state.UK);
             IsVisible = Visibility.Visible;
         }
         public void feedbackCommand(UIElementCollection obj)

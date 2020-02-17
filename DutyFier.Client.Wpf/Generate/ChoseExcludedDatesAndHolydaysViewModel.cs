@@ -1,4 +1,5 @@
-﻿using DutyFier.Core.Entities;
+﻿using DutyFier.Client.Wpf.State;
+using DutyFier.Core.Entities;
 using DutyFier.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,10 @@ namespace DutyFier.Client.Wpf.Generate
     class ChoseExcludedDatesAndHolydaysViewModel
     {
         private Person selctPerson;
-        
+
         private SelectedDatesCollection selectDates;
 
+        public RelayCommands<SelectedDatesCollection> GetSelectDates { get; set; }
         public Person SelcetPerson {
             get 
             {
@@ -25,32 +27,17 @@ namespace DutyFier.Client.Wpf.Generate
             set
             {
                 selctPerson = value;
+                selectDates.Clear();
 
-                if (selectDates != null)
+                foreach (var item in ExcludedDates[selctPerson])
                 {
-                    selectDates.Clear();
+                    selectDates.Add(item);
                 }
-
-                if (ExcludedDates[selctPerson] == null)
-                {
-                    ExcludedDates[selctPerson] = new ObservableCollection<DateTime>();
-                }
-                else
-                {
-                    foreach (var item in ExcludedDates[selctPerson])
-                    {
-                        if (selectDates != null)
-                        {
-                            selectDates.Add(item);
-                        }
-                    }
-                }
-
             }
         }
 
         public SelectedDatesCollection SelectedDates { get { return selectDates; } set { selectDates = value; } }
-        public Dictionary<Person, ObservableCollection<DateTime>> ExcludedDates { get; set; }     
+        public Dictionary<Person, List<DateTime>> ExcludedDates { get; set; }     
         
         private RelayCommand comandAddExludesDares;
         public RelayCommand ComandAddExludesDares
@@ -114,14 +101,15 @@ namespace DutyFier.Client.Wpf.Generate
             }
             return false;
         }
-        public ChoseExcludedDatesAndHolydaysViewModel()
+        public ChoseExcludedDatesAndHolydaysViewModel(GenerateContext generateContext)
         {
-            
-            ExcludedDates = new Dictionary<Person, ObservableCollection<DateTime>>();
-            ExcludedDates.Add(new Person { FirstName = "Andrey1", Id = 1 }, new ObservableCollection<DateTime>());
-            ExcludedDates.Add(new Person { FirstName = "Andrey2", Id = 2 }, new ObservableCollection<DateTime>());
-            ExcludedDates.Add(new Person { FirstName = "Andrey3", Id = 3 }, new ObservableCollection<DateTime>());
-            ExcludedDates.Add(new Person { FirstName = "Andrey4", Id = 4 }, new ObservableCollection<DateTime>());
+            ExcludedDates = generateContext.ExludeDates;
+            GetSelectDates = new RelayCommands<SelectedDatesCollection>(InitSelectDates, x => true);
+        }
+
+        private void InitSelectDates(SelectedDatesCollection obj)
+        {
+            SelectedDates = obj;
         }
     }
 }
