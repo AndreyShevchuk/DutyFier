@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DutyFier.Client.Wpf.Generate"
              xmlns:materialDesign="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+             xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -16,6 +17,20 @@
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = Date}" Header="Date" Width="*" FontSize="20" />
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = DutyType}" Header="Type" Width="*" FontSize="20" />
                 <materialDesign:DataGridTextColumn Binding="{Binding Path= Positions.Count}" Header="Count of executors"  Width="*"/>
+                <DataGridTemplateColumn Header="View" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Height="25" Width="50">
+                                    <materialDesign1:PackIcon  Foreground="WhiteSmoke"   Kind="ArrowTopDropCircle"/>
+                                </Button>
+                                <Button Height="25" Width="50">
+                                    <materialDesign1:PackIcon  Foreground="WhiteSmoke"   Kind="ArrowBottomDropCircle"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <!--<DataGridCheckBoxColumn Binding="{Binding Path = SeniorIncluded}" Header="Senior included" Width="*" />-->
             </DataGrid.Columns>
         </DataGrid>
