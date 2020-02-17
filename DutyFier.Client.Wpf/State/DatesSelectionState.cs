@@ -10,7 +10,7 @@ namespace DutyFier.Client.Wpf.State
 {
     class DatesSelectionState : IGenerationState
     {
-        public UserControl UK { get; set; }
+        public UserControl CurrentStateControl { get; set; }
         public GenerateContext Context { get; set; }
         public bool IsBackwardStateAllowed { get; set; }
         public bool IsForwardStateAllowed { get; set; }
@@ -19,14 +19,14 @@ namespace DutyFier.Client.Wpf.State
             Context = new GenerateContext();
             IsBackwardStateAllowed = false;
             IsForwardStateAllowed = true;
-            UK = new SelectDatesView(Context);
+            CurrentStateControl = new SelectDatesView(Context);
         }
         public DatesSelectionState(GenerateContext context)
         {
             Context = context;
             IsBackwardStateAllowed = false;
             IsForwardStateAllowed = true;
-            UK = new SelectDatesView(Context);
+            CurrentStateControl = new SelectDatesView(Context);
         }
 
         public IGenerationState GoBackward()

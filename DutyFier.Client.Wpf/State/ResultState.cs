@@ -10,7 +10,7 @@ namespace DutyFier.Client.Wpf.State
 {
     class ResultState : IGenerationState
     {
-        public UserControl UK { get; set; }
+        public UserControl CurrentStateControl { get; set; }
         public GenerateContext Context { get; set; }
        
         public bool IsBackwardStateAllowed { get; set; }
@@ -20,7 +20,7 @@ namespace DutyFier.Client.Wpf.State
             IsBackwardStateAllowed = true;
             IsForwardStateAllowed = false;
             this.Context = context;
-            UK = new ResultView();
+            CurrentStateControl = new ResultView();
         }
 
         public IGenerationState GoBackward()

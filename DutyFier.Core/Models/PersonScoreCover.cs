@@ -9,11 +9,12 @@ namespace DutyFier.Core.Models
     {
         public double Score { get; set; }
 
-        public PersonScoreCover(string firstName, string lastName, double factor, double score) : base(firstName,lastName,factor) => Score = score;
+        public PersonScoreCover()
+        {
+
+        }
 
         public PersonScoreCover(Person person, double score) : base(person) => Score = score;
-
-        public PersonScoreCover() { }
 
         public static List<PersonScoreCover> GetPersonScoreCoverList(List<Person> persons, List<PersonDutyFeedback> feedbacks, List<Duty> generetedDuty)
         {
@@ -21,13 +22,9 @@ namespace DutyFier.Core.Models
             double score;
             for (int i = 0; i < persons.Count; i++)
             {
-                score = feedbacks.
-                   Where(a => a.Person.Equals(persons[i])).
-                   Sum(a => a.Source) + generetedDuty.
-                   Where(a => !a.IsApproved).
-                   SelectMany(a => a.Executors).
-                   Where(a => a.Person.Equals(persons[i])).
-                   Sum(a => a.Score)
+                score = 
+                    feedbacks.Where(a => a.Person.Equals(persons[i])).Sum(a => a.Source) + 
+                    generetedDuty.Where(a => !a.IsApproved).SelectMany(a => a.Executors).Where(a => a.Person.Equals(persons[i])).Sum(a => a.Score)
                 ;
                 personScoreCovers.Add(new PersonScoreCover(persons[i], score));
             }

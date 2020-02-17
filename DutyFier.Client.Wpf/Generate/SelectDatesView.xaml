@@ -8,29 +8,36 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <Calendar x:Name="Calendar" SelectionMode="MultipleRange">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedDatesChanged">
-                    <i:InvokeCommandAction 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Calendar Margin="0 20 0 0"  VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="Calendar" SelectionMode="MultipleRange" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedDatesChanged">
+                        <i:InvokeCommandAction 
                 Command="{Binding ComandSelectDates}"
                 CommandParameter="{Binding SelectedDates, ElementName=Calendar}" />
-                </i:EventTrigger>
+                    </i:EventTrigger>
 
-                <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction 
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction 
                 Command="{Binding GetSelectedDatesCollectionComand}"
                 CommandParameter="{Binding SelectedDates, ElementName=Calendar}" />
-                </i:EventTrigger>
+                    </i:EventTrigger>
 
 
-            </i:Interaction.Triggers>
-        </Calendar>
+                </i:Interaction.Triggers>
+            </Calendar>
+            <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="60 0 0 20" Command="{Binding ComadAcpet}" 
+                Content="Accept"  Width="100"/>
+        </Grid>
 
-        <ListBox HorizontalAlignment="Left" Height="330" Margin="288,10,0,0" VerticalAlignment="Top" Width="240"/>
 
-
-        <ListBox HorizontalAlignment="Left" Height="330" Margin="288,10,0,0" 
-                 VerticalAlignment="Top" Width="240" Grid.Column="0" 
+        <Grid Grid.Column="1">
+            <ListBox Margin="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   
+                 
                  ItemsSource="{Binding DatesPosition.Keys}"
                  SelectedItem="{Binding SelectPosition}">
             <ListBox.ItemTemplate>
@@ -43,8 +50,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Command="{Binding ComadAcpet}" 
-                Content="Accept" HorizontalAlignment="Left" Margin="10,340,0,0" VerticalAlignment="Top" Width="75"/>
+         </Grid>
+
 
     </Grid>
 </UserControl>

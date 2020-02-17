@@ -37,8 +37,7 @@ namespace DutyFier.Core.Entities
 
         public override bool Equals(object obj)
         {
-            return obj is Person person &&
-                   Id == person.Id;
+            return obj is Person person && Id == person.Id;
         }
 
         public override int GetHashCode()

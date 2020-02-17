@@ -14,7 +14,8 @@ namespace DutyFier.Core.Entities
 
         public DutyRequest()
         {
-            AdditionalWeight = 1; // <===   ????
+            // TODO: wtf
+            AdditionalWeight = 1;
             Positions = new List<Position>();
             Date = new DateTime();
             DutyType = new DutyType();
