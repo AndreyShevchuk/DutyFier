@@ -14,7 +14,7 @@
     Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize" WindowState="{Binding WindowState, UpdateSourceTrigger=PropertyChanged}" >
     <Grid x:Name="MainGrid">
         <Grid>
-            <Grid  x:Name="GridForWindow"  Margin="200 35 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid   x:Name="GridForWindow"  Margin="200 35 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -79,7 +79,7 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
                             <i:InvokeCommandAction 
-                            Command="{Binding SettingCommand}"
+                            Command="{Binding SettingsCommand}"
                             CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>

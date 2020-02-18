@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
-             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              
              d:DesignHeight="555" d:DesignWidth="824" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
@@ -48,20 +48,51 @@
                                 <RowDefinition Height="8.5*"/>
                                 <RowDefinition Height="1.5*"/>
                             </Grid.RowDefinitions>
-                            <DataGrid  Grid.Row="0" x:Name="dataGrid" Margin="10 10 10 0"  FontSize="14">
-                                <DataGridTextColumn></DataGridTextColumn>
-                                <DataGridTemplateColumn>
-                                    <DataGridTemplateColumn.CellTemplate>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <ListBox Grid.Row="0" Grid.Column="0" Margin="20" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel  Margin="5">
+                                            
+                                            <TextBlock FontSize="14" Text="{Binding Path=FirstName}" />
+                                            <TextBlock FontSize="12" Text="{Binding Path=LastName}" />
+                                            
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" >
+                                    <ComboBox Margin="0 0  30 0"  ItemsSource="{Binding Allpositions}" SelectedValue="{Binding SelectedPosition}"    FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock FontSize="18" Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <Button Command="{Binding AddPositionCommand}" Width="100" Content="Add"/>
+                                </StackPanel>
+                                <ListBox Grid.Row="0" Grid.Column="1" Margin="20" ItemsSource="{Binding Positions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <CheckBox/>
+                                            <StackPanel  Margin="5">
+
+                                                <TextBlock FontSize="14" Text="{Binding Name}" />
+
+                                            </StackPanel>
                                         </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
                             <StackPanel HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
                                 <Button HorizontalAlignment="Left" Width="100" Margin="20 0 0 20" Content="Save" VerticalAlignment="Bottom">
                                 </Button>
                             </StackPanel>
+                            
                         </Grid>
 
                     </TabItem>

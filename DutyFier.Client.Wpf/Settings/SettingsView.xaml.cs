@@ -12,6 +12,13 @@ namespace DutyFier.Client.Wpf.Settings
     /// </summary>
     public partial class SettingsView : UserControl
     {
+        SettingsViewModel svw;
+        public SettingsView()
+        {
+            svw = new SettingsViewModel();
+            InitializeComponent();
+            DataContext = svw;
+        }
         
 
     }
