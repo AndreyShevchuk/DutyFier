@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              
              d:DesignHeight="555" d:DesignWidth="824" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-    
+
     <Grid>
         <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.15}">
             <Grid  VerticalAlignment="Stretch"  >
@@ -41,6 +41,27 @@
                             </Setter>
                         </Style>
                     </TabControl.Resources>
+                    <TabItem  Header="Executors" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8.5*"/>
+                                <RowDefinition Height="1.5*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid CanUserAddRows="False" Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding People}"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid" Grid.ColumnSpan="2"   >
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Path=Id}"  />
+                                    <DataGridTextColumn IsReadOnly="True"  Header="Name" Binding="{Binding Path=FirstName}"   />
+                                    <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Path=LastName}"  />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Grid.Row="1" Margin="144,0,144,19.6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.ColumnSpan="2">
+                                <Button  x:Name="AddCadetButton" Content="Add executor" Width="150" Margin="0 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button x:Name="EditCadetButton" Content="Edit executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button x:Name="RemoveCadetButton" Content="Remove executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
                     <TabItem Header="Types" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <Grid>
 
@@ -53,14 +74,14 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <ListBox Grid.Row="0" Grid.Column="0" Margin="20" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                
+
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel  Margin="5">
-                                            
+
                                             <TextBlock FontSize="14" Text="{Binding Path=FirstName}" />
                                             <TextBlock FontSize="12" Text="{Binding Path=LastName}" />
-                                            
+
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -88,53 +109,33 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                             </StackPanel>
-                            <StackPanel HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
+                            <StackPanel Margin="0 0 50 0" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
                                 <Button HorizontalAlignment="Left" Width="100" Margin="20 0 0 20" Content="Save" VerticalAlignment="Bottom">
                                 </Button>
                             </StackPanel>
-                            
+
                         </Grid>
 
                     </TabItem>
-                    <TabItem  Header="Cadets" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    
+                    <TabItem Header="Positions" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="8.5*"/>
                                 <RowDefinition Height="1.5*"/>
                             </Grid.RowDefinitions>
-                            <DataGrid Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding Persons}"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid"   >
+                            <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Grid.Row="0" ColumnWidth="*" ItemsSource="{Binding Allpositions}" AutoGenerateColumns="False" Margin="10 10 10 0"   FontSize="14" x:Name="dutiesGrid"   >
                                 <DataGrid.Columns >
-                                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}"  />
-                                    <DataGridTextColumn  Header="Name" Binding="{Binding Path=FirstName}"   />
-                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=LastName}"  />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <StackPanel Grid.Row="1" Margin="0 0 0 20 " HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
-                                <Button  x:Name="AddCadetButton" Content="Add" Width="150" Margin="0 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <Button x:Name="EditCadetButton" Content="Edit" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <Button x:Name="RemoveCadetButton" Content="Remove" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                            </StackPanel>
-                        </Grid>
-                    </TabItem>
-                    <TabItem Header="Types" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="8.5*"/>
-                                <RowDefinition Height="1.5*"/>
-                            </Grid.RowDefinitions>
-                            <DataGrid Grid.Row="0" ColumnWidth="*" ItemsSource="{Binding Positions}" AutoGenerateColumns="False" Margin="10 10 10 0"   FontSize="14" x:Name="dutiesGrid"   >
-                                <DataGrid.Columns >
-                                    <DataGridTextColumn Binding="{Binding Path = DutyType}" Header="Type of duty" />
-                                    <DataGridTextColumn Binding="{Binding Path = Name}" Header="Position" />
-                                    <DataGridTextColumn Binding="{Binding Path = Weight}" Header="Weight" />
-                                    <DataGridCheckBoxColumn Binding="{Binding Path= IsSeniorPosition}" Header="Sen"/>
+                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path = DutyType}" Header="Type of duty" />
+                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path = Name}" Header="Position" />
+                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path = Weight}" Header="Weight" />
+                                    <DataGridCheckBoxColumn IsReadOnly="True"  Binding="{Binding Path= IsSeniorPosition}" Header="Is senior"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0 0 0 20">
-                                <Button x:Name="AddPositionButton" FontSize="18" Content="Add Position" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <Button x:Name="AddTypeButton" FontSize="18" Content="Add type" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <!--<Button x:Name="RemovePositionButton"  FontSize="18" Content="Remove" Width="150" Margin="40 50 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>-->
-                            </StackPanel>
+                                <Button x:Name="AddPositionButton"  Content="Add Position" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button x:Name="AddTypeButton" Content="Add type" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                             </StackPanel>
                         </Grid>
                     </TabItem>
 
