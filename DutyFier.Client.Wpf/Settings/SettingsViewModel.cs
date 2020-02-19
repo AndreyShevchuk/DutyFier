@@ -44,6 +44,7 @@ namespace DutyFier.Client.Wpf.Settings
         public RelayCommands AddPositionCommand { get; set; }
         public SettingsViewModel()
         {
+            
             people = new PersonRepository().GetAll().ToList();
             allpositions = new PositionRepository().GetAll().ToList();
             AddPositionCommand = new RelayCommands(addPositionsCommand, Can);

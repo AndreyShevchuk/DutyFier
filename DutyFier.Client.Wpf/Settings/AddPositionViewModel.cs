@@ -16,7 +16,7 @@ namespace DutyFier.Client.Wpf.Settings
         {
             _position = new Position();
             AddCommand = new RelayCommands(OnAdd,CanAdd);
-            //dutyTypes = new DutyTypeRepository().GetAll().ToList();
+            DutyTypes = new DutyTypeRepository().GetAll().ToList();
         }
         public List<DutyType> DutyTypes { get; }
         public DutyType SelectedDutyType { get; set; }
@@ -27,11 +27,13 @@ namespace DutyFier.Client.Wpf.Settings
 
         private void OnAdd()
         {
-            _position = new Position();
-            _position.DutyType = SelectedDutyType;
-            _position.Name = Name;
-            _position.Weight = Weight;
-            _position.IsSeniorPosition = IsSeniorPosition;
+            _position = new Position
+            {
+                DutyType = SelectedDutyType,
+                Name = Name,
+                Weight = Weight,
+                IsSeniorPosition = IsSeniorPosition
+            };
             //TODO add to DB logic
         }
         private bool CanAdd()

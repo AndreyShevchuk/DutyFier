@@ -7,13 +7,10 @@
         xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
         mc:Ignorable="d"
         Height="300" Width="300" MouseDown="Window_MouseDown" WindowStartupLocation="CenterScreen" WindowStyle="None">
-    <Window.DataContext>
-        <local:AddPositionViewModel/>
-    </Window.DataContext>
     <Grid>
         <TextBlock Text="Add Position" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 20 0 0" Foreground="DodgerBlue"/>
         <StackPanel VerticalAlignment="Center" >
-            <ComboBox x:Name="PositonsCOmboBOx"  ItemsSource="{Binding DutyType}"  SelectedItem="{Binding SelectedDutyType}" FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
+            <ComboBox x:Name="PositonsCOmboBOx"  ItemsSource="{Binding DutyTypes}"  SelectedItem="{Binding SelectedDutyType}" FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock FontSize="18" Text="{Binding Name}" />
