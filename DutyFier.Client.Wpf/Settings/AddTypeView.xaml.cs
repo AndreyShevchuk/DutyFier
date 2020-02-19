@@ -24,5 +24,10 @@ namespace DutyFier.Client.Wpf.Settings
         {
             InitializeComponent();
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

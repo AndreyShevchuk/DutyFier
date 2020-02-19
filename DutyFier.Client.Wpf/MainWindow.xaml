@@ -11,7 +11,7 @@
         x:Name="Window1" mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         
         
-    Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize" WindowState="{Binding WindowState, UpdateSourceTrigger=PropertyChanged}" >
+    Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize" MouseDown="Window1_MouseDown" WindowState="{Binding WindowState, UpdateSourceTrigger=PropertyChanged}" >
     <Grid x:Name="MainGrid">
         <Grid>
             <Grid   x:Name="GridForWindow"  Margin="200 35 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
