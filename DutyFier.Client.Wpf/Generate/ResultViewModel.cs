@@ -1,4 +1,5 @@
-﻿using DutyFier.Core.Entities;
+﻿using DutyFier.Client.Wpf.State;
+using DutyFier.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,8 +15,12 @@ namespace DutyFier.Client.Wpf.Generate
         public Duty SelectedDuty { get; set; }
         
         private RelayCommand comandChangeExecutors;
-        public ResultViewModel()
+        public GenerateContext context { get; set; }
+
+
+        public ResultViewModel(GenerateContext context)
         {
+            this.context = context;
             Dutys = new ObservableCollection<Duty>();
         }
 
