@@ -31,10 +31,6 @@ namespace DutyFier.Client.Wpf
             this.DataContext = new MainWindowViewModel();
             Core.Models.SeedData.StartData(); 
         }
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
         private void MoveSelecter(int index)
         {
             TransitionEff.OnApplyTemplate();
@@ -44,6 +40,11 @@ namespace DutyFier.Client.Wpf
         private void ListVievButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MoveSelecter(ListVievButtons.SelectedIndex);
+        }
+
+        private void Window1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

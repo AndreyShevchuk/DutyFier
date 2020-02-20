@@ -101,7 +101,7 @@ namespace DutyFier.Client.Wpf
             }
         }
         public RelayCommands<UIElementCollection> StatisticsCommand { get; set; }
-        public RelayCommands<UIElementCollection> SettingCommand { get; set; }
+        public RelayCommands<UIElementCollection> SettingsCommand { get; set; }
         public RelayCommands<UIElementCollection> SelectDatesCommand { get; set; }
         public RelayCommands<UIElementCollection> FeedbackCommand { get; set; }
 
@@ -114,7 +114,7 @@ namespace DutyFier.Client.Wpf
         public MainWindowViewModel()
         {
             StatisticsCommand = new RelayCommands<UIElementCollection>(statisticCommand, CanChange);
-            SettingCommand = new RelayCommands<UIElementCollection>(settingsCommand, CanChange);
+            SettingsCommand = new RelayCommands<UIElementCollection>(settingsCommand, CanChange);
             SelectDatesCommand = new RelayCommands<UIElementCollection>(generateCommand, CanChange);
             FeedbackCommand = new RelayCommands<UIElementCollection>(feedbackCommand, CanChange);
             ForwardCommand = new RelayCommands<UIElementCollection>(forwardCommand, CanForward);

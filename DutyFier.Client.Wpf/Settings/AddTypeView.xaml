@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
              mc:Ignorable="d" 
-             Title="AddTypeWindow" Height="250" Width="300" WindowStartupLocation="CenterScreen">
+             Title="AddTypeWindow" MouseDown="Window_MouseDown" Height="250" Width="300" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:AddTypeViewModel/>
     </Window.DataContext>

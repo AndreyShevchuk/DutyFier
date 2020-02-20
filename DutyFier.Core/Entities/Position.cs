@@ -35,5 +35,9 @@ namespace DutyFier.Core.Entities
             return hashCode;
         }
 
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

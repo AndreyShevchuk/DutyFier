@@ -22,6 +22,12 @@ namespace DutyFier.Client.Wpf.Settings
         public AddPositionView()
         {
             InitializeComponent();
+            DataContext = new AddPositionViewModel();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }
