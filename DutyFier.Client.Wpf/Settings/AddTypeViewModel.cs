@@ -11,12 +11,12 @@ namespace DutyFier.Client.Wpf.Settings
     class AddTypeViewModel
     {
         public DutyType _dutyType;
-        private AdTypeModel AddTypeModel;
+        //private AdTypeModel AddTypeModel;
         public AddTypeViewModel()
         {
             _dutyType = new DutyType();
             AddCommand = new RelayCommands(OnAdd, CanAdd);
-            AdTypeModel = new 
+            //AdTypeModel = new 
         }
         public string Name { get; set; }
         public RelayCommands AddCommand { get; set; }
