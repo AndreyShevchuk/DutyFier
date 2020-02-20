@@ -14,5 +14,22 @@ namespace DutyFier.Core.Entities
         {
             Executors = new List<Executor>();
         }
+
+        public string ExecutorsNames
+        {
+            get 
+            {
+                string executorsName = "";
+                foreach (var item in Executors)
+                {
+                    executorsName += $"{item.Person.FirstName} {item.Person.FirstName} \n\r";
+                }
+                return executorsName;
+            }
+            private set { }
+
+
+
+        }
     }
 }

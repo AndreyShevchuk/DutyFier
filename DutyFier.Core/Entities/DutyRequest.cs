@@ -33,16 +33,14 @@ namespace DutyFier.Core.Entities
         {
             return obj is DutyRequest request &&
                    Date == request.Date &&
-                   EqualityComparer<List<Position>>.Default.Equals(Positions, request.Positions) &&
-                   EqualityComparer<DutyType>.Default.Equals(DutyType, request.DutyType);
+                   DutyTypeId == request.DutyTypeId;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 1203840533;
+            var hashCode = 1414455357;
             hashCode = hashCode * -1521134295 + Date.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<Position>>.Default.GetHashCode(Positions);
-            hashCode = hashCode * -1521134295 + EqualityComparer<DutyType>.Default.GetHashCode(DutyType);
+            hashCode = hashCode * -1521134295 + DutyTypeId.GetHashCode();
             return hashCode;
         }
     }

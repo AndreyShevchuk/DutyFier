@@ -8,12 +8,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid AutoGenerateColumns="False"  ColumnWidth="*" x:Name="DataGrid4" FontSize="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Dutys}" 
+                  SelectedItem="{Binding SelectedDuty}" ColumnWidth="*" x:Name="DataGrid4" FontSize="20" Grid.ColumnSpan="2">
             <DataGrid.Columns>
-                <materialDesign:DataGridTextColumn  CanUserResize="False" Width="*" Header="Date" Binding="{Binding Path= Date}"/>
-                <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Type" Binding="{Binding Path=Type}"/>
-                <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Executors" Binding="{Binding Path=Executors}"/>
-                <DataGridTemplateColumn Header="View" Width="*">
+                <materialDesign:DataGridTextColumn  CanUserResize="False" Width="*" Header="Date" Binding="{Binding Path = Date}"/>
+                <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Type" Binding="{Binding Path = Type}"/>
+                <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Executors" Binding="{Binding Path = ExecutorsNames}"/>
+                <DataGridTemplateColumn Header="Change" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Command="{Binding Comandc}" HorizontalAlignment="Left" VerticalAlignment="Center" Name="btnEdit"  Width="50" Height="50" >
