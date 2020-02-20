@@ -1,4 +1,5 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,21 @@ namespace DutyFier.Client.Wpf.Settings
 {
     class AddTypeViewModel
     {
-        DutyType dutyType;
+        public DutyType _dutyType;
+        private AdTypeModel AddTypeModel;
         public AddTypeViewModel()
         {
-            dutyType = new DutyType();
+            _dutyType = new DutyType();
             AddCommand = new RelayCommands(OnAdd, CanAdd);
+            AdTypeModel = new 
         }
         public string Name { get; set; }
         public RelayCommands AddCommand { get; set; }
 
         public void OnAdd()
         {
+            _dutyType = new DutyType();
+            _dutyType.Name= Name;
             //TODO adding to DB logic
         }
         public bool CanAdd()

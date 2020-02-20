@@ -20,22 +20,9 @@ namespace DutyFier.Core.Models
             PersonDutyFeedbackRepository = personDutyFeedbackRepository;
         }
 
-        public List<Person> GetPersons()
-        {
-            var persons = PersonRepository.GetAll().ToList();
-            var feedbacks = PersonDutyFeedbackRepository.GetAll().ToList();
-            var personScoreCovers = new List<PersonScoreCover>();
-            double score;
-            for (int i = 0; i < persons.Count; i++)
-            {
-                
-                score = feedbacks.
-                    Where(a => a.Person.Equals(persons[i])).
-                    Select(a => a.Source).
-                    Sum();
-                personScoreCovers.Add(new PersonScoreCover(persons[i], score));
-            }
-            return persons;
-        }
+        public List<PersonScoreCover> GetPersons() => PersonScoreCover.GetPersonScoreCoverList(
+            PersonRepository.GetAll().ToList(), 
+            PersonDutyFeedbackRepository.GetAll().ToList()
+            );
     }
 }

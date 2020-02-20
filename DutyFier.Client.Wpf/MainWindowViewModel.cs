@@ -32,7 +32,7 @@ namespace DutyFier.Client.Wpf
         private bool isBackwardEnable;
         private WindowState windowState;
         private bool isDarkModeOn;
-        public static IUnityContainer Container { get; set; }
+        public static UnityContainer Container { get; set; }
         public Visibility IsVisible
         {
             get
@@ -154,6 +154,7 @@ namespace DutyFier.Client.Wpf
                 .SetInterceptorFor<IRepository<Executor>>(new TransparentProxyInterceptor());
             Container.Configure<Interception>()
                 .SetInterceptorFor<IRepository<Duty>>(new TransparentProxyInterceptor());
+            
         }
 
         public void powerOffCommand()

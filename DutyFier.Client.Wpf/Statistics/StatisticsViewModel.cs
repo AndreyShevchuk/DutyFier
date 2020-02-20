@@ -1,4 +1,5 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Interfaces;
 using DutyFier.Core.Models;
 using DutyFier.Core.Repository;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using Unity;
 namespace DutyFier.Client.Wpf.Statistics
 {
     class StatisticsViewModel :INotifyPropertyChanged
@@ -17,8 +18,7 @@ namespace DutyFier.Client.Wpf.Statistics
 
         public StatisticsViewModel()
         {
-            // TODO: use Unity as IoT
-            _statisticModel = new StatisticModel(new PersonRepository(), new PersonDutyFeedbackRepository());
+            _statisticModel = new StatisticModel(MainWindowViewModel.Container.Resolve<IRepository<Person>>(), MainWindowViewModel.Container.Resolve<IRepository<PersonDutyFeedback>>());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,7 +30,7 @@ namespace DutyFier.Client.Wpf.Statistics
             
         }
 
-        public List<Person> Persons
+        public List<PersonScoreCover> Persons
         {
             get
             {

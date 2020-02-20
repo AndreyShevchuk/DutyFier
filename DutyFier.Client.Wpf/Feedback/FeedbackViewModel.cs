@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 
 namespace DutyFier.Client.Wpf.Feedback
 {
@@ -14,7 +15,7 @@ namespace DutyFier.Client.Wpf.Feedback
         public List<PersonDutyFeedback> feedbacks;
         public FeedbackViewModel()
         {
-            //Feedbacks = 
+            feedbacks = MainWindowViewModel.Container.Resolve<IRepository<PersonDutyFeedback>>().GetAll().ToList();
         }
         public List<PersonDutyFeedback> Feedbacks
         {

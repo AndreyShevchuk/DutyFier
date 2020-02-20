@@ -1,10 +1,14 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Interfaces;
+using DutyFier.Core.Models;
 using DutyFier.Core.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
+
 
 namespace DutyFier.Client.Wpf.Settings
 {
@@ -12,11 +16,13 @@ namespace DutyFier.Client.Wpf.Settings
     {
         public Position  _position;
         public List<DutyType> dutyTypes;
+        private AddPositionModel AddPositionModel { get; set; }
         public AddPositionViewModel()
         {
             _position = new Position();
             AddCommand = new RelayCommands(OnAdd,CanAdd);
-            //dutyTypes = new DutyTypeRepository().GetAll().ToList();
+            dutyTypes = MainWindowViewModel.Container.Resolve<IRepository<DutyType>>().GetAll().ToList();
+            AddPositionModel = new AddPositionModel(MainWindowViewModel.Container.Resolve<IRepository<Position>>());
         }
         public List<DutyType> DutyTypes { get; }
         public DutyType SelectedDutyType { get; set; }
@@ -32,7 +38,7 @@ namespace DutyFier.Client.Wpf.Settings
             _position.Name = Name;
             _position.Weight = Weight;
             _position.IsSeniorPosition = IsSeniorPosition;
-            //TODO add to DB logic
+            AddPositionModel.AddPositionToDB(_position);
         }
         private bool CanAdd()
         {
