@@ -12,7 +12,7 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Dutys}" 
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Dutys}" 
                   SelectedItem="{Binding SelectedDuty}" ColumnWidth="*" x:Name="DataGrid4" FontSize="20" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <materialDesign:DataGridTextColumn  CanUserResize="False" Width="*" Header="Date" Binding="{Binding Path = Date}"/>

@@ -22,25 +22,11 @@ namespace DutyFier.Client.Wpf.State
             {
                 if(dutyRequests == null)
                 {
-                    var dutyReqests = new ObservableCollection<DutyRequest>();
-                    foreach (var key in PositionsDate.Keys)
-                    {
-                        foreach (var item in PositionsDate[key])
-                        {
-                            var t = new DutyRequest();
-                            t.Date = item;
-                            t.Positions.Add(key);
-                            t.DutyType = key.DutyType;
-                            t.DutyTypeId = key.DutyTypeId;
-                            dutyReqests.Add(t);
-                        }
-                    }
-                    this.dutyRequests = dutyReqests;
-                    return dutyReqests;
+                    dutyRequests = DutyRequestsOnTheCalendar();
+                    return dutyRequests;
                 }
-
                 ChangeDutyReqest();
-                return this.dutyRequests;
+                return dutyRequests;
             } 
         } 
 
@@ -55,47 +41,45 @@ namespace DutyFier.Client.Wpf.State
 
 
 
-        private void ChangeDutyReqest()
+        private ObservableCollection<DutyRequest> DutyRequestsOnTheCalendar()
         {
-
-            var dutyReqests = new ObservableCollection<DutyRequest>();
-            foreach (var key in PositionsDate.Keys)
+            var dutyRequestsOnTheCalendar = new ObservableCollection<DutyRequest>();
+            foreach (var SelectedPositionCalendar in PositionsDate.Keys)
             {
-                foreach (var item in PositionsDate[key])
+                foreach (var SelectedDatesforPosition in PositionsDate[SelectedPositionCalendar])
                 {
-                    var t = new DutyRequest();
-                    t.Date = item;
-                    t.Positions.Add(key);
-                    t.DutyType = key.DutyType;
-                    t.DutyTypeId = key.DutyTypeId;
-                    dutyReqests.Add(t);
+                    var duteReqest = new DutyRequest();
+                    duteReqest.Date = SelectedDatesforPosition;
+                    duteReqest.Positions.Add(SelectedPositionCalendar);
+                    duteReqest.DutyType = SelectedPositionCalendar.DutyType;
+                    duteReqest.DutyTypeId = SelectedPositionCalendar.DutyTypeId;
+                    dutyRequestsOnTheCalendar.Add(duteReqest);
                 }
             }
-            
+            return  dutyRequestsOnTheCalendar;
+        }
 
-            var newDuyReqest = dutyReqests.Except(this.dutyRequests, new DutyReqestComparer()).ToList(); /// new Element
-            var oldDutyReqest = this.dutyRequests.Except(dutyReqests, new DutyReqestComparer()).ToList(); //
-
-            foreach (var item in oldDutyReqest)
+        private void ChangeDutyReqest()
+        {
+            var dutyReqests = DutyRequestsOnTheCalendar();
+            RemoveOldDutyReqest(dutyReqests);
+            SearchNewDutyReqest(dutyReqests);
+        }
+        private void RemoveOldDutyReqest(ICollection<DutyRequest> dutyRequestsOnTheCalendar)
+        {
+            var oldDutyReqestInCalendar = this.dutyRequests.ToList().Except(dutyRequestsOnTheCalendar.ToList(), new DutyReqestComparer()).ToList(); //
+            foreach (var item in oldDutyReqestInCalendar)
             {
                 this.dutyRequests.Remove(item);
             }
-
-            foreach (var item in newDuyReqest)
+        }
+        private void SearchNewDutyReqest(ICollection<DutyRequest> dutyRequestsOnTheCalendar)
+        {
+            var newDuyReqestInCalendar = dutyRequestsOnTheCalendar.ToList().Except(this.dutyRequests.ToList(), new DutyReqestComparer()).ToList();
+            foreach (var item in newDuyReqestInCalendar)
             {
                 this.dutyRequests.Add(item);
             }
-
-        }
-
-        private void MinusDutyReqest()
-        {
-
-        }
-
-        private void PlusDutyReqest()
-        {
-            
         }
 
     }

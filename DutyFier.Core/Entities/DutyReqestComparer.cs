@@ -8,7 +8,7 @@ namespace DutyFier.Core.Entities
     {
         public bool Equals(DutyRequest x, DutyRequest y)
         {
-            return x.Equals(y);
+            return x.DutyTypeId.Equals(y.DutyTypeId);
         }
 
         public int GetHashCode(DutyRequest obj)
