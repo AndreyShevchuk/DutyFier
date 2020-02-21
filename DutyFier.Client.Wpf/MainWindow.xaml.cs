@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,17 +48,18 @@ namespace DutyFier.Client.Wpf
             DragMove();
         }
 
-        private void OpenMenu_Click(object sender, RoutedEventArgs e)
-        {
-            OpenMenu.Visibility = Visibility.Hidden;
-            MenuClose.Visibility = Visibility.Visible;
-        }
+        //private void OpenMenu_Click(object sender, RoutedEventArgs e)
+        //{
+            
+        //    OpenMenu.Visibility = Visibility.Hidden;
+        //    MenuClose.Visibility = Visibility.Visible;
+        //}
 
-        private void MenuClose_Click(object sender, RoutedEventArgs e)
-        {
-            MenuClose.Visibility = Visibility.Hidden;
-            OpenMenu.Visibility = Visibility.Visible;
-        }
+        //private void MenuClose_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MenuClose.Visibility = Visibility.Hidden;
+        //    OpenMenu.Visibility = Visibility.Visible;
+        //}
     }
 }
 

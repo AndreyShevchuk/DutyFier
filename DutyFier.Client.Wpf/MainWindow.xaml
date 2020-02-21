@@ -14,15 +14,23 @@
     Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize" MouseDown="Window1_MouseDown" WindowState="{Binding WindowState, UpdateSourceTrigger=PropertyChanged}" >
     <Window.Resources>
         <Storyboard x:Key="MenuClose">
+
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="59"/>
             </DoubleAnimationUsingKeyFrames>
-
             <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="Margin" Storyboard.TargetName="GridForWindow">
                 <SplineThicknessKeyFrame KeyTime="00:00:00" Value="200 40 0 0" />
                 <SplineThicknessKeyFrame KeyTime="0:0:0.5" Value="59 40 0 0" />
             </ThicknessAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OpenMenu"
+                               Storyboard.TargetProperty="Visibility">
+            <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuClose"
+                               Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -33,6 +41,14 @@
                 <SplineThicknessKeyFrame KeyTime="00:00:00" Value="59 40 0 0" />
                 <SplineThicknessKeyFrame KeyTime="0:0:0.5" Value="200 40 0 0" />
             </ThicknessAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OpenMenu"
+                               Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuClose"
+                               Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
     <Window.Triggers>
@@ -106,10 +122,10 @@
             <materialDesign:TransitioningContent x:Name="TransitionEff"  OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.1}">
                 <Grid  x:Name="GridSelecter"   Background="WhiteSmoke" Width="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Margin="0 100 0 0"/>
             </materialDesign:TransitioningContent>
-            <Button Click="OpenMenu_Click" x:Name="OpenMenu" Margin="0 0 0 0"  VerticalAlignment="Top" HorizontalAlignment="Left" Background="#0000" BorderBrush="#0000">
+            <Button  x:Name="OpenMenu" Margin="0 0 0 0"  VerticalAlignment="Top" HorizontalAlignment="Left" Background="#0000" BorderBrush="#0000">
                 <materialDesign:PackIcon Height="30" Width="30"  Kind="Menu"/>
             </Button>
-            <Button Visibility="Hidden" Click="MenuClose_Click" x:Name="MenuClose" Margin="3" Height="30" Width="30" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#0000" BorderBrush="#0000">
+            <Button Visibility="Hidden"  x:Name="MenuClose" Margin="3" Height="30" Width="30" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#0000" BorderBrush="#0000">
                 <materialDesign:PackIcon Kind="Close" Height="20" Width="20" />
 
             </Button>
