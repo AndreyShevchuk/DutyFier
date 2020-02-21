@@ -14,7 +14,7 @@ namespace DutyFier.Client.Wpf.Settings
     class AddTypeViewModel
     {
         public DutyType _dutyType;
-        //private AdTypeModel AddTypeModel;
+        private AdTypeModel AddTypeModel;
         public AddTypeViewModel()
         {
             _dutyType = new DutyType();
