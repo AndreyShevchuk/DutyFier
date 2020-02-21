@@ -46,6 +46,18 @@ namespace DutyFier.Client.Wpf
         {
             DragMove();
         }
+
+        private void OpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            OpenMenu.Visibility = Visibility.Hidden;
+            MenuClose.Visibility = Visibility.Visible;
+        }
+
+        private void MenuClose_Click(object sender, RoutedEventArgs e)
+        {
+            MenuClose.Visibility = Visibility.Hidden;
+            OpenMenu.Visibility = Visibility.Visible;
+        }
     }
 }
 

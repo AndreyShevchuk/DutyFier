@@ -14,24 +14,25 @@
     Height="600" Width="1024" WindowStyle="None" ResizeMode="NoResize" MouseDown="Window1_MouseDown" WindowState="{Binding WindowState, UpdateSourceTrigger=PropertyChanged}" >
     <Window.Resources>
         <Storyboard x:Key="MenuClose">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="59"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridForWindow">
-                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
+
+            <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="Margin" Storyboard.TargetName="GridForWindow">
+                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="200 40 0 0" />
+                <SplineThicknessKeyFrame KeyTime="0:0:0.5" Value="59 40 0 0" />
+            </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="OpenMenu">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="59"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridForWindow">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
-            </DoubleAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="Margin" Storyboard.TargetName="GridForWindow">
+                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="59 40 0 0" />
+                <SplineThicknessKeyFrame KeyTime="0:0:0.5" Value="200 40 0 0" />
+            </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
     <Window.Triggers>
@@ -44,7 +45,7 @@
     </Window.Triggers>
     <Grid x:Name="MainGrid">
         <Grid>
-            <Grid   x:Name="GridForWindow"  Margin="0 35 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid   x:Name="GridForWindow"  Margin="59 40 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -62,9 +63,7 @@
                 </i:Interaction.Triggers>
             </Grid>
             <Grid VerticalAlignment="Top"  Height="40" Background="#FF0D47A1" >
-                <Button x:Name="OpenMenu"  VerticalAlignment="Center" HorizontalAlignment="Left" Background="#0000" BorderBrush="#0000">
-                    <materialDesign:PackIcon Height="20" Width="20"  Kind="Menu"/>
-                </Button>
+                
                 <StackPanel  Visibility="{Binding IsVisible, UpdateSourceTrigger=PropertyChanged}" x:Name="ArrowsStackPanel" Margin="20 0 0 0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button IsEnabled="{Binding IsBackwardEnable, UpdateSourceTrigger=PropertyChanged}"
                             Command="{Binding BackwardCommand}" 
@@ -95,7 +94,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        <Grid x:Name="GridMenu"  Width="200" Margin="-200 0 0 0" HorizontalAlignment="Left" Background="#FF0D47A1">
+        <Grid  x:Name="GridMenu"  Width="59" Margin="0 0 0 0" HorizontalAlignment="Left" Background="#FF0D47A1">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -107,11 +106,14 @@
             <materialDesign:TransitioningContent x:Name="TransitionEff"  OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.1}">
                 <Grid  x:Name="GridSelecter"   Background="WhiteSmoke" Width="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Margin="0 100 0 0"/>
             </materialDesign:TransitioningContent>
-            <Button x:Name="MenuClose" Margin="5" Height="30" Width="30" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#0000" BorderBrush="#0000">
+            <Button Click="OpenMenu_Click" x:Name="OpenMenu" Margin="0 0 0 0"  VerticalAlignment="Top" HorizontalAlignment="Left" Background="#0000" BorderBrush="#0000">
+                <materialDesign:PackIcon Height="30" Width="30"  Kind="Menu"/>
+            </Button>
+            <Button Visibility="Hidden" Click="MenuClose_Click" x:Name="MenuClose" Margin="3" Height="30" Width="30" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#0000" BorderBrush="#0000">
                 <materialDesign:PackIcon Kind="Close" Height="20" Width="20" />
 
             </Button>
-            <ListView SelectionChanged="ListVievButtons_SelectionChanged" x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke">
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListVievButtons_SelectionChanged" x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke">
                 <ListViewItem Height="60">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
