@@ -17,7 +17,7 @@
                   CanUserAddRows="False"
                   AutoGenerateColumns="False" ColumnWidth="*" FontSize="20" Margin="0,0,0,48" >
             <DataGrid.Columns>
-                <materialDesign:DataGridTextColumn Binding="{Binding Path = Date}" Header="Date" Width="*" FontSize="20" />
+                <materialDesign:DataGridTextColumn Binding="{Binding Path = Date, StringFormat=d}" Header="Date" Width="*" FontSize="20" />
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = DutyType}" Header="Type" Width="*" FontSize="20" />
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = Positions.Count}" Header="Count of executors"  Width="*"/>
                 <DataGridTemplateColumn Header="View" Width="*">
@@ -25,7 +25,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
 
-                                <Button Height="25" Width="50" Command="{ Binding DataContext.PlusDutyComand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                <Button Height="25" Width="50" Command="{ Binding DataContext.ComandChangeExecutors, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                                                CommandParameter="{Binding }">
                                     <materialDesign1:PackIcon  Foreground="WhiteSmoke" Kind="ArrowTopDropCircle"/>
                                 </Button>
@@ -42,7 +42,7 @@
                 <!--<DataGridCheckBoxColumn Binding="{Binding Path = SeniorIncluded}" Header="Senior included" Width="*" />-->
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content= "GenerateDuty" Margin="0,0,10,10" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="128"/>
+        <Button Content= "GenerateDuty" Margin="0,0,10,10" Height="32" Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="128"/>
     </Grid>
 
 </UserControl>

@@ -21,7 +21,7 @@ namespace DutyFier.Client.Wpf.Generate
         public ResultViewModel(GenerateContext context)
         {
             this.context = context;
-            Dutys = new ObservableCollection<Duty>();
+            Dutys = context.duties;
         }
 
 
@@ -37,10 +37,5 @@ namespace DutyFier.Client.Wpf.Generate
                 (obj) => true)); // Можна буде написати функцію яка буде перевіряти в загалі є на кого поміняти чи ні;
             }
         }
-
-
-
-
-
     }
 }
