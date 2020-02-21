@@ -13,9 +13,11 @@ namespace DutyFier.Client.Wpf.Feedback
     class FeedbackViewModel
     {
         public List<PersonDutyFeedback> feedbacks;
+        private List<Duty> UnapprovedDuties { get; set; }
         public FeedbackViewModel()
         {
             feedbacks = MainWindowViewModel.Container.Resolve<IRepository<PersonDutyFeedback>>().GetAll().ToList();
+            UnapprovedDuties = MainWindowViewModel.Container.Resolve<IRepository<Duty>>().GetAll().Where(a=> !a.IsApproved).ToList();
         }
         public List<PersonDutyFeedback> Feedbacks
         {
