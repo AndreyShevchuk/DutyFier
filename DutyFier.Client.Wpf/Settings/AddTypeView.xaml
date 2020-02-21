@@ -7,21 +7,17 @@
              xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
              mc:Ignorable="d" 
              Title="AddTypeWindow" MouseDown="Window_MouseDown" Height="250" Width="300" WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <local:AddTypeViewModel/>
-    </Window.DataContext>
-    <Grid DataContext="AddTypeViewModel">
+    <Grid>
         <TextBlock Text="Add Type" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 20 0 0" Foreground="DodgerBlue"/>
         <StackPanel VerticalAlignment="Center"  >
 
-            <TextBox Text="{Binding Name}"  Width="200" materialDesign:HintAssist.Hint="Name of type" FontSize="14" Margin="0 10 0 0"/>
-
+            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="200" materialDesign:HintAssist.Hint="Name of type" FontSize="14" Margin="0 10 0 0"/>
             <!--<CheckBox  Content="Senior included" HorizontalAlignment="Left" Margin="45 20 0 0"/>-->
         </StackPanel>
         <StackPanel Margin="0 0 0 30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
             <WrapPanel   HorizontalAlignment="Right" >
                 <Button  IsCancel="True" MinWidth="60">Cancel</Button>
-                <Button  IsDefault="True" MinWidth="60" Margin="10,0,10,0">OK</Button>
+                <Button Command="{Binding AddCommand}" IsDefault="True" MinWidth="60" Margin="10,0,10,0">OK</Button>
             </WrapPanel>
         </StackPanel>
     </Grid>

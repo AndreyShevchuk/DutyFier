@@ -8,17 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity;
 using System.Windows.Controls;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace DutyFier.Client.Wpf.Settings
 {
-    class AddTypeViewModel
+    class AddTypeViewModel : INotifyPropertyChanged
     {
         public DutyType _dutyType;
-        //private AdTypeModel AddTypeModel;
+        private AdTypeModel AddTypeModel;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
         public AddTypeViewModel()
         {
             _dutyType = new DutyType();
-            AddCommand = new RelayCommands(OnAdd, CanAdd);
+            AddCommand = new RelayCommands(OnAdd, ()=>true);
             AddTypeModel = new AdTypeModel(MainWindowViewModel.Container.Resolve<IRepository<DutyType>>());
         }
         public string Name { get; set; }
@@ -26,13 +35,18 @@ namespace DutyFier.Client.Wpf.Settings
 
         public void OnAdd()
         {
-            _dutyType = new DutyType();
-            _dutyType.Name= Name;
-            AddTypeModel.AddDutyTypeToDB(_dutyType);
+            if (Name != null && !Name.Equals(""))
+            {
+                _dutyType = new DutyType();
+                _dutyType.Name = Name;
+                Name = "";
+                OnPropertyChanged(nameof(Name));
+                AddTypeModel.AddDutyTypeToDB(_dutyType);
+            }
         }
         public bool CanAdd()
         {
-            return Name != null;
+            return true;
         }
     }
 }

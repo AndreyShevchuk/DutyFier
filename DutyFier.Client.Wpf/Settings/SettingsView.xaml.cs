@@ -32,6 +32,7 @@ namespace DutyFier.Client.Wpf.Settings
         private void AddPositionButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             AddPositionView addPosition = new AddPositionView();
+            //TODO fix exeption when was add position to BD
             if(addPosition.ShowDialog() == true)
             {
 

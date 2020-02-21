@@ -23,6 +23,7 @@ namespace DutyFier.Client.Wpf.Settings
         public AddTypeView()
         {
             InitializeComponent();
+            DataContext = new AddTypeViewModel();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
