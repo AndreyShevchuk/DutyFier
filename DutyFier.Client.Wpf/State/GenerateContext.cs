@@ -1,4 +1,5 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Models;
 using DutyFier.Core.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,13 @@ namespace DutyFier.Client.Wpf.State
 {
     public class GenerateContext
     {
+        private DutyGenerator dutyGenerate;
         public PositionRepository positionRepository { get; set; }
         public PersonRepository personRepository { get; set; }
         public Dictionary<Position, List<DateTime>> PositionsDate { get; set; }
         public Dictionary<Person, List<DateTime>> ExludeDates { get; set; }
+
+        public ObservableCollection<Duty> duties;
 
         private ObservableCollection<DutyRequest> dutyRequests;
         public ObservableCollection<DutyRequest> DutyRequests {
@@ -34,12 +38,17 @@ namespace DutyFier.Client.Wpf.State
         {
             positionRepository = new PositionRepository();
             personRepository = new PersonRepository();
-
+            dutyGenerate = new DutyGenerator(personRepository,new PersonDutyFeedbackRepository(),new DutyRepository(), new DaysOfWeekWeightRepository());
             ExludeDates = personRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
             PositionsDate = positionRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
         }
-
-
+        public void GeneratorRun()
+        {
+            if (duties == null)
+            {
+                duties = new ObservableCollection<Duty>(dutyGenerate.Generate(dutyRequests.ToList(), new List<ExcludeDates>(), new List<ChangeOnDateWeigth>().ToList()));
+            }
+        }
 
         private ObservableCollection<DutyRequest> DutyRequestsOnTheCalendar()
         {
@@ -58,7 +67,6 @@ namespace DutyFier.Client.Wpf.State
             }
             return  dutyRequestsOnTheCalendar;
         }
-
         private void ChangeDutyReqest()
         {
             var dutyReqests = DutyRequestsOnTheCalendar();
@@ -81,6 +89,5 @@ namespace DutyFier.Client.Wpf.State
                 this.dutyRequests.Add(item);
             }
         }
-
     }
 }

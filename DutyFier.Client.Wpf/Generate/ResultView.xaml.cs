@@ -23,6 +23,7 @@ namespace DutyFier.Client.Wpf.Generate
     {
         public ResultView(GenerateContext context)
         {
+            context.GeneratorRun();
             InitializeComponent();
             DataContext = new ResultViewModel(context);
         }

@@ -28,6 +28,8 @@ namespace DutyFier.Core.Entities
             FirstName = person.FirstName;
             LastName = person.LastName;
             Factor = person.Factor;
+            Positions = person.Positions;
+            PersonDutyFeedbacks = person.PersonDutyFeedbacks;
         }
 
         public override bool Equals(object obj)

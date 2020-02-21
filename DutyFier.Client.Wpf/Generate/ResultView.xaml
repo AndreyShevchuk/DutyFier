@@ -21,7 +21,9 @@
                 <DataGridTemplateColumn Header="Change" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding Comandc}" HorizontalAlignment="Left" VerticalAlignment="Center" Name="btnEdit"  Width="50" Height="50" >
+                            <Button  Command="{ Binding DataContext.ComandChangeExecutors, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                     CommandParameter="{Binding }" 
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" Name="btnEdit"  Width="50" Height="50" >
                                 <materialDesign:PackIcon Kind="CallMade" Width="20" Height="20" />
                             </Button>
                         </DataTemplate>
