@@ -19,6 +19,7 @@ using DutyFier.Core.Entities;
 using Unity.Lifetime;
 using Unity.Interception;
 using Unity.Interception.Interceptors.InstanceInterceptors.TransparentProxyInterception;
+using DutyFier.Core.Models;
 
 namespace DutyFier.Client.Wpf
 {
@@ -131,6 +132,8 @@ namespace DutyFier.Client.Wpf
             IsVisible = Visibility.Hidden;
 
             Container = new UnityContainer();
+
+            SeedData.StartData();
 
             Container.RegisterType<IRepository<DaysOfWeekWeight>, DaysOfWeekWeightRepository>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IRepository<Duty>, DutyRepository>(new ContainerControlledLifetimeManager());
