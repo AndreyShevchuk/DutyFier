@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DutyFier.Client.Wpf.State;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace DutyFier.Client.Wpf.Generate
     /// </summary>
     public partial class ResultView : UserControl
     {
-        public ResultView()
+        public ResultView(GenerateContext context)
         {
             InitializeComponent();
+            DataContext = new ResultViewModel(context);
         }
     }
 }

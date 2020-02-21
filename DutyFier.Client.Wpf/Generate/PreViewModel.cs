@@ -23,7 +23,7 @@ namespace DutyFier.Client.Wpf.Generate
             set
             {
                 selectDutyReqest = value;
-                OnPropertyChanged("DutyRequests");
+                OnPropertyChanged("SelectDutyReqest");
             }
         }
 
@@ -40,12 +40,16 @@ namespace DutyFier.Client.Wpf.Generate
         public void PlusDuty(DutyRequest obj)
         {
             SelectDutyReqest.Positions.Add(SelectDutyReqest.Positions[0]);
-            OnPropertyChanged("DutyRequests");
+            var index = DutyRequests.IndexOf(SelectDutyReqest);
+            DutyRequests.Insert(index, SelectDutyReqest);
+            DutyRequests.RemoveAt(index+1);
         }
         public void MinusDuty(DutyRequest obj)
         {
             SelectDutyReqest.Positions.RemoveAt(SelectDutyReqest.Positions.Count - 1); // Remove
-            OnPropertyChanged("DutyRequests");
+            var index = DutyRequests.IndexOf(SelectDutyReqest);
+            DutyRequests.Insert(index, SelectDutyReqest);
+            DutyRequests.RemoveAt(index + 1);
         }
         public bool ActitvityMinusButton(DutyRequest obj)
         {

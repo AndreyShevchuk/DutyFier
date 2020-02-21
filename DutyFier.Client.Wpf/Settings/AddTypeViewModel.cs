@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity;
+using System.Windows.Controls;
 
 namespace DutyFier.Client.Wpf.Settings
 {
     class AddTypeViewModel
     {
         public DutyType _dutyType;
-        private AdTypeModel AddTypeModel;
+        //private AdTypeModel AddTypeModel;
         public AddTypeViewModel()
         {
             _dutyType = new DutyType();

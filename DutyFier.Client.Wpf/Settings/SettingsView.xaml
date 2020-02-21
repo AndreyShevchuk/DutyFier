@@ -96,8 +96,9 @@
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
                                     <Button Command="{Binding AddPositionCommand}" Width="100" Content="Add"/>
+                                    <Button Command="{Binding RemovePositionCommand}" Margin="20 0 0 0" Width="100" Content="Remove" />
                                 </StackPanel>
-                                <ListBox Grid.Row="0" Grid.Column="1" Margin="20" ItemsSource="{Binding Positions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <ListBox SelectedItem="{Binding SelectedPositionToRemove, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="20" ItemsSource="{Binding Positions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel  Margin="5">
