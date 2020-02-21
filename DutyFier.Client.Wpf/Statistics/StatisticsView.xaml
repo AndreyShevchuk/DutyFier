@@ -10,13 +10,15 @@
     <Grid >
         <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.15}">
             <Grid >
-                <DataGrid FontSize="14" x:Name="StatisticGrid" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" ColumnHeaderHeight="50" 
-                          ItemsSource="{Binding Persons}">
-                    <!--<DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="FontSize" Value="25"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>-->
+                <DataGrid FontSize="14" x:Name="StatisticGrid" 
+                          Margin="10"
+                          IsReadOnly="True"
+                          VerticalAlignment="Stretch" 
+                          HorizontalAlignment="Stretch" 
+                          AutoGenerateColumns="False" 
+                          ColumnHeaderHeight="50" 
+                          ItemsSource="{Binding Persons}"
+                          CanUserAddRows="False">
                     <DataGrid.Columns >
                         <DataGridTextColumn Header="Name" Width="*"  Binding="{Binding FirstName}" />
                         <DataGridTextColumn Header="Last Name" Width="*"  Binding="{Binding LastName}"></DataGridTextColumn>
