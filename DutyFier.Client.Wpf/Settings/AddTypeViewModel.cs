@@ -1,10 +1,12 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Interfaces;
 using DutyFier.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 using System.Windows.Controls;
 
 namespace DutyFier.Client.Wpf.Settings
@@ -17,7 +19,7 @@ namespace DutyFier.Client.Wpf.Settings
         {
             _dutyType = new DutyType();
             AddCommand = new RelayCommands(OnAdd, CanAdd);
-            //AdTypeModel = new 
+            AddTypeModel = new AdTypeModel(MainWindowViewModel.Container.Resolve<IRepository<DutyType>>());
         }
         public string Name { get; set; }
         public RelayCommands AddCommand { get; set; }
@@ -26,7 +28,7 @@ namespace DutyFier.Client.Wpf.Settings
         {
             _dutyType = new DutyType();
             _dutyType.Name= Name;
-            //TODO adding to DB logic
+            AddTypeModel.AddDutyTypeToDB(_dutyType);
         }
         public bool CanAdd()
         {

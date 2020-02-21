@@ -22,6 +22,7 @@ namespace DutyFier.Client.Wpf.Settings
         public AddPersonView()
         {
             InitializeComponent();
+            DataContext = new AddPersonViewModel();
         }
 
         

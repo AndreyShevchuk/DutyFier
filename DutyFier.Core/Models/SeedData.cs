@@ -16,86 +16,100 @@ namespace DutyFier.Core.Models
                 new Person
                 {
                     FirstName = "Batienko",
-                    LastName = "Andree"
+                    LastName = "Andree",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Vinitckiy",
-                    LastName = "Sergey"
+                    LastName = "Sergey",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Getmanenko",
-                    LastName = "Vitaliy"
+                    LastName = "Vitaliy",
+                    Factor = 1
                 },
 
                 new Person
                 {
 
                     FirstName = "Juruk",
-                    LastName = "Artem"
+                    LastName = "Artem",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Juravel",
-                    LastName = "Andree"
+                    LastName = "Andree",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Kovalenko",
-                    LastName = "Andree"
+                    LastName = "Andree",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Salykov",
-                    LastName = "Illy"
+                    LastName = "Illy",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Skrupnik",
-                    LastName = "Daniil"
+                    LastName = "Daniil",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Fedor",
-                    LastName = "Vitaly"
+                    LastName = "Vitaly",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Shevchuk",
-                    LastName = "Andrey"
+                    LastName = "Andrey",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Shevchuk",
-                    LastName = "Nikolay"
+                    LastName = "Nikolay",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Shkorupskiy",
-                    LastName = "Valintin"
+                    LastName = "Valintin",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Zlobin",
-                    LastName = "Oleksandr"
+                    LastName = "Oleksandr",
+                    Factor = 1
                 },
 
                 new Person
                 {
                     FirstName = "Gumenuk",
-                    LastName = "Oleksandr"
+                    LastName = "Oleksandr",
+                    Factor = 1
                 }
             };
 
