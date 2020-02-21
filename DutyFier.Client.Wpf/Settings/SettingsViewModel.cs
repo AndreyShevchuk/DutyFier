@@ -25,7 +25,7 @@ namespace DutyFier.Client.Wpf.Settings
         {
             get { return positions; }
         }
-
+        public Position SelectedPositionToRemove { get; set; }
         public Position SelectedPosition { get; set; }
         public Person SelectedPerson
         {
@@ -42,12 +42,22 @@ namespace DutyFier.Client.Wpf.Settings
 
         public List<Position> Allpositions { get => allpositions; set => allpositions = value; }
         public RelayCommands AddPositionCommand { get; set; }
+        public RelayCommands RemovePositionCommand { get; set; }
         public SettingsViewModel()
         {
             
             people = new PersonRepository().GetAll().ToList();
             allpositions = new PositionRepository().GetAll().ToList();
             AddPositionCommand = new RelayCommands(addPositionsCommand, Can);
+            RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
+        }
+        private void removePositionCommand()
+        {
+            SelectedPerson.Positions.Remove(SelectedPositionToRemove);
+            positions = SelectedPerson.Positions.ToList();
+            OnPropertyChanged("Positions");
+            
+            //TODO add logic to remove from DB
         }
         private void addPositionsCommand()
         {
