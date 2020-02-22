@@ -27,7 +27,7 @@
         <StackPanel Margin="0 0 0 30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
             <WrapPanel   HorizontalAlignment="Right" >
                 <Button  IsCancel="True" MinWidth="60">Cancel</Button>
-                <Button  IsDefault="True" MinWidth="60" Margin="10,0,10,0">OK</Button>
+                <Button Command="{Binding AddCommand}" IsDefault="True" MinWidth="60" Margin="10,0,10,0">OK</Button>
             </WrapPanel>
         </StackPanel>
     </Grid>

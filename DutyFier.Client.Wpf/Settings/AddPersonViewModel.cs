@@ -12,8 +12,13 @@ using System.Runtime.CompilerServices;
 
 namespace DutyFier.Client.Wpf.Settings
 {
-    class AddPersonViewModel
+    class AddPersonViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
         public Person _person;
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -27,14 +32,16 @@ namespace DutyFier.Client.Wpf.Settings
         public RelayCommand AddCommand { get; set; }
         public void OnAdd(object obj)
         {
-            if (CanAdd())
+            if (!FirstName.Equals("")&&!LastName.Equals(""))
             {
                 _person = new Person();
                 _person.Factor = 1;
                 _person.FirstName = FirstName;
                 _person.LastName = LastName;
                 FirstName = "";
+                OnPropertyChanged(nameof(FirstName));
                 LastName = "";
+                OnPropertyChanged(nameof(LastName));
                 AddPersonModel.AddPersonToDB(_person);
             }
         }

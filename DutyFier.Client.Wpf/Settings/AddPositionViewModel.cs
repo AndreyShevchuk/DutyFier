@@ -4,7 +4,9 @@ using DutyFier.Core.Models;
 using DutyFier.Core.Repository;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Unity;
@@ -12,19 +14,25 @@ using Unity;
 
 namespace DutyFier.Client.Wpf.Settings
 {
-    class AddPositionViewModel
+    class AddPositionViewModel : INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
         public Position  _position;
-        public List<DutyType> dutyTypes;
+        public List<DutyType> _dutyTypes;
         private AddPositionModel AddPositionModel { get; set; }
         public AddPositionViewModel()
         {
             _position = new Position();
-            AddCommand = new RelayCommands(OnAdd,CanAdd);
-            dutyTypes = MainWindowViewModel.Container.Resolve<IRepository<DutyType>>().GetAll().ToList();
+            AddCommand = new RelayCommands(OnAdd,()=>true);
+            DutyTypes = MainWindowViewModel.Container.Resolve<IRepository<DutyType>>().GetAll().ToList();
             AddPositionModel = new AddPositionModel(MainWindowViewModel.Container.Resolve<IRepository<Position>>());
         }
-        public List<DutyType> DutyTypes { get; }
+        public List<DutyType> DutyTypes { get => _dutyTypes; set => _dutyTypes = value; }
         public DutyType SelectedDutyType { get; set; }
         public string Name { get; set; }
         public double Weight { get; set; }
@@ -33,16 +41,23 @@ namespace DutyFier.Client.Wpf.Settings
 
         private void OnAdd()
         {
-            _position = new Position();
-            _position.DutyType = SelectedDutyType;
-            _position.Name = Name;
-            _position.Weight = Weight;
-            _position.IsSeniorPosition = IsSeniorPosition;
-            AddPositionModel.AddPositionToDB(_position);
-        }
-        private bool CanAdd()
-        {
-            return _position != null;
+            if (!Name.Equals("") && SelectedDutyType != null && Weight > 0)
+            {
+                _position = new Position();
+                _position.DutyType = SelectedDutyType;
+                SelectedDutyType = null;
+                OnPropertyChanged(nameof(SelectedDutyType));
+                _position.Name = Name;
+                Name = "";
+                OnPropertyChanged(nameof(Name));
+                _position.Weight = Weight;
+                Weight = 0;
+                OnPropertyChanged(nameof(Weight));
+                _position.IsSeniorPosition = IsSeniorPosition;
+                IsSeniorPosition = false;
+                OnPropertyChanged(nameof(IsSeniorPosition));
+                AddPositionModel.AddPositionToDB(_position);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using DutyFier.Core.Entities;
+using DutyFier.Core.Interfaces;
 using DutyFier.Core.Models;
 using DutyFier.Core.Repository;
 using System;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 
 namespace DutyFier.Client.Wpf.Settings
 {
@@ -19,7 +21,7 @@ namespace DutyFier.Client.Wpf.Settings
         private List<Position> allpositions;
         private Person selectedPerson;
         private List<Position> positions;
-        
+        public SettingsModel SettingsModel { get; set; }
         public List<Person> People { get => people; set => people = value; }
         public List<Position> Positions
         {
@@ -50,20 +52,29 @@ namespace DutyFier.Client.Wpf.Settings
             allpositions = new PositionRepository().GetAll().ToList();
             AddPositionCommand = new RelayCommands(addPositionsCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
+
+            SettingsModel = new SettingsModel(MainWindowViewModel.Container.Resolve<IRepository<Person>>(), MainWindowViewModel.Container.Resolve<IRepository<Position>>());
         }
         private void removePositionCommand()
         {
             SelectedPerson.Positions.Remove(SelectedPositionToRemove);
             positions = SelectedPerson.Positions.ToList();
+            positions.ForEach(a => a.Persons.Remove(SelectedPerson));
             OnPropertyChanged("Positions");
-            
-            //TODO add logic to remove from DB
+
+            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
+            SettingsModel.UpdatePositionDependencyToPerson(positions); 
         }
         private void addPositionsCommand()
         {
+            //TODO fix logic to remove from DB
             SelectedPerson.Positions.Add(SelectedPosition);
             positions = SelectedPerson.Positions.ToList();
+            positions.ForEach(a => a.Persons.Add(SelectedPerson));
             OnPropertyChanged("Positions");
+
+            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
+            SettingsModel.UpdatePositionDependencyToPerson(positions);
         }
         public bool Can()
         {

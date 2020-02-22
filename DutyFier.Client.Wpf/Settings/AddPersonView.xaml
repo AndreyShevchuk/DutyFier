@@ -4,23 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="AddCadetWindow" MouseDown="Window_MouseDown"  Height="450" Width="300" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <!--<Window.DataContext>
         <local:AddPersonViewModel/>
     </Window.DataContext>-->
     <Grid >
-        <StackPanel Orientation="Vertical" DataContext="{Binding _person}">
+        <StackPanel Orientation="Vertical">
             <TextBlock HorizontalAlignment="Center" Margin="0 20 0 0" Foreground="DodgerBlue" FontWeight="Bold" Text="Add executor" FontSize="24" >
               
             </TextBlock>
             <StackPanel Margin="0 20 0 0" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Center" >
-                <TextBox  Margin="0 50 0 0" materialDesign:HintAssist.Hint="Name" Width="200"  Text="{Binding FirstName}"/>
-
-                <TextBox Margin="0 20 0 0" materialDesign:HintAssist.Hint="Surname" Width="200" Text="{Binding LastName}"/>
-
+                <TextBox  Margin="0 50 0 0" materialDesign:HintAssist.Hint="Name" Width="200"  Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0 20 0 0" materialDesign:HintAssist.Hint="Surname" Width="200" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
         </StackPanel>
