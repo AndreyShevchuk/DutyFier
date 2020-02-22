@@ -15,6 +15,14 @@ namespace DutyFier.Core.Entities
             Executors = new List<Executor>();
         }
 
+        public Duty(Duty copyDuty)
+        {
+            this.Id = copyDuty.Id;
+            this.Date = copyDuty.Date;
+            this.Executors = new List<Executor>(copyDuty.Executors);
+            this.IsApproved = copyDuty.IsApproved;
+        }
+
         public string ExecutorsNames
         {
             get 
@@ -22,14 +30,11 @@ namespace DutyFier.Core.Entities
                 string executorsName = "";
                 foreach (var item in Executors)
                 {
-                    executorsName += $"{item.Person.FirstName} {item.Person.FirstName} \n\r";
+                    executorsName += $"{item.Person.FirstName} {item.Person.LastName} \n\r";
                 }
                 return executorsName;
             }
             private set { }
-
-
-
         }
     }
 }

@@ -32,7 +32,12 @@ namespace DutyFier.Client.Wpf.Generate
                 return comandChangeExecutors ??
                 (comandChangeExecutors = new RelayCommand(obj =>
                 {
-                    
+                    EditDutyView apv = new EditDutyView();
+                    apv.DataContext = new EditDutyViewModel(new Duty(SelectedDuty));
+                    if (apv.ShowDialog() == true)
+                    {
+
+                    }
                 },
                 (obj) => true)); // Можна буде написати функцію яка буде перевіряти в загалі є на кого поміняти чи ні;
             }

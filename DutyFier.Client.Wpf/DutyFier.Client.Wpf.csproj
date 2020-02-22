@@ -112,6 +112,7 @@
     <Compile Include="Generate\EditDutyView.xaml.cs">
       <DependentUpon>EditDutyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Generate\EditDutyViewModel.cs" />
     <Compile Include="Generate\PreView.xaml.cs">
       <DependentUpon>PreView.xaml</DependentUpon>
     </Compile>
