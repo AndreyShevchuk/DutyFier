@@ -35,7 +35,11 @@ namespace DutyFier.Core.Repository
 
         public ICollection<Position> GetAll()
         {
-            return context.Positions.ToList();
+            return
+                context.Positions
+                .Include(e => e.Persons)
+                .Include(e => e.DutyType)
+                .ToList();
         }
 
         public Position GetOne(int id)

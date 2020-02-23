@@ -17,10 +17,15 @@ namespace DutyFier.Client.Wpf.Settings
 {
     class SettingsViewModel : INotifyPropertyChanged
     {
+        public PersonRepository PersonReposytory { get; }
+
+        private DutyFierContext DutyFierContext;
         List<Person> people;
         private List<Position> allpositions;
         private Person selectedPerson;
         private List<Position> positions;
+
+
         public SettingsModel SettingsModel { get; set; }
         public List<Person> People { get => people; set => people = value; }
         public List<Position> Positions
@@ -47,9 +52,10 @@ namespace DutyFier.Client.Wpf.Settings
         public RelayCommands RemovePositionCommand { get; set; }
         public SettingsViewModel()
         {
-            
-            people = new PersonRepository().GetAll().ToList();
-            allpositions = new PositionRepository().GetAll().ToList();
+            DutyFierContext = new DutyFierContext();
+            this.PersonReposytory = new PersonRepository();
+            people = DutyFierContext.Persons.ToList();
+            allpositions = DutyFierContext.Positions.ToList();
             AddPositionCommand = new RelayCommands(addPositionsCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
 
@@ -61,20 +67,21 @@ namespace DutyFier.Client.Wpf.Settings
             positions = SelectedPerson.Positions.ToList();
             positions.ForEach(a => a.Persons.Remove(SelectedPerson));
             OnPropertyChanged("Positions");
-
-            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
-            SettingsModel.UpdatePositionDependencyToPerson(positions); 
+            DutyFierContext.SaveChanges();
+            //SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
+            //SettingsModel.UpdatePositionDependencyToPerson(positions); 
         }
         private void addPositionsCommand()
         {
             //TODO fix logic to remove from DB
             SelectedPerson.Positions.Add(SelectedPosition);
+            DutyFierContext.SaveChanges();
             positions = SelectedPerson.Positions.ToList();
             positions.ForEach(a => a.Persons.Add(SelectedPerson));
             OnPropertyChanged("Positions");
+            //SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
+            //SettingsModel.UpdatePositionDependencyToPerson(positions);
 
-            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
-            SettingsModel.UpdatePositionDependencyToPerson(positions);
         }
         public bool Can()
         {
@@ -86,8 +93,15 @@ namespace DutyFier.Client.Wpf.Settings
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
+        private void SaveChange(List<Person> Persons)
+        {
+            foreach (var item in Persons)
+            {
+                //DutyFierContext.Entry(item).State = EntityState.Modified;
+                DutyFierContext.SaveChanges();
+            }
 
-
+        }
     }
 }
 
