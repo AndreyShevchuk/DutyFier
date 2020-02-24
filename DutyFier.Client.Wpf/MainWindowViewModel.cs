@@ -135,7 +135,7 @@ namespace DutyFier.Client.Wpf
             SeedData.StartData();
             Container = new UnityContainer();
             
-
+            //TODO find if there create a same object
             Container.RegisterType<DbContext, DutyFierContext>(new ContainerControlledLifetimeManager());
             //Container.Configure<Interception>()
             //    .SetInterceptorFor<DbContext>(new TransparentProxyInterceptor());
@@ -161,7 +161,7 @@ namespace DutyFier.Client.Wpf
             //    .SetInterceptorFor<IRepository<Executor>>(new TransparentProxyInterceptor());
             //Container.Configure<Interception>()
             //    .SetInterceptorFor<IRepository<Duty>>(new TransparentProxyInterceptor());
-            
+
         }
 
         public void powerOffCommand()
