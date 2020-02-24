@@ -25,8 +25,6 @@ namespace DutyFier.Client.Wpf.Settings
         private List<Position> allpositions;
         private Person selectedPerson;
         private List<Position> positions;
-
-
         public SettingsModel SettingsModel { get; set; }
         public List<Person> People { get => people; set => people = value; }
         public List<Position> Positions
@@ -51,6 +49,7 @@ namespace DutyFier.Client.Wpf.Settings
         public List<Position> Allpositions { get => allpositions; set => allpositions = value; }
         public RelayCommands AddPositionCommand { get; set; }
         public RelayCommands RemovePositionCommand { get; set; }
+        public RelayCommands AddExecutor { get; set; }
         public SettingsViewModel()
         {
             DutyFierContext = new DutyFierContext();
@@ -59,8 +58,19 @@ namespace DutyFier.Client.Wpf.Settings
             allpositions = DutyFierContext.Positions.ToList();
             AddPositionCommand = new RelayCommands(addPositionsCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
+            AddExecutor = new RelayCommands(addExecutor, Can);
 
             SettingsModel = new SettingsModel(new PersonRepository ((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()),new PositionRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()));
+        }
+        private void addExecutor()
+        {
+            AddPersonView apv = new AddPersonView();
+            if (apv.ShowDialog() == true)
+            {
+                People = DutyFierContext.Persons.ToList();
+                OnPropertyChanged("People");
+                apv.Close();
+            }
         }
         private void removePositionCommand()
         {
