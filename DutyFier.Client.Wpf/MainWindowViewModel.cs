@@ -136,9 +136,9 @@ namespace DutyFier.Client.Wpf
             Container = new UnityContainer();
             
             //TODO find if there create a same object
-            Container.RegisterType<DbContext, DutyFierContext>(new ContainerControlledLifetimeManager());
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<DbContext>(new TransparentProxyInterceptor());
+            Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
+            Container.Configure<Interception>()
+                .SetInterceptorFor<DutyFierContext>(new TransparentProxyInterceptor());
             //Container.RegisterType<IRepository<DaysOfWeekWeight>, DaysOfWeekWeightRepository>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<IRepository<Duty>, DutyRepository>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<IRepository<DutyType>, DutyTypeRepository>(new ContainerControlledLifetimeManager());
@@ -166,6 +166,7 @@ namespace DutyFier.Client.Wpf
 
         public void powerOffCommand()
         {
+            Container.Resolve<DutyFierContext>().Dispose();
             Application.Current.Shutdown();
         }
         public void darkModeCommand()

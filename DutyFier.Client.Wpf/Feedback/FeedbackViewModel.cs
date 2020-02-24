@@ -23,7 +23,7 @@ namespace DutyFier.Client.Wpf.Feedback
         }
         public FeedbackViewModel()
         {
-            DutyRepository = new DutyRepository((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>());
+            DutyRepository = new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

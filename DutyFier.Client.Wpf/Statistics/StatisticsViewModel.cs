@@ -19,7 +19,7 @@ namespace DutyFier.Client.Wpf.Statistics
 
         public StatisticsViewModel()
         {
-            _statisticModel = new StatisticModel( new PersonRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()), new PersonDutyFeedbackRepository( (DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()));
+            _statisticModel = new StatisticModel( new PersonRepository( MainWindowViewModel.Container.Resolve<DutyFierContext>()), new PersonDutyFeedbackRepository( MainWindowViewModel.Container.Resolve<DutyFierContext>()));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
