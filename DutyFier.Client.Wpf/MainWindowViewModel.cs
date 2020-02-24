@@ -136,6 +136,9 @@ namespace DutyFier.Client.Wpf
             Container = new UnityContainer();
             
             Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
+            Container.Configure<Interception>()
+                .SetInterceptorFor<DutyFierContext>(new TransparentProxyInterceptor());
+            
         }
 
         public void powerOffCommand()
