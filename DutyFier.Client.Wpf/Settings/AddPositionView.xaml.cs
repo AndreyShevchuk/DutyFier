@@ -29,5 +29,10 @@ namespace DutyFier.Client.Wpf.Settings
         {
             DragMove();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }
