@@ -105,10 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Generate\ChoseExcludedDatesAndHolydaysView.xaml.cs">
-      <DependentUpon>ChoseExcludedDatesAndHolydaysView.xaml</DependentUpon>
+    <Compile Include="Generate\ChoseExcludedDates.xaml.cs">
+      <DependentUpon>ChoseExcludedDates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Generate\ChoseExcludedDatesAndHolydaysViewModel.cs" />
+    <Compile Include="Generate\ChoseExcludedDates.cs" />
     <Compile Include="Generate\EditDutyView.xaml.cs">
       <DependentUpon>EditDutyView.xaml</DependentUpon>
     </Compile>
@@ -158,7 +158,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Generate\ChoseExcludedDatesAndHolydaysView.xaml">
+    <Page Include="Generate\ChoseExcludedDates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

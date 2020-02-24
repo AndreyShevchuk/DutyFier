@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Controls;
 using DutyFier.Core.Models;
 using System.Linq;
@@ -25,13 +24,39 @@ namespace DutyFier.Client.Wpf.Generate
 
         public SelectDatesViewModel(GenerateContext generateContext)
         {
-            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => SelectPosition != null);
+            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true) ;
             ComadAcpet = new RelayCommand(SetSelectedDatesForSelectedPosition, CheckActivityButton);
 
             DatesPosition = generateContext.PositionsDate;
             SelectPosition = DatesPosition.Keys.First();
         }
-
+        public SelectedDatesCollection SelectDates
+        {
+            get
+            {
+                return selectDates;
+            }
+            set
+            {
+                selectDates = value;
+                OnPropertyChanged("SelectDates");
+            }
+        }
+        public Position SelectPosition
+        {
+            get
+            {
+                return selectPosition;
+            }
+            set
+            {
+                selectPosition = value;
+                if (calendarUI != null)
+                {
+                    calendarUI.UpdateClaendar(DatesPosition[selectPosition]);
+                }
+            }
+        }
         private void SelectDateColetion(SelectedDatesCollection obj)
         {
             selectDates = obj;
@@ -67,34 +92,7 @@ namespace DutyFier.Client.Wpf.Generate
             }
             return false;
         }
-        public SelectedDatesCollection SelectDates
-        {
-            get
-            {
-                return selectDates;
-            }
-            set
-            {
-                selectDates = value;
-                OnPropertyChanged("SelectDates");
-            }
-        }
-        public Position SelectPosition
-        {
-            get
-            {
-                return selectPosition;
-            }
-            set
-            {
-                selectPosition = value;
-                if (calendarUI != null)
-                {
-                    calendarUI.UpdateClaendar(DatesPosition[selectPosition]);
-                }
-            }
-        }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
