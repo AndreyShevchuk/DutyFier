@@ -16,7 +16,17 @@ namespace DutyFier.Client.Wpf.Generate
     {
         private Person selctPerson;
 
-        private SelectedDatesCollection selectDates;
+        private SelectedDatesCollection selectedDates;
+
+        private CalendarUI CalendarUI;
+        public Dictionary<Person, List<DateTime>> ExcludedDates { get; set; }
+
+        public ChoseExcludedDatesAndHolydaysViewModel(GenerateContext generateContext)
+        {
+            ExcludedDates = generateContext.ExludeDates;
+            GetSelectDates = new RelayCommands<SelectedDatesCollection>(GetSelectedDatesColections, x => true);
+        }
+
 
         public RelayCommands<SelectedDatesCollection> GetSelectDates { get; set; }
         public Person SelcetPerson {
@@ -27,17 +37,16 @@ namespace DutyFier.Client.Wpf.Generate
             set
             {
                 selctPerson = value;
-                selectDates.Clear();
+                selectedDates.Clear();
 
                 foreach (var item in ExcludedDates[selctPerson])
                 {
-                    selectDates.Add(item);
+                    selectedDates.Add(item);
                 }
             }
         }
 
-        public SelectedDatesCollection SelectedDates { get { return selectDates; } set { selectDates = value; } }
-        public Dictionary<Person, List<DateTime>> ExcludedDates { get; set; }     
+  
         
         private RelayCommand comandAddExludesDares;
         public RelayCommand ComandAddExludesDares
@@ -48,7 +57,7 @@ namespace DutyFier.Client.Wpf.Generate
                 (comandAddExludesDares = new RelayCommand(obj =>
                 {
                     ExcludedDates[SelcetPerson].Clear();
-                    foreach (var item in SelectedDates)
+                    foreach (var item in selectedDates)
                     {
                         ExcludedDates[SelcetPerson].Add(item);
                     }
@@ -61,26 +70,29 @@ namespace DutyFier.Client.Wpf.Generate
         {
             get
             {
-                return comandSelectDates ??
-                (comandSelectDates = new RelayCommand(obj =>
-                {
-                    if (SelectedDates == null)   /// Ініціалізуємо колекцію з календарря щоб могли доступатись з ViewModel  ==> потрыбно xерез xaml ініцалізувати
-                    {
-                        SelectedDates = (SelectedDatesCollection)obj;
-                    }
-                    if (SelcetPerson == null) // помилка на дурака
-                    {
-                        MessageBox.Show("Вибери Людину");
-                        return;
-                    };
-                },
-                (obj) => true));
+                //return comandSelectDates ??
+                //(comandSelectDates = new RelayCommand(obj =>
+                //{
+                //    if (selectedDates == null)   /// Ініціалізуємо колекцію з календарря щоб могли доступатись з ViewModel  ==> потрыбно xерез xaml ініцалізувати
+                //    {
+                //        selectedDates = (SelectedDatesCollection)obj;
+                //    }
+                //    if (SelcetPerson == null) // помилка на дурака
+                //    {
+                //        MessageBox.Show("Вибери Людину");
+                //        return;
+                //    };
+                //},
+                //(obj) => true));
+                return null;
+            }
+            set { 
             }
         }
 
         private bool CheckActivityButton()
         {
-            if (SelectedDates == null)
+            if (selectedDates == null)
             {
                 return false;
             }
@@ -88,28 +100,24 @@ namespace DutyFier.Client.Wpf.Generate
             {
                 return false;
             }
-            foreach (var item in SelectedDates)
+            foreach (var item in selectedDates)
             {
                 if (!ExcludedDates[SelcetPerson].Contains(item))
                 {
                     return true;
                 }
             }
-            if (SelectedDates.Count != ExcludedDates[SelcetPerson].Count)
+            if (selectedDates.Count != ExcludedDates[SelcetPerson].Count)
             {
                 return true;
             }
             return false;
         }
-        public ChoseExcludedDatesAndHolydaysViewModel(GenerateContext generateContext)
+        
+        private void GetSelectedDatesColections(SelectedDatesCollection obj)
         {
-            ExcludedDates = generateContext.ExludeDates;
-            GetSelectDates = new RelayCommands<SelectedDatesCollection>(InitSelectDates, x => true);
-        }
-
-        private void InitSelectDates(SelectedDatesCollection obj)
-        {
-            SelectedDates = obj;
+            selectedDates = obj;
+            CalendarUI  = new CalendarUI(obj);
         }
     }
 }

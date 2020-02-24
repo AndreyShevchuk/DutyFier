@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DutyFier.Core.Models
 {
     public class CalendarUI
     {
-        public ObservableCollection<DateTime> DateTimes { get; set; }
+        public ObservableCollection<DateTime> DateTimes { get; }
         public CalendarUI(ObservableCollection<DateTime> dateTimes)
         {
             DateTimes = dateTimes;
@@ -15,14 +16,20 @@ namespace DutyFier.Core.Models
 
         public void UpdateClaendar(IEnumerable<DateTime> dateTimes)
         {
-            DateTimes.Clear();
-            
-            foreach (var date in dateTimes)
+            if (DateTimes != null)
             {
-                this.DateTimes.Add(date);
+                DateTimes.Clear();
+
+                foreach (var date in dateTimes)
+                {
+                    this.DateTimes.Add(date);
+                }
             }
         }
 
-
+        public List<DateTime> GetSelectedDates()
+        {
+            return DateTimes.ToList();
+        }
     }
 }

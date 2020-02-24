@@ -7,56 +7,44 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using DutyFier.Core.Models;
+using System.Linq;
 
 namespace DutyFier.Client.Wpf.Generate
 {
     class SelectDatesViewModel : INotifyPropertyChanged
     {
-        private GenerateContext generateContext;
         public Dictionary<Position, List<DateTime>> DatesPosition { get; set; }
 
         private SelectedDatesCollection selectDates;
 
-        private CalendarUI CalendarUI;
+        private Position selectPosition;
 
-        private RelayCommand commandAccept;
-
+        private CalendarUI calendarUI;
+        public RelayCommand ComadAcpet { get; set; }
         public RelayCommands<SelectedDatesCollection> GetSelectedDatesCollectionComand { get; set; }
 
         public SelectDatesViewModel(GenerateContext generateContext)
         {
-            this.generateContext = generateContext;
-            DatesPosition = this.generateContext.PositionsDate;
+            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => SelectPosition != null);
+            ComadAcpet = new RelayCommand(SetSelectedDatesForSelectedPosition, CheckActivityButton);
 
-            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true);
-            CalendarUI = new CalendarUI(selectDates);
+            DatesPosition = generateContext.PositionsDate;
+            SelectPosition = DatesPosition.Keys.First();
         }
 
         private void SelectDateColetion(SelectedDatesCollection obj)
         {
-            SelectDates = obj;
+            selectDates = obj;
+            calendarUI = new CalendarUI(selectDates);
         }
 
-        public RelayCommand ComadAcpet
+        private void SetSelectedDatesForSelectedPosition(Object obj)
         {
-            get
-            {
-                return commandAccept ??
-                (commandAccept = new RelayCommand(obj =>
-                {
-                    DatesPosition[selectPosition].Clear();
-                    foreach (var item in selectDates)
-                    {
-                        DatesPosition[selectPosition].Add(item);
-                    }
-                },
-                (obj) => CheckActivityButton()));
-            }
+            DatesPosition[selectPosition].Clear();
+            DatesPosition[selectPosition] = calendarUI.GetSelectedDates();
         }
 
-        
-
-        private bool CheckActivityButton()
+        private bool CheckActivityButton(Object obj)
         {
             if (selectDates == null)
             {
@@ -79,24 +67,6 @@ namespace DutyFier.Client.Wpf.Generate
             }
             return false;
         }
-
-        private RelayCommand comandSelectDates;
-        public RelayCommand ComandSelectDates
-        {
-            get
-            {
-                return comandSelectDates ??
-                (comandSelectDates = new RelayCommand(obj =>
-                {
-                    if (selectPosition == null) // помилка на дурака
-                    {
-                        MessageBox.Show("Вибери тип наряду");
-                        return;
-                    };
-                },
-                (obj) => true));
-            }
-        }
         public SelectedDatesCollection SelectDates
         {
             get
@@ -109,8 +79,6 @@ namespace DutyFier.Client.Wpf.Generate
                 OnPropertyChanged("SelectDates");
             }
         }
-
-        private Position selectPosition;
         public Position SelectPosition
         {
             get
@@ -120,14 +88,13 @@ namespace DutyFier.Client.Wpf.Generate
             set
             {
                 selectPosition = value;
-                selectDates.Clear();
-                foreach (var item in DatesPosition[selectPosition])
+                if (calendarUI != null)
                 {
-                    selectDates.Add(item);
+                    calendarUI.UpdateClaendar(DatesPosition[selectPosition]);
                 }
             }
         }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
