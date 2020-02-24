@@ -45,11 +45,12 @@ namespace DutyFier.Client.Wpf.Settings
                 
             }
         }
-
         public List<Position> Allpositions { get => allpositions; set => allpositions = value; }
         public RelayCommands AddPositionCommand { get; set; }
         public RelayCommands RemovePositionCommand { get; set; }
-        public RelayCommands AddExecutor { get; set; }
+        public RelayCommands AddExecutorCommand { get; set; }
+        public RelayCommands AddPositionCommnad { get; set; }
+        public RelayCommands AddTypeCommand { get; set; }
         public SettingsViewModel()
         {
             DutyFierContext = new DutyFierContext();
@@ -58,11 +59,31 @@ namespace DutyFier.Client.Wpf.Settings
             allpositions = DutyFierContext.Positions.ToList();
             AddPositionCommand = new RelayCommands(addPositionsCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
-            AddExecutor = new RelayCommands(addExecutor, Can);
+            AddExecutorCommand = new RelayCommands(addExecutorCommand, Can);
+            AddPositionCommand = new RelayCommands(addPositionCommand, Can);
+            AddTypeCommand = new RelayCommands(addTypeCommand, Can);
 
             SettingsModel = new SettingsModel(new PersonRepository ((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()),new PositionRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()));
         }
-        private void addExecutor()
+        private void addTypeCommand()
+        {
+            AddTypeView addType = new AddTypeView();
+            if (addType.ShowDialog() == true)
+            {
+
+            }
+        }
+        private void addPositionCommand()
+        {
+            AddPositionView addPosition = new AddPositionView();
+            if (addPosition.ShowDialog() == true)
+            {
+                Allpositions = DutyFierContext.Positions.ToList();
+                OnPropertyChanged("Allpositions");
+                addPosition.Close();
+            }
+        }
+        private void addExecutorCommand()
         {
             AddPersonView apv = new AddPersonView();
             if (apv.ShowDialog() == true)
