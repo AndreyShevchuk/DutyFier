@@ -22,11 +22,7 @@ namespace DutyFier.Client.Wpf.Settings
 
         private void AddCadetButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            AddPersonView apv = new AddPersonView();
-            if (apv.ShowDialog()==true)
-            {
-
-            }
+           
         }
 
         private void AddPositionButton_Click(object sender, System.Windows.RoutedEventArgs e)

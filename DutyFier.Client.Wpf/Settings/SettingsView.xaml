@@ -48,7 +48,7 @@
                                 <RowDefinition Height="8.5*"/>
                                 <RowDefinition Height="1.5*"/>
                             </Grid.RowDefinitions>
-                            <DataGrid CanUserAddRows="False" Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding People}"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid" Grid.ColumnSpan="2"   >
+                            <DataGrid CanUserAddRows="False" Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding People, UpdateSourceTrigger=PropertyChanged }"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid" Grid.ColumnSpan="2"   >
                                 <DataGrid.Columns >
                                     <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Path=Id}"  />
                                     <DataGridTextColumn IsReadOnly="True"  Header="Name" Binding="{Binding Path=FirstName}"   />
@@ -56,9 +56,9 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel Grid.Row="1" Margin="144,0,144,19.6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.ColumnSpan="2">
-                                <Button  x:Name="AddCadetButton" Click="AddCadetButton_Click" Content="Add executor" Width="150" Margin="0 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <Button x:Name="EditCadetButton" Content="Edit executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <Button x:Name="RemoveCadetButton" Content="Remove executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button Command="{Binding AddExecutor}"  x:Name="AddCadetButton"  Content="Add executor" Width="150" Margin="0 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button IsEnabled="False" x:Name="EditCadetButton" Content="Edit executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button IsEnabled="False" x:Name="RemoveCadetButton" Content="Remove executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -86,7 +86,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                            <StackPanel Margin="20" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal" >
                                     <ComboBox Background="White" Opacity="1"  Margin="0 0  30 0"  ItemsSource="{Binding Allpositions}" SelectedValue="{Binding SelectedPosition}"    FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
                                         <ComboBox.ItemTemplate>
@@ -110,10 +110,7 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                             </StackPanel>
-                            <StackPanel Margin="0 0 50 0" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
-                                <Button HorizontalAlignment="Left" Width="100" Margin="20 0 0 20" Content="Save" VerticalAlignment="Bottom">
-                                </Button>
-                            </StackPanel>
+                            
 
                         </Grid>
 
