@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using DutyFier.Core.Models;
 
 namespace DutyFier.Client.Wpf.Generate
 {
@@ -15,6 +16,8 @@ namespace DutyFier.Client.Wpf.Generate
         public Dictionary<Position, List<DateTime>> DatesPosition { get; set; }
 
         private SelectedDatesCollection selectDates;
+
+        private CalendarUI CalendarUI;
 
         private RelayCommand commandAccept;
 
@@ -26,6 +29,7 @@ namespace DutyFier.Client.Wpf.Generate
             DatesPosition = this.generateContext.PositionsDate;
 
             GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true);
+            CalendarUI = new CalendarUI(selectDates);
         }
 
         private void SelectDateColetion(SelectedDatesCollection obj)
@@ -49,6 +53,8 @@ namespace DutyFier.Client.Wpf.Generate
                 (obj) => CheckActivityButton()));
             }
         }
+
+        
 
         private bool CheckActivityButton()
         {
