@@ -23,6 +23,7 @@ namespace DutyFier.Client.Wpf.Feedback
         public FeedbackView()
         {
             InitializeComponent();
+            DataContext = new FeedbackViewModel();
         }
     }
 }

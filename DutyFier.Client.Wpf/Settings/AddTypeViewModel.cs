@@ -10,6 +10,8 @@ using Unity;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using DutyFier.Core.Repository;
+using System.Data.Entity;
 
 namespace DutyFier.Client.Wpf.Settings
 {
@@ -28,7 +30,7 @@ namespace DutyFier.Client.Wpf.Settings
         {
             _dutyType = new DutyType();
             AddCommand = new RelayCommands(OnAdd, ()=>true);
-            AddTypeModel = new AdTypeModel(MainWindowViewModel.Container.Resolve<IRepository<DutyType>>());
+            AddTypeModel = new AdTypeModel( new DutyTypeRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()));
         }
         public string Name { get; set; }
         public RelayCommands AddCommand { get; set; }

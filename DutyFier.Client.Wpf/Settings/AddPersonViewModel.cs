@@ -9,6 +9,8 @@ using DutyFier.Core.Models;
 using Unity;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using DutyFier.Core.Repository;
+using System.Data.Entity;
 
 namespace DutyFier.Client.Wpf.Settings
 {
@@ -27,7 +29,7 @@ namespace DutyFier.Client.Wpf.Settings
         {
             _person = new Person();
             AddCommand = new RelayCommand(OnAdd);
-            AddPersonModel = new AddPersonModel(MainWindowViewModel.Container.Resolve<IRepository<Person>>());
+            AddPersonModel = new AddPersonModel(new PersonRepository((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()));
         }
         public RelayCommand AddCommand { get; set; }
         public void OnAdd(object obj)

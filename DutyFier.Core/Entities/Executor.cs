@@ -9,6 +9,7 @@
         public virtual Person Person { get; set; }
         public int DutyId { get; set; }
         public virtual Duty Duty { get; set; }
+        //TODO find where use
         public double Score { get; set; }
 
     }

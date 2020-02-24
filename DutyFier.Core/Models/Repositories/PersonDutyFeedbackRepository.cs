@@ -17,6 +17,11 @@ namespace DutyFier.Core.Repository
             context = new DutyFierContext();
         }
 
+        public PersonDutyFeedbackRepository(DutyFierContext context)
+        {
+            this.context = context;
+        }
+
         public void AddRange(ICollection<PersonDutyFeedback> values)
         {
             context.PersonDutyFeedbacks.AddRange(values);

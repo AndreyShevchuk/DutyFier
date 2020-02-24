@@ -5,6 +5,7 @@ using DutyFier.Core.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -29,8 +30,8 @@ namespace DutyFier.Client.Wpf.Settings
         {
             _position = new Position();
             AddCommand = new RelayCommands(OnAdd,()=>true);
-            DutyTypes = MainWindowViewModel.Container.Resolve<IRepository<DutyType>>().GetAll().ToList();
-            AddPositionModel = new AddPositionModel(MainWindowViewModel.Container.Resolve<IRepository<Position>>());
+            DutyTypes = new DutyTypeRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()).GetAll().ToList();
+            AddPositionModel = new AddPositionModel(new PositionRepository((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()));
         }
         public List<DutyType> DutyTypes { get => _dutyTypes; set => _dutyTypes = value; }
         public DutyType SelectedDutyType { get; set; }

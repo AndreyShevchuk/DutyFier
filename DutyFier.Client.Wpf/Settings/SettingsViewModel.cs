@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -59,7 +60,7 @@ namespace DutyFier.Client.Wpf.Settings
             AddPositionCommand = new RelayCommands(addPositionsCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
 
-            SettingsModel = new SettingsModel(MainWindowViewModel.Container.Resolve<IRepository<Person>>(), MainWindowViewModel.Container.Resolve<IRepository<Position>>());
+            SettingsModel = new SettingsModel(new PersonRepository ((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()),new PositionRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()));
         }
         private void removePositionCommand()
         {

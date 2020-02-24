@@ -16,6 +16,11 @@ namespace DutyFier.Core.Repository
             context = new DutyFierContext();
         }
 
+        public ExecuterRepository(DutyFierContext context)
+        {
+            this.context = context;
+        }
+
         public void AddRange(ICollection<Executor> values)
         {
             context.Executors.AddRange(values);

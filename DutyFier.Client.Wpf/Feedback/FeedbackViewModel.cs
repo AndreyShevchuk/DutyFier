@@ -1,34 +1,34 @@
 ﻿using DutyFier.Core.Entities;
 using DutyFier.Core.Interfaces;
+using DutyFier.Core.Models;
 using DutyFier.Core.Repository;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Unity;
 
 namespace DutyFier.Client.Wpf.Feedback
 {
-    class FeedbackViewModel
+    class FeedbackViewModel : INotifyPropertyChanged
     {
-        public List<PersonDutyFeedback> feedbacks;
-        private List<Duty> UnapprovedDuties { get; set; }
+        private IRepository<Duty> DutyRepository { get; set; }
+        public DutyModel[] DutyModels
+        {
+            get => DutyModel.GetDutiesWitchHasNoFeedbacks(DutyRepository);
+        }
         public FeedbackViewModel()
         {
-            feedbacks = MainWindowViewModel.Container.Resolve<IRepository<PersonDutyFeedback>>().GetAll().ToList();
-            UnapprovedDuties = MainWindowViewModel.Container.Resolve<IRepository<Duty>>().GetAll().Where(a=> !a.IsApproved).ToList();
+            DutyRepository = new DutyRepository((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>());
         }
-        public List<PersonDutyFeedback> Feedbacks
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
-            get
-            {
-                return feedbacks;
-            }
-            set
-            {
-                feedbacks = value;
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

@@ -16,6 +16,11 @@ namespace DutyFier.Core.Repository
             context = new DutyFierContext();
         }
 
+        public DutyTypeRepository(DutyFierContext context)
+        {
+            this.context = context;
+        }
+
         public void AddRange(ICollection<DutyType> values)
         {
             context.DutyTypes.AddRange(values);

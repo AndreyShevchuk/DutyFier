@@ -16,6 +16,11 @@ namespace DutyFier.Core.Repository
             context = new DutyFierContext();
         }
 
+        public DaysOfWeekWeightRepository(DutyFierContext context)
+        {
+            this.context = context;
+        }
+
         public void AddRange(ICollection<DaysOfWeekWeight> values)
         {
             context.DaysOfWeekWeights.AddRange(values);

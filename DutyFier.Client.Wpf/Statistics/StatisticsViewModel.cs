@@ -5,6 +5,7 @@ using DutyFier.Core.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -18,7 +19,7 @@ namespace DutyFier.Client.Wpf.Statistics
 
         public StatisticsViewModel()
         {
-            _statisticModel = new StatisticModel(MainWindowViewModel.Container.Resolve<IRepository<Person>>(), MainWindowViewModel.Container.Resolve<IRepository<PersonDutyFeedback>>());
+            _statisticModel = new StatisticModel( new PersonRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()), new PersonDutyFeedbackRepository( (DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
