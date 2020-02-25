@@ -13,15 +13,15 @@ namespace DutyFier.Core.Models
         public DateTime Date { get; set; }
         public List<Position> Positions { get; set; }
         public List<Person> Persons { get; set; }
-        public List<double> Scrores { get; set; }
+        public double PrePreliminaryAssessment { get; set; }
 
-        public DutyModel(int dutyID, DateTime date, List<Position> positions, List<Person> persons, List<double> scrores)
+        public DutyModel(int dutyID, DateTime date, List<Position> positions, List<Person> persons, double prePreliminaryAssessment)
         {
             DutyID = dutyID;
             Date = date;
             Positions = positions;
             Persons = persons;
-            Scrores = scrores;
+            PrePreliminaryAssessment = prePreliminaryAssessment;
         }
 
         public static DutyModel[] GetDutiesWitchHasNoFeedbacks(Interfaces.IRepository<Duty> repository)
@@ -36,7 +36,7 @@ namespace DutyFier.Core.Models
                         dutysList[i].Date, 
                         dutysList[i].Executors.Select(a => a.Position).ToList(),
                         dutysList[i].Executors.Select(a => a.Person).ToList(), 
-                        dutysList[i].Executors.Select(a => a.Score).ToList())
+                        dutysList[i].PreliminaryAssessmentList[i])
                     );
             }
             return dutyModelList.ToArray();
