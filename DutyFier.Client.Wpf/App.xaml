@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:DutyFier.Client.Wpf"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.light.xaml" />
@@ -13,5 +15,7 @@
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
+        
     </Application.Resources>
+    
 </Application>
