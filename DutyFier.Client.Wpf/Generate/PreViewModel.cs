@@ -15,6 +15,9 @@ namespace DutyFier.Client.Wpf.Generate
     {
         private DutyRequest selectDutyReqest;
         public ObservableCollection<DutyRequest> DutyRequests { get; set; }
+        public RelayCommands<DutyRequest> PlusDutyComand { get; set; }
+        public RelayCommands<DutyRequest> MinusDutyComand { get; set; }
+        public RelayCommands GenerateDuty { get; set; }
         public DutyRequest SelectDutyReqest {
             get
             {
@@ -26,16 +29,13 @@ namespace DutyFier.Client.Wpf.Generate
                 OnPropertyChanged("SelectDutyReqest");
             }
         }
-
         public PreViewModel(GenerateContext context)
         {
             DutyRequests = context.DutyRequests;
+            GenerateDuty = new RelayCommands(context.GeneratorRun, () => true);
             PlusDutyComand = new RelayCommands<DutyRequest>(PlusDuty, x => true);
-            MinusDutyComand = new RelayCommands<DutyRequest>(MinusDuty, ActitvityMinusButton);
+            MinusDutyComand = new RelayCommands<DutyRequest>(MinusDuty, x => true);
         }
-
-        public RelayCommands<DutyRequest> PlusDutyComand { get; set; }
-        public RelayCommands<DutyRequest> MinusDutyComand { get; set; }
 
         public void PlusDuty(DutyRequest obj)
         {
@@ -46,25 +46,23 @@ namespace DutyFier.Client.Wpf.Generate
         }
         public void MinusDuty(DutyRequest obj)
         {
-            SelectDutyReqest.Positions.RemoveAt(SelectDutyReqest.Positions.Count - 1); // Remove
-            var index = DutyRequests.IndexOf(SelectDutyReqest);
-            DutyRequests.Insert(index, SelectDutyReqest);
-            DutyRequests.RemoveAt(index + 1);
+            if (SubtractionIsPossible())
+            {
+                SelectDutyReqest.Positions.RemoveAt(SelectDutyReqest.Positions.Count - 1); // Remove
+                var index = DutyRequests.IndexOf(SelectDutyReqest);
+                DutyRequests.Insert(index, SelectDutyReqest);
+                DutyRequests.RemoveAt(index + 1);
+            }
         }
-        public bool ActitvityMinusButton(DutyRequest obj)
+
+        private bool SubtractionIsPossible()
         {
-            if (SelectDutyReqest == null)
+            if (SelectDutyReqest.Positions.Count > 1)
             {
                 return true;
             }
-            if (SelectDutyReqest.Positions.Count <= 1)
-            {
-                return false;
-            }
-            return true;
+            return false;
         }
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

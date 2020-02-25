@@ -39,10 +39,9 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <!--<DataGridCheckBoxColumn Binding="{Binding Path = SeniorIncluded}" Header="Senior included" Width="*" />-->
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content= "GenerateDuty" Margin="0,0,10,10" Height="32" Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="128"/>
+        <Button Command="{Binding GenerateDuty}" Content= "GenerateDuty" Margin="0,0,10,10" Height="32" Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="128"/>
     </Grid>
 
 </UserControl>

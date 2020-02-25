@@ -10,17 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DutyFier.Client.Wpf.Generate
+namespace DutyFier.Client.Wpf.Feedback
 {
-    public partial class ChoseExcludedDatesAndHolydaysView : UserControl
+    /// <summary>
+    /// Логика взаимодействия для AcceptFeedbackView.xaml
+    /// </summary>
+    public partial class AcceptFeedbackView : Window
     {
-        public ChoseExcludedDatesAndHolydaysView(State.GenerateContext context)
+        public AcceptFeedbackView()
         {
             InitializeComponent();
-            DataContext = new ChoseExcludedDatesAndHolydaysViewModel(context);
         }
     }
 }

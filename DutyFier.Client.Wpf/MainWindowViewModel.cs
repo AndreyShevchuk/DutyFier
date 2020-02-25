@@ -136,7 +136,6 @@ namespace DutyFier.Client.Wpf
             Container = new UnityContainer();
             
             Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
-            
         }
 
         public void powerOffCommand()
