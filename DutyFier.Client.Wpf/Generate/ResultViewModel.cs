@@ -13,33 +13,24 @@ namespace DutyFier.Client.Wpf.Generate
     {
         public ObservableCollection<Duty> Dutys { get; set; }
         public Duty SelectedDuty { get; set; }
-        
-        private RelayCommand comandChangeExecutors;
         public GenerateContext context { get; set; }
+        public RelayCommands ComandChangeExecutors { get; set; }
 
 
         public ResultViewModel(GenerateContext context)
         {
             this.context = context;
             Dutys = context.duties;
+            ComandChangeExecutors = new RelayCommands(ShowDialogWindowChangeDuty, () => true);
         }
 
-
-        public RelayCommand ComandChangeExecutors
+        private void ShowDialogWindowChangeDuty()
         {
-            get
+            EditDutyView apv = new EditDutyView();
+            apv.DataContext = new EditDutyViewModel(new Duty(SelectedDuty));
+            if (apv.ShowDialog() == true)
             {
-                return comandChangeExecutors ??
-                (comandChangeExecutors = new RelayCommand(obj =>
-                {
-                    EditDutyView apv = new EditDutyView();
-                    apv.DataContext = new EditDutyViewModel(new Duty(SelectedDuty));
-                    if (apv.ShowDialog() == true)
-                    {
 
-                    }
-                },
-                (obj) => true)); // Можна буде написати функцію яка буде перевіряти в загалі є на кого поміняти чи ні;
             }
         }
     }
