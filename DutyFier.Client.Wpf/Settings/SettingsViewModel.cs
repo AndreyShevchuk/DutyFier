@@ -63,7 +63,7 @@ namespace DutyFier.Client.Wpf.Settings
             AddPositionsCommand = new RelayCommands(addPositionsCommand, Can);
             AddTypeCommand = new RelayCommands(addTypeCommand, Can);
 
-            SettingsModel = new SettingsModel(new PersonRepository ((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()),new PositionRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()));
+            SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()),new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
         }
         private void addTypeCommand()
         {
@@ -100,8 +100,8 @@ namespace DutyFier.Client.Wpf.Settings
             positions.ForEach(a => a.Persons.Remove(SelectedPerson));
             OnPropertyChanged("Positions");
             DutyFierContext.SaveChanges();
-            //SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
-            //SettingsModel.UpdatePositionDependencyToPerson(positions); 
+            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
+            SettingsModel.UpdatePositionDependencyToPerson(positions);
         }
         private void addPositionCommand()
         {
@@ -111,8 +111,8 @@ namespace DutyFier.Client.Wpf.Settings
             positions = SelectedPerson.Positions.ToList();
             positions.ForEach(a => a.Persons.Add(SelectedPerson));
             OnPropertyChanged("Positions");
-            //SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
-            //SettingsModel.UpdatePositionDependencyToPerson(positions);
+            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
+            SettingsModel.UpdatePositionDependencyToPerson(positions);
 
         }
         public bool Can()

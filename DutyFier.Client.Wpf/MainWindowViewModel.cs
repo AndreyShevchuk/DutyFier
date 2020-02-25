@@ -135,37 +135,12 @@ namespace DutyFier.Client.Wpf
             SeedData.StartData();
             Container = new UnityContainer();
             
-            //TODO find if there create a same object
-            Container.RegisterType<DbContext, DutyFierContext>(new ContainerControlledLifetimeManager());
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<DbContext>(new TransparentProxyInterceptor());
-            //Container.RegisterType<IRepository<DaysOfWeekWeight>, DaysOfWeekWeightRepository>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<IRepository<Duty>, DutyRepository>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<IRepository<DutyType>, DutyTypeRepository>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<IRepository<PersonDutyFeedback>, PersonDutyFeedbackRepository>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<IRepository<Position>, PositionRepository>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<IRepository<Person>, PersonRepository>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<IRepository<Executor>, ExecuterRepository>(new ContainerControlledLifetimeManager());
-            //Container.AddNewExtension<Interception>();
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<IRepository<DaysOfWeekWeight>>(new TransparentProxyInterceptor());
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<IRepository<DutyType>>(new TransparentProxyInterceptor());
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<IRepository<PersonDutyFeedback>>(new TransparentProxyInterceptor());
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<IRepository<Position>>(new TransparentProxyInterceptor());
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<IRepository<Person>>(new TransparentProxyInterceptor());
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<IRepository<Executor>>(new TransparentProxyInterceptor());
-            //Container.Configure<Interception>()
-            //    .SetInterceptorFor<IRepository<Duty>>(new TransparentProxyInterceptor());
-
+            Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
         }
 
         public void powerOffCommand()
         {
+            Container.Resolve<DutyFierContext>().Dispose();
             Application.Current.Shutdown();
         }
         public void darkModeCommand()

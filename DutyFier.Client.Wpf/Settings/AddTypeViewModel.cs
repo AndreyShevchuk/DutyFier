@@ -30,7 +30,7 @@ namespace DutyFier.Client.Wpf.Settings
         {
             _dutyType = new DutyType();
             AddCommand = new RelayCommands(OnAdd, ()=>true);
-            AddTypeModel = new AdTypeModel( new DutyTypeRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()));
+            AddTypeModel = new AdTypeModel( new DutyTypeRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
         }
         public string Name { get; set; }
         public RelayCommands AddCommand { get; set; }

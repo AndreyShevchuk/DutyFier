@@ -4,53 +4,72 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Controls;
+using DutyFier.Core.Models;
+using System.Linq;
 
 namespace DutyFier.Client.Wpf.Generate
 {
     class SelectDatesViewModel : INotifyPropertyChanged
     {
-        private GenerateContext generateContext;
         public Dictionary<Position, List<DateTime>> DatesPosition { get; set; }
 
         private SelectedDatesCollection selectDates;
 
-        private RelayCommand commandAccept;
+        private Position selectPosition;
 
+        private CalendarUI calendarUI;
+        public RelayCommand ComadAcpet { get; set; }
         public RelayCommands<SelectedDatesCollection> GetSelectedDatesCollectionComand { get; set; }
 
         public SelectDatesViewModel(GenerateContext generateContext)
         {
-            this.generateContext = generateContext;
-            DatesPosition = this.generateContext.PositionsDate;
+            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true) ;
+            ComadAcpet = new RelayCommand(SetSelectedDatesForSelectedPosition, CheckActivityButton);
 
-            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true);
+            DatesPosition = generateContext.PositionsDate;
+            SelectPosition = DatesPosition.Keys.First();
         }
-
-        private void SelectDateColetion(SelectedDatesCollection obj)
-        {
-            SelectDates = obj;
-        }
-
-        public RelayCommand ComadAcpet
+        public SelectedDatesCollection SelectDates
         {
             get
             {
-                return commandAccept ??
-                (commandAccept = new RelayCommand(obj =>
-                {
-                    DatesPosition[selectPosition].Clear();
-                    foreach (var item in selectDates)
-                    {
-                        DatesPosition[selectPosition].Add(item);
-                    }
-                },
-                (obj) => CheckActivityButton()));
+                return selectDates;
+            }
+            set
+            {
+                selectDates = value;
+                OnPropertyChanged("SelectDates");
             }
         }
+        public Position SelectPosition
+        {
+            get
+            {
+                return selectPosition;
+            }
+            set
+            {
+                selectPosition = value;
+                if (calendarUI != null)
+                {
+                    calendarUI.UpdateClaendar(DatesPosition[selectPosition]);
+                }
+            }
+        }
+        private void SelectDateColetion(SelectedDatesCollection obj)
+        {
+            selectDates = obj;
+            calendarUI = new CalendarUI(selectDates);
+        }
 
-        private bool CheckActivityButton()
+        private void SetSelectedDatesForSelectedPosition(Object obj)
+        {
+            DatesPosition[selectPosition].Clear();
+            DatesPosition[selectPosition] = calendarUI.GetSelectedDates();
+        }
+
+        private bool CheckActivityButton(Object obj)
         {
             if (selectDates == null)
             {
@@ -72,54 +91,6 @@ namespace DutyFier.Client.Wpf.Generate
                 return true;
             }
             return false;
-        }
-
-        private RelayCommand comandSelectDates;
-        public RelayCommand ComandSelectDates
-        {
-            get
-            {
-                return comandSelectDates ??
-                (comandSelectDates = new RelayCommand(obj =>
-                {
-                    if (selectPosition == null) // помилка на дурака
-                    {
-                        MessageBox.Show("Вибери тип наряду");
-                        return;
-                    };
-                },
-                (obj) => true));
-            }
-        }
-        public SelectedDatesCollection SelectDates
-        {
-            get
-            {
-                return selectDates;
-            }
-            set
-            {
-                selectDates = value;
-                OnPropertyChanged("SelectDates");
-            }
-        }
-
-        private Position selectPosition;
-        public Position SelectPosition
-        {
-            get
-            {
-                return selectPosition;
-            }
-            set
-            {
-                selectPosition = value;
-                selectDates.Clear();
-                foreach (var item in DatesPosition[selectPosition])
-                {
-                    selectDates.Add(item);
-                }
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
