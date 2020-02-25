@@ -46,12 +46,24 @@ namespace DutyFier.Client.Wpf.Generate
         }
         public void MinusDuty(DutyRequest obj)
         {
-            SelectDutyReqest.Positions.RemoveAt(SelectDutyReqest.Positions.Count - 1); // Remove
-            var index = DutyRequests.IndexOf(SelectDutyReqest);
-            DutyRequests.Insert(index, SelectDutyReqest);
-            DutyRequests.RemoveAt(index + 1);
+            if (SubtractionIsPossible())
+            {
+                SelectDutyReqest.Positions.RemoveAt(SelectDutyReqest.Positions.Count - 1); // Remove
+                var index = DutyRequests.IndexOf(SelectDutyReqest);
+                DutyRequests.Insert(index, SelectDutyReqest);
+                DutyRequests.RemoveAt(index + 1);
+            }
         }
-        
+
+        private bool SubtractionIsPossible()
+        {
+            if (SelectDutyReqest.Positions.Count > 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
