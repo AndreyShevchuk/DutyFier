@@ -16,7 +16,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <Calendar Margin="0 10 0 0"  VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="Calendar" SelectionMode="MultipleRange" Height="380" Width="300" >
+            <Calendar Margin="0 10 0 0"  VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="Calendar" SelectionMode="MultipleRange"  >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDatesChanged">
                         <i:InvokeCommandAction 
@@ -32,13 +32,6 @@
 
 
                 </i:Interaction.Triggers>
-
-                <Calendar.CalendarDayButtonStyle>
-                    <Style TargetType="Button">
-                        <Setter Property="Margin" Value="0 7 10 0"/>
-                        <Setter Property="FontSize" Value="20"/>
-                    </Style>
-                </Calendar.CalendarDayButtonStyle>
             </Calendar>
 
         </Grid>
