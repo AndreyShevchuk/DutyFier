@@ -53,7 +53,7 @@ namespace DutyFier.Client.Wpf.Settings
         public RelayCommands AddTypeCommand { get; set; }
         public SettingsViewModel()
         {
-            DutyFierContext = new DutyFierContext();
+            DutyFierContext = MainWindowViewModel.Container.Resolve<DutyFierContext>();
             this.PersonReposytory = new PersonRepository();
             people = DutyFierContext.Persons.ToList();
             allpositions = DutyFierContext.Positions.ToList();
@@ -99,7 +99,6 @@ namespace DutyFier.Client.Wpf.Settings
             positions = SelectedPerson.Positions.ToList();
             positions.ForEach(a => a.Persons.Remove(SelectedPerson));
             OnPropertyChanged("Positions");
-            DutyFierContext.SaveChanges();
             SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
             SettingsModel.UpdatePositionDependencyToPerson(positions);
         }
