@@ -49,7 +49,7 @@ namespace DutyFier.Client.Wpf.Settings
         public RelayCommands AddPositionCommand { get; set; }
         public RelayCommands RemovePositionCommand { get; set; }
         public RelayCommands AddExecutorCommand { get; set; }
-        public RelayCommands AddPositionCommnad { get; set; }
+        public RelayCommands AddPositionsCommand { get; set; }
         public RelayCommands AddTypeCommand { get; set; }
         public SettingsViewModel()
         {
@@ -57,10 +57,10 @@ namespace DutyFier.Client.Wpf.Settings
             this.PersonReposytory = new PersonRepository();
             people = DutyFierContext.Persons.ToList();
             allpositions = DutyFierContext.Positions.ToList();
-            AddPositionCommand = new RelayCommands(addPositionsCommand, Can);
+            AddPositionCommand = new RelayCommands(addPositionCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
             AddExecutorCommand = new RelayCommands(addExecutorCommand, Can);
-            AddPositionCommand = new RelayCommands(addPositionCommand, Can);
+            AddPositionsCommand = new RelayCommands(addPositionsCommand, Can);
             AddTypeCommand = new RelayCommands(addTypeCommand, Can);
 
             SettingsModel = new SettingsModel(new PersonRepository ((DutyFierContext)MainWindowViewModel.Container.Resolve<DbContext>()),new PositionRepository((DutyFierContext) MainWindowViewModel.Container.Resolve<DbContext>()));
@@ -73,7 +73,7 @@ namespace DutyFier.Client.Wpf.Settings
 
             }
         }
-        private void addPositionCommand()
+        private void addPositionsCommand()
         {
             AddPositionView addPosition = new AddPositionView();
             if (addPosition.ShowDialog() == true)
@@ -103,7 +103,7 @@ namespace DutyFier.Client.Wpf.Settings
             //SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
             //SettingsModel.UpdatePositionDependencyToPerson(positions); 
         }
-        private void addPositionsCommand()
+        private void addPositionCommand()
         {
             //TODO fix logic to remove from DB
             SelectedPerson.Positions.Add(SelectedPosition);
