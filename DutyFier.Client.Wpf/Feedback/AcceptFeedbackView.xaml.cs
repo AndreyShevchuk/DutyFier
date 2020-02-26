@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DutyFier.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,21 @@ namespace DutyFier.Client.Wpf.Feedback
     /// </summary>
     public partial class AcceptFeedbackView : Window
     {
-        public AcceptFeedbackView()
+        FeedbackViewModel.AcceptFeedbackViewClosingTrigger reedFeedbackContext;
+        public FeedbacksContext FeedbacksContext { get; set; }
+        public AcceptFeedbackView(Core.Entities.Duty duty, 
+            FeedbacksContext feedbacksContext, 
+            FeedbackViewModel.AcceptFeedbackViewClosingTrigger reedFeedbackContext)
         {
             InitializeComponent();
+            FeedbacksContext = FeedbacksContext;
+            DataContext = new AcceptFeedbackViewModel(duty, feedbacksContext);
+            this.reedFeedbackContext = reedFeedbackContext;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            reedFeedbackContext?.Invoke();
         }
     }
 }

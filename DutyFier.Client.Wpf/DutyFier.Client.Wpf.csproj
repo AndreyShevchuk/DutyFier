@@ -108,6 +108,7 @@
     <Compile Include="Feedback\AcceptFeedbackView.xaml.cs">
       <DependentUpon>AcceptFeedbackView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Feedback\AcceptFeedbackViewModel.cs" />
     <Compile Include="Generate\ChoseExcludedDates.xaml.cs">
       <DependentUpon>ChoseExcludedDates.xaml</DependentUpon>
     </Compile>

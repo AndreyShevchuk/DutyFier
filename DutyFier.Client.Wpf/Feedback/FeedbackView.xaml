@@ -10,12 +10,12 @@
     <Grid>
         <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.15}">
             <Grid>
-                <DataGrid ItemsSource="{Binding DutyModels}"   AutoGenerateColumns="False"  ColumnWidth="*" x:Name="DataGridFeedBack" FontSize="20">
-                    <DataGrid.Columns>
+                <DataGrid ItemsSource="{Binding DutyModels}" SelectedItem="{Binding SelectedDuty}"  AutoGenerateColumns="False"  ColumnWidth="*" x:Name="DataGridFeedBack" FontSize="20">
+                    <DataGrid.Columns >
                         <DataGridTextColumn Width="0"/>
                         <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Date" Binding="{Binding Path = Date}"/>
                         <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Type" Binding="{Binding Path = Positions}"/>
-                        <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Executors" Binding="{Binding Path=Persons}"/>
+                        <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Executors" Binding="{Binding Path = Persons}"/>
                         <DataGridTemplateColumn Header="Grade" Width="*" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -26,7 +26,7 @@
                         <DataGridTemplateColumn Header="Accept" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button HorizontalAlignment="Center" VerticalAlignment="Center" Name="btnAccept"   Width="100" Content="Accept" Height="50" />
+                                    <Button Command="{Binding CreateAcceptFeedbackViewCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Name="btnAccept"   Width="100" Content="Accept" Height="50" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

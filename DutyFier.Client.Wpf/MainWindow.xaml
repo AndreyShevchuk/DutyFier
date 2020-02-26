@@ -183,7 +183,7 @@
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="FeedbackOutline" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="FeedBack" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
-                        <TextBlock Margin="20 0 0 0" FontSize="24" Text="{Binding Path=Count, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                        <TextBlock Margin="20 0 0 0" FontSize="24" Text="{Binding Path=FeedbacksCount, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Width="8"/>
                     </StackPanel>
                 </ListViewItem>
             </ListView>

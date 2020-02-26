@@ -20,10 +20,12 @@ namespace DutyFier.Client.Wpf.Feedback
     /// </summary>
     public partial class FeedbackView : UserControl
     {
-        public FeedbackView()
+        public delegate void FeedbackChangeCountTrigger();
+        public FeedbackView(FeedbackChangeCountTrigger changeCountTrigger )
         {
             InitializeComponent();
-            DataContext = new FeedbackViewModel();
+            DataContext = new FeedbackViewModel(changeCountTrigger);
+
         }
     }
 }

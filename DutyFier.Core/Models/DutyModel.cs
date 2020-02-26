@@ -9,7 +9,7 @@ namespace DutyFier.Core.Models
 {
     public class DutyModel
     {
-        private int DutyID { get; set; }
+        public int DutyID { get; set; }
         public DateTime Date { get; set; }
         public List<Position> Positions { get; set; }
         public List<Person> Persons { get; set; }
