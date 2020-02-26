@@ -21,15 +21,28 @@ namespace DutyFier.Client.Wpf.Settings
         public PersonRepository PersonReposytory { get; }
 
         private DutyFierContext DutyFierContext;
-        List<Person> people;
+        ObservableCollection<Person> people;
         private List<Position> allpositions;
         private Person selectedPerson;
-        private List<Position> positions;
+        private ObservableCollection<Position> personPositions;
+        private Person selectedExecutor;
         public SettingsModel SettingsModel { get; set; }
-        public List<Person> People { get => people; set => people = value; }
-        public List<Position> Positions
+        public Person SelectedExecutor
         {
-            get { return positions; }
+            get
+            {
+                return selectedExecutor;
+            }
+            set
+            {
+                selectedExecutor = value;
+                OnPropertyChanged("SelectedExecutor");
+            }
+        }
+        public ObservableCollection<Person> People { get => people; set => people = value; }
+        public ObservableCollection<Position> PersonPositions
+        {
+            get { return personPositions; }
         }
         public Position SelectedPositionToRemove { get; set; }
         public Position SelectedPosition { get; set; }
@@ -39,10 +52,10 @@ namespace DutyFier.Client.Wpf.Settings
             set
             {
                 selectedPerson = value;
-                positions = value.Positions.ToList();
-                OnPropertyChanged("Positions");
+                personPositions = new ObservableCollection<Position>(value.Positions.ToList());
+                OnPropertyChanged("PersonPositions");
                 OnPropertyChanged("SelectedPerson");
-                
+
             }
         }
         public List<Position> Allpositions { get => allpositions; set => allpositions = value; }
@@ -51,26 +64,34 @@ namespace DutyFier.Client.Wpf.Settings
         public RelayCommands AddExecutorCommand { get; set; }
         public RelayCommands AddPositionsCommand { get; set; }
         public RelayCommands AddTypeCommand { get; set; }
+        public RelayCommands RemovePersonCommand { get; set; }
         public SettingsViewModel()
         {
             DutyFierContext = MainWindowViewModel.Container.Resolve<DutyFierContext>();
+            SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
             this.PersonReposytory = new PersonRepository();
-            people = DutyFierContext.Persons.ToList();
-            allpositions = DutyFierContext.Positions.ToList();
+            people =new ObservableCollection<Person>(DutyFierContext.Persons.ToList());
+            allpositions = SettingsModel.GetAllPosition( );
             AddPositionCommand = new RelayCommands(addPositionCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
             AddExecutorCommand = new RelayCommands(addExecutorCommand, Can);
             AddPositionsCommand = new RelayCommands(addPositionsCommand, Can);
             AddTypeCommand = new RelayCommands(addTypeCommand, Can);
+            RemovePersonCommand = new RelayCommands(removePersonCommand, Can);
+           
+        }
+        private void removePersonCommand()
+        {
+            SettingsModel.RemovePerson(SelectedExecutor);
+            People.Remove(SelectedExecutor);
 
-            SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()),new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
         }
         private void addTypeCommand()
         {
             AddTypeView addType = new AddTypeView();
             if (addType.ShowDialog() == true)
             {
-
+                addType.Close();
             }
         }
         private void addPositionsCommand()
@@ -88,7 +109,7 @@ namespace DutyFier.Client.Wpf.Settings
             AddPersonView apv = new AddPersonView();
             if (apv.ShowDialog() == true)
             {
-                People = DutyFierContext.Persons.ToList();
+                People = new ObservableCollection<Person>(DutyFierContext.Persons.ToList());
                 OnPropertyChanged("People");
                 apv.Close();
             }
@@ -96,23 +117,14 @@ namespace DutyFier.Client.Wpf.Settings
         private void removePositionCommand()
         {
             SelectedPerson.Positions.Remove(SelectedPositionToRemove);
-            positions = SelectedPerson.Positions.ToList();
-            positions.ForEach(a => a.Persons.Remove(SelectedPerson));
-            OnPropertyChanged("Positions");
-            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
-            SettingsModel.UpdatePositionDependencyToPerson(positions);
+            PersonPositions.Remove(SelectedPositionToRemove);
+            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); 
         }
         private void addPositionCommand()
         {
-            //TODO fix logic to remove from DB
             SelectedPerson.Positions.Add(SelectedPosition);
-            DutyFierContext.SaveChanges();
-            positions = SelectedPerson.Positions.ToList();
-            positions.ForEach(a => a.Persons.Add(SelectedPerson));
-            OnPropertyChanged("Positions");
+            PersonPositions.Add(SelectedPosition);
             SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
-            SettingsModel.UpdatePositionDependencyToPerson(positions);
-
         }
         public bool Can()
         {
@@ -122,16 +134,6 @@ namespace DutyFier.Client.Wpf.Settings
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        private void SaveChange(List<Person> Persons)
-        {
-            foreach (var item in Persons)
-            {
-                //DutyFierContext.Entry(item).State = EntityState.Modified;
-                DutyFierContext.SaveChanges();
-            }
-
         }
     }
 }

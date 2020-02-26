@@ -48,7 +48,7 @@
                                 <RowDefinition Height="8.5*"/>
                                 <RowDefinition Height="1.5*"/>
                             </Grid.RowDefinitions>
-                            <DataGrid CanUserAddRows="False" Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding People, UpdateSourceTrigger=PropertyChanged }"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid" Grid.ColumnSpan="2"   >
+                            <DataGrid SelectedItem="{Binding SelectedExecutor,UpdateSourceTrigger=PropertyChanged }" CanUserAddRows="False" Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding People, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid" Grid.ColumnSpan="2"   >
                                 <DataGrid.Columns >
                                     <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Path=Id}"  />
                                     <DataGridTextColumn IsReadOnly="True"  Header="Name" Binding="{Binding Path=FirstName}"   />
@@ -57,8 +57,8 @@
                             </DataGrid>
                             <StackPanel Grid.Row="1" Margin="144,0,144,19.6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.ColumnSpan="2">
                                 <Button Command="{Binding AddExecutorCommand}"  x:Name="AddCadetButton"  Content="Add executor" Width="150" Margin="0 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <Button IsEnabled="False" x:Name="EditCadetButton" Content="Edit executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <Button IsEnabled="False" x:Name="RemoveCadetButton" Content="Remove executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+                                <Button Command="{Binding RemovePersonCommand}" x:Name="RemoveCadetButton" Content="Remove executor" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -73,7 +73,7 @@
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1.5*"/>
                             </Grid.ColumnDefinitions>
-                            <ListBox Grid.Row="0" Grid.Column="0" Margin="20" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <ListBox Grid.Row="0" Grid.Column="0" Margin="40 20 20 20" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -98,7 +98,7 @@
                                     <Button Command="{Binding AddPositionCommand}" Width="100" Content="Add"/>
                                     <Button Command="{Binding RemovePositionCommand}" Margin="20 0 0 0" Width="100" Content="Remove" />
                                 </StackPanel>
-                                <ListBox SelectedItem="{Binding SelectedPositionToRemove, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="20" ItemsSource="{Binding Positions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <ListBox SelectedItem="{Binding SelectedPositionToRemove, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="20" ItemsSource="{Binding PersonPositions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel  Margin="5">

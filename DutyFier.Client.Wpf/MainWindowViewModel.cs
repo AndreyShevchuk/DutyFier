@@ -131,7 +131,7 @@ namespace DutyFier.Client.Wpf
             isBackwardEnable = false;
             IsDarkModeOn = false;
             IsVisible = Visibility.Hidden;
-
+            
             SeedData.StartData();
             Container = new UnityContainer();
             
