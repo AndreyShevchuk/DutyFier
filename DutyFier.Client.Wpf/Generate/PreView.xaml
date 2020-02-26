@@ -15,7 +15,7 @@
                   x:Name="dataGrid"
                   SelectedItem ="{Binding SelectDutyReqest, UpdateSourceTrigger=PropertyChanged}"
                   CanUserAddRows="False"
-                  AutoGenerateColumns="False" ColumnWidth="*" FontSize="20" Margin="0,0,0,48" >
+                  AutoGenerateColumns="False" ColumnWidth="*" FontSize="20" Margin="0 0 0 70" >
             <DataGrid.Columns>
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = Date, StringFormat=d}" Header="Date" Width="*" FontSize="20" />
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = DutyType}" Header="Type" Width="*" FontSize="20" />
@@ -41,7 +41,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Command="{Binding GenerateDuty}" Content= "GenerateDuty" Margin="0,0,10,10" Height="32" Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="128"/>
+        <Button Command="{Binding GenerateDuty}" Content= "GenerateDuty" Margin="0 0 30 20"  Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100"/>
     </Grid>
 
 </UserControl>
