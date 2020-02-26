@@ -17,7 +17,7 @@ namespace DutyFier.Client.Wpf.Feedback
         public string Position { get; set; }
         public string Date { get; set; }
         public string DutyType { get; set; }
-
+        public AcceptFeedbackModel AcceptFeedbackModel { get; set; }
         private Executor _executor;
         public Executor ChosenExecutor { 
             get=> _executor;
@@ -45,6 +45,8 @@ namespace DutyFier.Client.Wpf.Feedback
         {
             Duty = duty;
             Date = duty.Date.ToShortDateString();
+            AcceptFeedbackModel = new AcceptFeedbackModel();
+
             DutyType = duty.Executors[0].Position.DutyType.ToString();
             CanselComand = new RelayCommands(Cansel);
             AcceptCommand = new RelayCommands(CreateFeedback);
@@ -54,25 +56,12 @@ namespace DutyFier.Client.Wpf.Feedback
 
         private void CreateFeedbacksForAll()
         {
-            Duty.Executors.ForEach(executor => 
-            FeedbacksContext.PersonDutyFeedbacks.Add(
-                new PersonDutyFeedback() 
-                { 
-                    Duty = Duty, 
-                    Person = executor.Person, 
-                    Source = Duty.PreliminaryAssessmentList[Duty.Executors.IndexOf(executor)]
-                })
-            );
+            FeedbacksContext.PersonDutyFeedbacks.AddRange( AcceptFeedbackModel.CreateFeedbacksForAll(Duty));
         }
 
         private void CreateFeedback()
         {
-            FeedbacksContext.PersonDutyFeedbacks.Add(new PersonDutyFeedback()
-            {
-                Duty = Duty,
-                Person = ChosenExecutor.Person,
-                Source = Grade
-            });
+            FeedbacksContext.PersonDutyFeedbacks.Add(AcceptFeedbackModel.CreateFeedback(Duty, ChosenExecutor, Grade)); 
         }
 
         private void Cansel()

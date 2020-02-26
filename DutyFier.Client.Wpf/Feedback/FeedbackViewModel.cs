@@ -14,10 +14,9 @@ using Unity;
 
 namespace DutyFier.Client.Wpf.Feedback
 {
-    public class FeedbackViewModel : INotifyPropertyChanged
+    public class FeedbackViewModel
     {
-        private IRepository<Duty> DutyRepository { get; set; }
-        private IRepository<PersonDutyFeedback> PersonDutyFeedbackRepository { get; set; }
+        private FeedbackModel FeedbackModel { get; set; }
         private AcceptFeedbackView AcceptFeedbackView { get; set; }
         public DutyModel SelectedDuty { get; set; }
         FeedbackView.FeedbackChangeCountTrigger FeedbackChangeCount { get; set; }
@@ -27,16 +26,16 @@ namespace DutyFier.Client.Wpf.Feedback
         FeedbacksContext FeedbacksContext { get; set; }
         public DutyModel[] DutyModels
         {
-            get => DutyModel.GetDutiesWitchHasNoFeedbacks(DutyRepository);
+            get => FeedbackModel.GetDutiesWitchHasNoFeedbacks();
         }
         public FeedbackViewModel(FeedbackView.FeedbackChangeCountTrigger changeCountTrigger)
         {
-            DutyRepository = new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
-            PersonDutyFeedbackRepository = new  PersonDutyFeedbackRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             FeedbackChangeCount = changeCountTrigger;
             CreateAcceptFeedbackViewCommand = new RelayCommands(CreateAcceptFeedbackView);
             FeedbacksContext = new FeedbacksContext(new List<PersonDutyFeedback>());
             ReedFeedbackContext = GetFeedbackContext;
+            FeedbackModel = new FeedbackModel(new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()),
+                                            new PersonDutyFeedbackRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
         }
 
         private void GetFeedbackContext()
@@ -46,7 +45,7 @@ namespace DutyFier.Client.Wpf.Feedback
 
         private void CreateAcceptFeedbackView()
         {
-            AcceptFeedbackView = new AcceptFeedbackView(DutyRepository.GetAll().Where(duty => duty.Id == SelectedDuty.DutyID).First(), FeedbacksContext, ReedFeedbackContext);
+            AcceptFeedbackView = new AcceptFeedbackView( FeedbackModel.GetDutyFromDutyModel(SelectedDuty), FeedbacksContext, ReedFeedbackContext);
             AcceptFeedbackView.ShowDialog();
             CheackChanges();
         }
@@ -55,20 +54,9 @@ namespace DutyFier.Client.Wpf.Feedback
         {
             if(FeedbacksContext.PersonDutyFeedbacks.Count == SelectedDuty.Persons.Count)
             {
-                var selectedDuty = DutyRepository.GetAll().Where(duty => duty.Id == SelectedDuty.DutyID).First();
-                selectedDuty.IsApproved = true;
-                DutyRepository.Update(selectedDuty);
-
-                PersonDutyFeedbackRepository.AddRange(FeedbacksContext.PersonDutyFeedbacks);
+                FeedbackModel.CreateDutyFeedbacksFromDutyModelAndContext(SelectedDuty, FeedbacksContext);
                 FeedbackChangeCount?.Invoke();
             }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
