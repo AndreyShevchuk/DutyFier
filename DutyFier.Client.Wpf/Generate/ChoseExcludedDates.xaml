@@ -12,8 +12,9 @@
             <ColumnDefinition Width="1.2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
+      
         <Grid Grid.Column="0">
-            <Calendar x:Name="Calendar" SelectionMode="MultipleRange" Margin="20 20 0 0" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Calendar x:Name="Calendar" SelectionMode="MultipleRange" Margin="20 40 0 0" VerticalAlignment="Top" HorizontalAlignment="Left">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectedDatesChanged">
                     <i:InvokeCommandAction 
@@ -29,24 +30,26 @@
 
             </i:Interaction.Triggers>
              </Calendar>
-            <Button Command="{Binding ComandAddExludesDares}" 
-                Content="Button" HorizontalAlignment="Left" Margin="20 0 0 20"  VerticalAlignment="Bottom" Width="100"/>
+            
         </Grid>
         <Grid Grid.Column="1">
-            <ListBox Margin="30" HorizontalAlignment="Stretch" 
+            <TextBlock FontSize="24" Foreground="DodgerBlue" FontWeight="Bold" Text="Chose excluded dates" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <ListBox Margin="20 40 20 65" HorizontalAlignment="Stretch" 
                  VerticalAlignment="Stretch" 
                  ItemsSource="{Binding ExcludedDates.Keys}"
                  SelectedItem="{Binding SelcetPerson}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=FirstName}" />
-                        <TextBlock Text="{Binding Path=Id}" />
-                        <!--<TextBlock Text="{Binding Path=Weight}" />-->
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="18" Text="{Binding Path=FirstName}" />
+                            <TextBlock Text="{Binding Path=Id}" />
+                            <!--<TextBlock Text="{Binding Path=Weight}" />-->
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Column="1" Command="{Binding ComandAddExludesDares}" 
+                Content="Accept" HorizontalAlignment="Right" Margin="20 0 30 20"  VerticalAlignment="Bottom" Width="100"/>
         </Grid>
 
         

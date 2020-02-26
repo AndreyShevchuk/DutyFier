@@ -136,6 +136,22 @@
                              </StackPanel>
                         </Grid>
                     </TabItem>
+                    <TabItem Header="Days Weght" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8.5*"/>
+                                <RowDefinition Height="1.5*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Grid.Row="0" ColumnWidth="*" ItemsSource="{Binding Allpositions,  UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="10 10 10 0"   FontSize="14"    >
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn IsReadOnly="True"  />
+                                    <DataGridTextColumn IsReadOnly="True"  />
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                           
+                        </Grid>
+                    </TabItem>
 
                 </TabControl>
             </Grid>

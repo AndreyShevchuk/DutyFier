@@ -100,8 +100,8 @@ namespace DutyFier.Client.Wpf.Settings
             positions.ForEach(a => a.Persons.Remove(SelectedPerson));
             OnPropertyChanged("Positions");
             DutyFierContext.SaveChanges();
-            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
-            SettingsModel.UpdatePositionDependencyToPerson(positions);
+            //SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson); //TODO fix logic to remove from DB
+            //SettingsModel.UpdatePositionDependencyToPerson(positions);
         }
         private void addPositionCommand()
         {
@@ -111,8 +111,8 @@ namespace DutyFier.Client.Wpf.Settings
             positions = SelectedPerson.Positions.ToList();
             positions.ForEach(a => a.Persons.Add(SelectedPerson));
             OnPropertyChanged("Positions");
-            SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
-            SettingsModel.UpdatePositionDependencyToPerson(positions);
+            //SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
+            //SettingsModel.UpdatePositionDependencyToPerson(positions);
 
         }
         public bool Can()
