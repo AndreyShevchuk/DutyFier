@@ -7,6 +7,7 @@
         public virtual Duty Duty { get; set; }
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
+        //TODO Change name Source to Score
         public double Source { get; set; }
         public bool IsCheaked { get; set; }
     }

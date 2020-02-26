@@ -9,10 +9,13 @@ namespace DutyFier.Core.Entities
         public DateTime Date { get; set; }
         public virtual List<Executor> Executors { get; set; }
         public bool IsApproved { get; set; }
+        public List<double> PreliminaryAssessmentList { get; set; }
+
 
         public Duty()
         {
             Executors = new List<Executor>();
+            PreliminaryAssessmentList = new List<double>();
         }
 
         public Duty(Duty copyDuty)
@@ -21,6 +24,7 @@ namespace DutyFier.Core.Entities
             this.Date = copyDuty.Date;
             this.Executors = new List<Executor>(copyDuty.Executors);
             this.IsApproved = copyDuty.IsApproved;
+            this.PreliminaryAssessmentList = copyDuty.PreliminaryAssessmentList;
         }
 
         public string ExecutorsNames

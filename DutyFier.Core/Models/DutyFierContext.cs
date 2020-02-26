@@ -13,9 +13,7 @@ namespace DutyFier.Core.Models
         public DbSet<DutyType> DutyTypes { get; set; }
         public DbSet<Duty> Duties { get; set; }
 
-
-        public DutyFierContext()
-            : base()
+        public DutyFierContext() : base()
         {
 
         }
