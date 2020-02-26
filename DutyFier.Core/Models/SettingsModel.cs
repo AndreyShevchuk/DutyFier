@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using DutyFier.Core.Entities;
-using DutyFier.Core.Interfaces;
 
 namespace DutyFier.Core.Models
 {
@@ -17,11 +15,14 @@ namespace DutyFier.Core.Models
             this.PersonRepository = personRepository;
             this.PositionRepository = positionRepository;
         }
+
         public void RemovePerson(Person person) => PersonRepository.Delete(person);
+
         public void UpdatePersonDependencyToPosition(Person selectedPerson)
         {
             PersonRepository.Update(selectedPerson);
         }
+
         public void UpdatePositionDependencyToPerson(List<Position> positions)
         {
             positions.ForEach(a => PositionRepository.Update(a));
