@@ -53,8 +53,12 @@ namespace DutyFier.Client.Wpf.Feedback
         private void CreateAcceptFeedbackView()
         {
             AcceptFeedbackView = new AcceptFeedbackView( SelectedDuty, FeedbacksContext, ReedFeedbackContext);
-            AcceptFeedbackView.ShowDialog();
-            CheackChanges();
+
+            if(AcceptFeedbackView.ShowDialog() == true)
+            {
+
+                CheackChanges();
+            }
         }
 
         private void CheackChanges()

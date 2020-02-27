@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:DutyFier.Client.Wpf.Feedback"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="AcceptFeedbackView" Height="450" Width="500" Closing="Window_Closing">
+        Title="AcceptFeedbackView"  Height="450" Width="500" Closing="Window_Closing">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction 
+                            Command="{Binding CancelCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid Height="50" VerticalAlignment="Top" >
             <TextBlock HorizontalAlignment="Left" FontSize="22" Margin="25 10 0 0" Text="{Binding Date}"/>
@@ -23,7 +30,7 @@
             </StackPanel>
         </Grid>
         <Grid VerticalAlignment="Bottom" Height="50">
-            <Button Command="{Binding CanselComand}" Content="Cancel" FontSize="18" Margin="25 0 0 10" Width="100" HorizontalAlignment="Left"/>
+            <Button IsCancel="True" Command="{Binding CanselComand}" Content="Cancel" FontSize="18" Margin="25 0 0 10" Width="100" HorizontalAlignment="Left"/>
             <Button Command="{Binding AcceptAllCommand}" Content="AcceptAll" FontSize="18" Margin="0,4,25,14" Width="125" HorizontalAlignment="Right"/>
             <Button Command="{Binding AcceptCommand}" Content="Accept" FontSize="18" Margin="0,-126,80,144" Width="100" HorizontalAlignment="Right"/>
         </Grid>
