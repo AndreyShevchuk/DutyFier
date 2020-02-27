@@ -105,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Feedback\AcceptFeedbackView.xaml.cs">
+      <DependentUpon>AcceptFeedbackView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Feedback\AcceptFeedbackViewModel.cs" />
     <Compile Include="Generate\ChoseExcludedDates.xaml.cs">
       <DependentUpon>ChoseExcludedDates.xaml</DependentUpon>
     </Compile>
@@ -154,6 +158,10 @@
       <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Statistics\StatisticsViewModel.cs" />
+    <Page Include="Feedback\AcceptFeedbackView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Feedback\FeedbackView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

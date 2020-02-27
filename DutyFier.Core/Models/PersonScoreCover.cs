@@ -19,9 +19,22 @@ namespace DutyFier.Core.Models
             double score;
             for (int i = 0; i < persons.Count; i++)
             {
-                score = 
-                    feedbacks.Where(a => a.Person.Equals(persons[i])).Sum(a => a.Source) + 
-                    generetedDuty.Where(a => !a.IsApproved).SelectMany(a => a.Executors).Where(a => a.Person.Equals(persons[i])).Sum(a => a.Score)
+                score =
+                    feedbacks.Where(a => a.Person.Equals(persons[i])).Sum(a => a.Source) +
+                    generetedDuty.
+                    //Select only duties where persons[i] contain
+                        Where(duty => duty.Executors.Select(a => a.Person).Contains(persons[i])).
+                        //Select only duties what is not approved
+                        Where(duty => !duty.IsApproved).
+                        //Getting all double values of each person
+                        Select(duty => 
+                            duty.PreliminaryAssessmentList[
+                                duty.Executors.
+                                    Select(executor => executor.Person).
+                                    ToList().
+                                    IndexOf(persons[i])
+                                ]).
+                        Sum()
                 ;
                 personScoreCovers.Add(new PersonScoreCover(persons[i], score));
             }

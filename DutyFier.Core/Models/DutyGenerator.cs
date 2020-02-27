@@ -39,8 +39,9 @@ namespace DutyFier.Core.Models
             var daysOfWeekWeights = this._daysOfWeekWeights.GetAll().ToList();
 
             var coverPerson = PersonScoreCover.GetPersonScoreCoverList(persons, feedbacks, generetedDuty);
-            
 
+            if(requests==null || requests.Count <= 0)
+                throw new ArgumentException("Null or empty request parametr");
             return requests
                 .Select(request => GenerateSingleDuty(coverPerson, daysOfWeekWeights, request, excludes, changeOnDateWeigths))
                 .ToList()
@@ -52,57 +53,79 @@ namespace DutyFier.Core.Models
             Duty duty = new Duty() { Date = request.Date };
             // for each position:
             PersonScoreCover person;
+            if (request.Positions == null || request.Positions.Count <= 0)
+                throw new ArgumentException("Null or empty request position parametr");
             for (int i = 0; i < request.Positions.Count; i++)
             {
                 // Get best person who can be in this duty
-                person = GetBestCandidat(persons, request, excludes, request.Positions[i]);
+                person = GetBestCandidate(persons, request, excludes, request.Positions[i]);
 
                 //Person can`t be in two or more duty on a single day and it can`t be in a duty two days incommon
-                AddExludeDatesForPersonInDuty(excludes, person, request);
+                AddExludeDatesForPersonInDuty(excludes, person, request.Date);
 
                 // Adding new executer with this person
-                duty.Executors.Add(new Executor() { Person = person, Position = request.Positions[i] });
+                duty.Executors.Add(new Executor() { Person = person, Position = request.Positions[i]});
 
                 //Adding new score to person
-                if (changeOnDateWeigths.Select(a => a.ChangedDateTime).Contains(request.Date))
+                if (changeOnDateWeigths.Count>0 && changeOnDateWeigths.Select(a => a.ChangedDateTime).Contains(request.Date))
                 {
-                    person.Score += person.Factor * (request.AdditionalWeight + changeOnDateWeigths.Find(a => a.ChangedDateTime.DayOfWeek.Equals(request.Date.DayOfWeek)).NewWeigth);
+                    person.Score += person.Factor * (changeOnDateWeigths.Find(a => a.ChangedDateTime.DayOfWeek.Equals(request.Date.DayOfWeek)).NewWeigth + request.Positions[i].Weight);
                 }
                 else
                 {
-                    person.Score += person.Factor * (request.AdditionalWeight + daysOfWeekWeights.Find(a => a.Day.Equals(request.Date.DayOfWeek)).Weight);
+                    person.Score += person.Factor * (daysOfWeekWeights.Find(a => a.Day.Equals(request.Date.DayOfWeek)).Weight + request.Positions[i].Weight);
                 }
-                //MessageBox.Show(person.Score + "");
+                duty.PreliminaryAssessmentList.Add(person.Score);
             }
             return duty;
         }
 
-        private PersonScoreCover GetBestCandidat(List<PersonScoreCover> persons, DutyRequest request, List<ExcludeDates> excludes, Position position)
+        private PersonScoreCover GetBestCandidate(List<PersonScoreCover> persons, DutyRequest request, List<ExcludeDates> excludes, Position position)
         {
-            return persons.Where(a => a.Positions.Contains(position)).
+            var tempPersonSCAvailableCollection = persons.Where(person =>
+            {
+                if (person.Positions == null || person.Positions.Count == 0)
+                    throw new ArgumentException("Null or empty person available position parametr");
+                return person.Positions.Contains(position);
+            });
+            if(tempPersonSCAvailableCollection.Count()==0)
+                throw new ArgumentException("Can`t find available person to this request");
+            if(excludes.Count==0)
+                return tempPersonSCAvailableCollection.OrderBy(a => a.Score).First();
+            IEnumerable<ExcludeDates> excludeDates;
+
+            // Exclude person hwo has exclude in this day
+            tempPersonSCAvailableCollection = tempPersonSCAvailableCollection.Where(personSC =>
+            {
+                excludeDates = excludes.
+                        Where(b => b.DateTimes.
+                            Contains(request.Date));
+                if (excludeDates.Count() == 0)
+                    return true;
+                return excludeDates.Select(b => b.Person).
+                        Contains(personSC);
+            });
+            if (tempPersonSCAvailableCollection.Count() == 0)
+                throw new ArgumentException("Can`t find available person to this request");
+
+            return tempPersonSCAvailableCollection.
                 // Sort that persons
                 OrderBy(a => a.Score).
-                // Exclude person hwo has exclude in this day
-                Where(a => !excludes.
-                        Where(b => b.DateTimes.
-                            Contains(request.Date)).
-                        Select(b => b.Person).
-                        Contains(a)).
                 First()
             ;
         }
 
-        private void AddExludeDatesForPersonInDuty(List<ExcludeDates> excludes , PersonScoreCover person, DutyRequest request)
+        private void AddExludeDatesForPersonInDuty(List<ExcludeDates> excludes , PersonScoreCover person, DateTime requestDate)
         {
             var excludeDatesWithChosenPerson = excludes.Where(a => a.Person.Equals(person));
             if (excludeDatesWithChosenPerson.Count() == 0)
             {
-                excludes.Add(new ExcludeDates(person, new HashSet<DateTime> { request.Date, request.Date.AddDays(1) }));
+                excludes.Add(new ExcludeDates(person, new HashSet<DateTime> { requestDate, requestDate.AddDays(1) }));
             }
             else
             {
-                excludeDatesWithChosenPerson.First().DateTimes.Add(request.Date);
-                excludeDatesWithChosenPerson.First().DateTimes.Add(request.Date.AddDays(1));
+                excludeDatesWithChosenPerson.First().DateTimes.Add(requestDate);
+                excludeDatesWithChosenPerson.First().DateTimes.Add(requestDate.AddDays(1));
             }
         }
     }

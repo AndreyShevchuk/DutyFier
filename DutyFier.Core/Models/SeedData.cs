@@ -135,14 +135,14 @@ namespace DutyFier.Core.Models
 
             var pr = new PersonRepository();
 
-            var ListDateWeight = (new DaysOfWeekWeight { Day = DayOfWeek.Monday, Weight = 1 },
+            var ListDateWeight = new List<DaysOfWeekWeight>() {new DaysOfWeekWeight { Day = DayOfWeek.Monday, Weight = 1 },
                 new DaysOfWeekWeight { Day = DayOfWeek.Tuesday, Weight = 1 },
                 new DaysOfWeekWeight { Day = DayOfWeek.Wednesday, Weight = 1 },
                 new DaysOfWeekWeight { Day = DayOfWeek.Thursday, Weight = 1 },
                 new DaysOfWeekWeight { Day = DayOfWeek.Saturday, Weight = 1 },
                 new DaysOfWeekWeight { Day = DayOfWeek.Friday, Weight = 1 },
                 new DaysOfWeekWeight { Day = DayOfWeek.Sunday, Weight = 1 }
-                );
+            };
 
             if (!pr.GetAll().Any())
             {
@@ -154,6 +154,12 @@ namespace DutyFier.Core.Models
             if (!tt.DutyTypes.Any())
             {
                 tt.DutyTypes.AddRange(listDutyType);
+                tt.SaveChanges();
+            }
+
+            if(!tt.DaysOfWeekWeights.Any())
+            {
+                tt.DaysOfWeekWeights.AddRange(ListDateWeight);
                 tt.SaveChanges();
             }
 

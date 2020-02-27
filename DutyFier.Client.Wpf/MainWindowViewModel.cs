@@ -27,6 +27,7 @@ namespace DutyFier.Client.Wpf
     class MainWindowViewModel : INotifyPropertyChanged
     {
         private UIElementCollection childrenPanel;
+        private MainWindowModel MainWindowModel { get; set; }
         private IGenerationState state;
         private GenerateContext generateContext;
         private Visibility visibility;
@@ -132,10 +133,12 @@ namespace DutyFier.Client.Wpf
             IsDarkModeOn = false;
             IsVisible = Visibility.Hidden;
 
+            //TODO delete in future
             SeedData.StartData();
             Container = new UnityContainer();
             
             Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
+            MainWindowModel = new MainWindowModel(new DutyRepository(Container.Resolve<DutyFierContext>()));
         }
 
         public void powerOffCommand()
@@ -210,7 +213,7 @@ namespace DutyFier.Client.Wpf
         public void feedbackCommand(UIElementCollection obj)
         {
             childrenPanel = obj;
-            var feedback = new FeedbackView();
+            var feedback = new FeedbackView(UpdateCountOfUncreatedFeedback);
             childrenPanel.Clear();
             childrenPanel.Add(feedback);
 
@@ -254,6 +257,19 @@ namespace DutyFier.Client.Wpf
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public int FeedbacksCount
+        {
+            get
+            {
+                return MainWindowModel.GetUncreatedFeedbackCount();
+            }
+        }
+
+        public void UpdateCountOfUncreatedFeedback()
+        {
+            OnPropertyChanged(nameof(FeedbacksCount));
         }
 
     }

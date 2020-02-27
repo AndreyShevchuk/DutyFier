@@ -14,21 +14,56 @@ using Unity;
 
 namespace DutyFier.Client.Wpf.Feedback
 {
-    class FeedbackViewModel : INotifyPropertyChanged
+    public class FeedbackViewModel
     {
-        private IRepository<Duty> DutyRepository { get; set; }
-        public DutyModel[] DutyModels
+        private FeedbackModel FeedbackModel { get; set; }
+        private AcceptFeedbackView AcceptFeedbackView { get; set; }
+        public Duty SelectedDuty { get; set; }
+        FeedbackView.FeedbackChangeCountTrigger FeedbackChangeCount { get; set; }
+        public delegate void AcceptFeedbackViewClosingTrigger();
+        public AcceptFeedbackViewClosingTrigger ReedFeedbackContext { get; set; }
+        RelayCommands CreateAcceptFeedbackViewCommand;
+        RelayCommands AcceptAllCommand;
+        FeedbacksContext FeedbacksContext { get; set; }
+        public List<Duty> Dutys
         {
-            get => DutyModel.GetDutiesWitchHasNoFeedbacks(DutyRepository);
+            get => FeedbackModel.GetDutiesWitchHasNoFeedbacks();
         }
-        public FeedbackViewModel()
+        public FeedbackViewModel(FeedbackView.FeedbackChangeCountTrigger changeCountTrigger)
         {
-            DutyRepository = new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
+            FeedbackChangeCount = changeCountTrigger;
+            CreateAcceptFeedbackViewCommand = new RelayCommands(CreateAcceptFeedbackView);
+            AcceptAllCommand = new RelayCommands(AcceptAll);
+            FeedbacksContext = new FeedbacksContext(new List<PersonDutyFeedback>());
+            ReedFeedbackContext = GetFeedbackContext;
+            FeedbackModel = new FeedbackModel(new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()),
+                                            new PersonDutyFeedbackRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
+
+        private void AcceptAll()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            Dutys.ForEach(a => FeedbackModel.CreateDutyFeedbacksFromDutyModelWithDefauld(a));
+        }
+
+        private void GetFeedbackContext()
+        {
+            FeedbacksContext = AcceptFeedbackView.FeedbacksContext;
+        }
+
+        private void CreateAcceptFeedbackView()
+        {
+            AcceptFeedbackView = new AcceptFeedbackView( SelectedDuty, FeedbacksContext, ReedFeedbackContext);
+            AcceptFeedbackView.ShowDialog();
+            CheackChanges();
+        }
+
+        private void CheackChanges()
+        {
+            if(FeedbacksContext.PersonDutyFeedbacks.Count == SelectedDuty.Executors.Count)
+            {
+                FeedbackModel.CreateDutyFeedbacksFromDutyModelAndContext(SelectedDuty, FeedbacksContext);
+                FeedbackChangeCount?.Invoke();
+            }
         }
     }
 }
