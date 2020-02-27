@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings"
+             xmlns:local="clr-namespace:DutyFier.Client.Wpf.Settings.MainSettings"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
 
@@ -39,7 +39,8 @@
                             </Setter>
                         </Style>
                     </TabControl.Resources>
-                    <TabItem  Header="Executors" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <TabItem DataContext="{Binding Children[0]}"   Header="Executors" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
                         <Grid>
 
                             <Grid.RowDefinitions>
@@ -60,7 +61,8 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="Types" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <TabItem DataContext="{Binding Children[1]}" Header="Types" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
                         <Grid>
 
                             <Grid.RowDefinitions>
@@ -109,7 +111,7 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="Positions" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <TabItem DataContext="{Binding Children[2]}" Header="Positions" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="8.5*" />
@@ -125,7 +127,7 @@
                             </DataGrid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0 0 0 20">
                                 <Button Command="{Binding AddPositionsCommand}" x:Name="AddPositionButton"   Content="Add Position" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                                <Button Command="{Binding RemovePositionsCommand}" Margin="40 0 0 0" Content="Remove position" Width="150" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                <Button Command="{Binding RemovePositionsCommand}" Margin="40 0 0 0" Content="Remove position" Width="150" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                                 <Button Command="{Binding AddTypeCommand}" x:Name="AddTypeButton"  Content="Add type" Width="150" Margin="40 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Grid>

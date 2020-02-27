@@ -30,6 +30,7 @@ namespace DutyFier.Core.Models
         }
 
         public List<Position> GetAllPosition() => PositionRepository.GetAll().ToList();
+        public List<Person> GetAllPerson() => PersonRepository.GetAll().ToList();
 
     }
 }
