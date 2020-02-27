@@ -1,9 +1,4 @@
-﻿
-
-using DutyFier.Core.Entities;
-
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.Windows.Controls;
 
 namespace DutyFier.Client.Wpf.Settings
 {
@@ -12,15 +7,13 @@ namespace DutyFier.Client.Wpf.Settings
     /// </summary>
     public partial class SettingsView : UserControl
     {
-        SettingsViewModel svw;
+        private SettingsViewModel svw;
+
         public SettingsView()
         {
             svw = new SettingsViewModel();
             InitializeComponent();
             DataContext = svw;
         }
-
-
-
     }
 }

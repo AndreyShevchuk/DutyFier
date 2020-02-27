@@ -85,7 +85,10 @@ namespace DutyFier.Core.Models
             var tempPersonSCAvailableCollection = persons.Where(person =>
             {
                 if (person.Positions == null || person.Positions.Count == 0)
-                    throw new ArgumentException("Null or empty person available position parametr");
+                {
+                    //throw new ArgumentException("Null or empty person available position parametr");
+                    return false;
+                }
                 return person.Positions.Contains(position);
             });
             if(tempPersonSCAvailableCollection.Count()==0)

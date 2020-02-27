@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 
 namespace DutyFier.Client.Wpf.State
 {
@@ -15,6 +16,7 @@ namespace DutyFier.Client.Wpf.State
         private DutyGenerator dutyGenerate;
         public PositionRepository positionRepository { get; set; }
         public PersonRepository personRepository { get; set; }
+        public DutyRepository DutyRepository { get; set; } 
         public Dictionary<Position, List<DateTime>> PositionsDate { get; set; }
         public Dictionary<Person, List<DateTime>> ExludeDates { get; set; }
 
@@ -36,17 +38,29 @@ namespace DutyFier.Client.Wpf.State
 
         public GenerateContext()
         {
-            positionRepository = new PositionRepository();
-            personRepository = new PersonRepository();
+            positionRepository = new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
+            personRepository = new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             dutyGenerate = new DutyGenerator(personRepository,new PersonDutyFeedbackRepository(),new DutyRepository(), new DaysOfWeekWeightRepository());
             ExludeDates = personRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
             PositionsDate = positionRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
         }
         public void GeneratorRun()
         {
+            var a = MainWindowViewModel.Container.Resolve<DutyFierContext>();
+            a.Duties.RemoveRange(a.Duties);
+            a.SaveChanges();
+
+            duties = new ObservableCollection<Duty>(dutyGenerate.Generate(dutyRequests.ToList(), new List<ExcludeDates>(), new List<ChangeOnDateWeigth>().ToList()));
+            
+            a.Duties.AddRange(duties);
+            a.SaveChanges();
+        }
+
+        public void GeneratorRunWhereNoDutys()
+        {
             if (duties == null)
             {
-                duties = new ObservableCollection<Duty>(dutyGenerate.Generate(dutyRequests.ToList(), new List<ExcludeDates>(), new List<ChangeOnDateWeigth>().ToList()));
+                GeneratorRun();
             }
         }
 

@@ -12,21 +12,23 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" Margin="5"
-                  ItemsSource="{Binding pp}">
-            
+        <DataGrid Grid.Row="0" Margin="5" ItemsSource="{Binding Test , UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <materialDesign:DataGridTextColumn  CanUserResize="False" Width="*" Header="Date" Binding="{Binding Path = PersonId}"/>
+                <DataGridTemplateColumn Header="Change" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource = "{Binding Path = Value}" SelectedItem="{Binding Path = Key, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path = FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
-            <DataGridTemplateColumn Header="Change" Width="*">
-                
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <ComboBox>
-                        </ComboBox>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
+            
         </DataGrid>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
             <Button IsCancel="True" Width="100" Content="Cancel" Margin="20 0 0 0"/>
