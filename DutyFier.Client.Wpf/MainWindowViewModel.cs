@@ -116,6 +116,9 @@ namespace DutyFier.Client.Wpf
         public RelayCommands PowerOffCommand { get; set; }
         public MainWindowViewModel()
         {
+            Container = new UnityContainer();
+            Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
+
             StatisticsCommand = new RelayCommands<UIElementCollection>(statisticCommand, CanChange);
             SettingsCommand = new RelayCommands<UIElementCollection>(settingsCommand, CanChange);
             SelectDatesCommand = new RelayCommands<UIElementCollection>(generateCommand, CanChange);
@@ -135,9 +138,7 @@ namespace DutyFier.Client.Wpf
 
             //TODO delete in future
             SeedData.StartData();
-            Container = new UnityContainer();
-            
-            Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
+           
             MainWindowModel = new MainWindowModel(new DutyRepository(Container.Resolve<DutyFierContext>()));
         }
 
