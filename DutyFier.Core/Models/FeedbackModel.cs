@@ -18,17 +18,29 @@ namespace DutyFier.Core.Models
             this.PersonDutyFeedbackRepository = personDutyFeedbackRepository;
         }
 
-        public Duty GetDutyFromDutyModel(DutyModel selectedDuty)=> DutyRepository.GetAll().Where(duty => duty.Id == selectedDuty.DutyID).First();
-
-        public void CreateDutyFeedbacksFromDutyModelAndContext(DutyModel selectedDutyModel, FeedbacksContext feedbacksContext)
+        public void CreateDutyFeedbacksFromDutyModelAndContext(Duty selectedDuty, FeedbacksContext feedbacksContext)
         {
-            var selectedDuty = GetDutyFromDutyModel(selectedDutyModel);
             selectedDuty.IsApproved = true;
             DutyRepository.Update(selectedDuty);
             PersonDutyFeedbackRepository.AddRange(feedbacksContext.PersonDutyFeedbacks);
         }
 
-        public DutyModel[] GetDutiesWitchHasNoFeedbacks() => DutyModel.GetDutiesWitchHasNoFeedbacks(DutyRepository);
+        public List<Duty> GetDutiesWitchHasNoFeedbacks() => GetDutiesWitchHasNoFeedbacks(DutyRepository);
 
+        private List<Duty> GetDutiesWitchHasNoFeedbacks(DutyRepository dutyRepository)=>dutyRepository.GetAll().Where(duty => duty.Date.AddDays(1) < DateTime.Now).Where(duty => !duty.IsApproved).ToList();
+
+        public void CreateDutyFeedbacksFromDutyModelWithDefauld(Duty selectedDuty)
+        {
+            selectedDuty.IsApproved = true;
+            var feedbacks = selectedDuty.Executors.Select(ex => new PersonDutyFeedback()
+            {
+                Duty = selectedDuty,
+                Person = ex.Person,
+                Source = selectedDuty.PreliminaryAssessmentList[selectedDuty.Executors.IndexOf(ex)]
+
+            }).ToList();
+
+            PersonDutyFeedbackRepository.AddRange(feedbacks);
+        }
     }
 }

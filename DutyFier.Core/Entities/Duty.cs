@@ -40,5 +40,31 @@ namespace DutyFier.Core.Entities
             }
             private set { }
         }
+        public string ExecutorsPositions
+        {
+            get
+            {
+                string executorsPosition = "";
+                foreach (var item in Executors)
+                {
+                    executorsPosition += $"{item.Position.Name} \n\r";
+                }
+                return executorsPosition;
+            }
+            private set { }
+        }
+        public string PreliminaryAssessments
+        {
+            get
+            {
+                string preliminaryAssessments = "";
+                foreach (var item in preliminaryAssessments)
+                {
+                    preliminaryAssessments += $"{item} \n\r";
+                }
+                return preliminaryAssessments;
+            }
+            private set { }
+        }
     }
 }

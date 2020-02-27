@@ -18,13 +18,14 @@ namespace DutyFier.Client.Wpf.Feedback
     {
         private FeedbackModel FeedbackModel { get; set; }
         private AcceptFeedbackView AcceptFeedbackView { get; set; }
-        public DutyModel SelectedDuty { get; set; }
+        public Duty SelectedDuty { get; set; }
         FeedbackView.FeedbackChangeCountTrigger FeedbackChangeCount { get; set; }
         public delegate void AcceptFeedbackViewClosingTrigger();
         public AcceptFeedbackViewClosingTrigger ReedFeedbackContext { get; set; }
         RelayCommands CreateAcceptFeedbackViewCommand;
+        RelayCommands AcceptAllCommand;
         FeedbacksContext FeedbacksContext { get; set; }
-        public DutyModel[] DutyModels
+        public List<Duty> Dutys
         {
             get => FeedbackModel.GetDutiesWitchHasNoFeedbacks();
         }
@@ -32,10 +33,16 @@ namespace DutyFier.Client.Wpf.Feedback
         {
             FeedbackChangeCount = changeCountTrigger;
             CreateAcceptFeedbackViewCommand = new RelayCommands(CreateAcceptFeedbackView);
+            AcceptAllCommand = new RelayCommands(AcceptAll);
             FeedbacksContext = new FeedbacksContext(new List<PersonDutyFeedback>());
             ReedFeedbackContext = GetFeedbackContext;
             FeedbackModel = new FeedbackModel(new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()),
                                             new PersonDutyFeedbackRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
+        }
+
+        private void AcceptAll()
+        {
+            Dutys.ForEach(a => FeedbackModel.CreateDutyFeedbacksFromDutyModelWithDefauld(a));
         }
 
         private void GetFeedbackContext()
@@ -45,14 +52,14 @@ namespace DutyFier.Client.Wpf.Feedback
 
         private void CreateAcceptFeedbackView()
         {
-            AcceptFeedbackView = new AcceptFeedbackView( FeedbackModel.GetDutyFromDutyModel(SelectedDuty), FeedbacksContext, ReedFeedbackContext);
+            AcceptFeedbackView = new AcceptFeedbackView( SelectedDuty, FeedbacksContext, ReedFeedbackContext);
             AcceptFeedbackView.ShowDialog();
             CheackChanges();
         }
 
         private void CheackChanges()
         {
-            if(FeedbacksContext.PersonDutyFeedbacks.Count == SelectedDuty.Persons.Count)
+            if(FeedbacksContext.PersonDutyFeedbacks.Count == SelectedDuty.Executors.Count)
             {
                 FeedbackModel.CreateDutyFeedbacksFromDutyModelAndContext(SelectedDuty, FeedbacksContext);
                 FeedbackChangeCount?.Invoke();
