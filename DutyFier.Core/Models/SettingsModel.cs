@@ -15,6 +15,7 @@ namespace DutyFier.Core.Models
             this.PersonRepository = personRepository;
             this.PositionRepository = positionRepository;
         }
+        public void RemovePosition(Position position) => PositionRepository.Delete(position);
 
         public void RemovePerson(Person person) => PersonRepository.Delete(person);
 
@@ -29,5 +30,6 @@ namespace DutyFier.Core.Models
         }
 
         public List<Position> GetAllPosition() => PositionRepository.GetAll().ToList();
+
     }
 }

@@ -46,15 +46,17 @@ namespace DutyFier.Client.Wpf.Settings
         public ObservableCollection<Position> PersonPositions { get; private set; }
         public SettingsModel SettingsModel { get; set; }
         public ObservableCollection<Person> People { get; set; }
+        public Position SelectedPositionsToRemove { get; set; }
         public Position SelectedPositionToRemove { get; set; }
         public Position SelectedPosition { get; set; }
-        public List<Position> Allpositions { get; set; }
+        public ObservableCollection<Position> Allpositions { get; set; }
         public RelayCommands AddPositionCommand { get; set; }
         public RelayCommands RemovePositionCommand { get; set; }
         public RelayCommands AddExecutorCommand { get; set; }
         public RelayCommands AddPositionsCommand { get; set; }
         public RelayCommands AddTypeCommand { get; set; }
         public RelayCommands RemovePersonCommand { get; set; }
+        public RelayCommands RemovePositionsCommand { get; set; }
 
         public SettingsViewModel()
         {
@@ -62,13 +64,20 @@ namespace DutyFier.Client.Wpf.Settings
             SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
             this.PersonReposytory = new PersonRepository();
             People = new ObservableCollection<Person>(DutyFierContext.Persons.ToList());
-            Allpositions = SettingsModel.GetAllPosition();
+            Allpositions = new ObservableCollection<Position>(SettingsModel.GetAllPosition());
             AddPositionCommand = new RelayCommands(addPositionCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
             AddExecutorCommand = new RelayCommands(addExecutorCommand, Can);
             AddPositionsCommand = new RelayCommands(addPositionsCommand, Can);
             AddTypeCommand = new RelayCommands(addTypeCommand, Can);
             RemovePersonCommand = new RelayCommands(removePersonCommand, Can);
+            RemovePositionsCommand = new RelayCommands(removePositionsCommand, Can);
+        }
+        private void removePositionsCommand()
+        {
+            SettingsModel.RemovePosition(SelectedPositionsToRemove);
+            Allpositions.Remove(SelectedPositionsToRemove);
+
         }
 
         private void removePersonCommand()
@@ -91,7 +100,7 @@ namespace DutyFier.Client.Wpf.Settings
             AddPositionView addPosition = new AddPositionView();
             if (addPosition.ShowDialog() == true)
             {
-                Allpositions = DutyFierContext.Positions.ToList();
+                //Allpositions = DutyFierContext.Positions.ToList();
                 OnPropertyChanged("Allpositions");
                 addPosition.Close();
             }
