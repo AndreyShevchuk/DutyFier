@@ -43,12 +43,12 @@ namespace DutyFier.Core.Models
             if(requests==null || requests.Count <= 0)
                 throw new ArgumentException("Null or empty request parametr");
             return requests
-                .Select(request => GenerateSingleDuty(coverPerson, daysOfWeekWeights, request, excludes, changeOnDateWeigths))
+                .Select(request => GenerateSingleDuty(coverPerson, daysOfWeekWeights, request, excludes, changeOnDateWeigths, persons))
                 .ToList()
             ;
         }
 
-        private Duty GenerateSingleDuty(List<PersonScoreCover> persons, List<DaysOfWeekWeight> daysOfWeekWeights, DutyRequest request, List<ExcludeDates> excludes, List<ChangeOnDateWeigth> changeOnDateWeigths)
+        private Duty GenerateSingleDuty(List<PersonScoreCover> personCover, List<DaysOfWeekWeight> daysOfWeekWeights, DutyRequest request, List<ExcludeDates> excludes, List<ChangeOnDateWeigth> changeOnDateWeigths, List<Person> persons)
         {
             Duty duty = new Duty() { Date = request.Date };
             // for each position:
@@ -58,22 +58,23 @@ namespace DutyFier.Core.Models
             for (int i = 0; i < request.Positions.Count; i++)
             {
                 // Get best person who can be in this duty
-                person = GetBestCandidate(persons, request, excludes, request.Positions[i]);
+                person = GetBestCandidate(personCover, request, excludes, request.Positions[i]);
 
                 //Person can`t be in two or more duty on a single day and it can`t be in a duty two days incommon
                 AddExludeDatesForPersonInDuty(excludes, person, request.Date);
 
                 // Adding new executer with this person
-                duty.Executors.Add(new Executor() { Person = person, Position = request.Positions[i]});
+                persons.Where(pers => pers.Id == person.Person.Id).First();
+                duty.Executors.Add(new Executor() { Person = person.Person, Position = request.Positions[i]});
 
                 //Adding new score to person
                 if (changeOnDateWeigths.Count>0 && changeOnDateWeigths.Select(a => a.ChangedDateTime).Contains(request.Date))
                 {
-                    person.Score += person.Factor * (changeOnDateWeigths.Find(a => a.ChangedDateTime.DayOfWeek.Equals(request.Date.DayOfWeek)).NewWeigth + request.Positions[i].Weight);
+                    person.Score += person.Person.Factor * (changeOnDateWeigths.Find(a => a.ChangedDateTime.DayOfWeek.Equals(request.Date.DayOfWeek)).NewWeigth + request.Positions[i].Weight);
                 }
                 else
                 {
-                    person.Score += person.Factor * (daysOfWeekWeights.Find(a => a.Day.Equals(request.Date.DayOfWeek)).Weight + request.Positions[i].Weight);
+                    person.Score += person.Person.Factor * (daysOfWeekWeights.Find(a => a.Day.Equals(request.Date.DayOfWeek)).Weight + request.Positions[i].Weight);
                 }
                 duty.PreliminaryAssessmentList.Add(person.Score);
             }
@@ -84,12 +85,12 @@ namespace DutyFier.Core.Models
         {
             var tempPersonSCAvailableCollection = persons.Where(person =>
             {
-                if (person.Positions == null || person.Positions.Count == 0)
+                if (person.Person.Positions == null || person.Person.Positions.Count == 0)
                 {
                     //throw new ArgumentException("Null or empty person available position parametr");
                     return false;
                 }
-                return person.Positions.Contains(position);
+                return person.Person.Positions.Contains(position);
             });
             if(tempPersonSCAvailableCollection.Count()==0)
                 throw new ArgumentException("Can`t find available person to this request");
@@ -105,8 +106,8 @@ namespace DutyFier.Core.Models
                             Contains(request.Date));
                 if (excludeDates.Count() == 0)
                     return true;
-                return excludeDates.Select(b => b.Person).
-                        Contains(personSC);
+                return  excludeDates.Select(b =>  b.Person).
+                        Contains(personSC.Person);
             });
             if (tempPersonSCAvailableCollection.Count() == 0)
                 throw new ArgumentException("Can`t find available person to this request");
@@ -123,7 +124,7 @@ namespace DutyFier.Core.Models
             var excludeDatesWithChosenPerson = excludes.Where(a => a.Person.Equals(person));
             if (excludeDatesWithChosenPerson.Count() == 0)
             {
-                excludes.Add(new ExcludeDates(person, new HashSet<DateTime> { requestDate, requestDate.AddDays(1) }));
+                excludes.Add(new ExcludeDates(person.Person, new HashSet<DateTime> { requestDate, requestDate.AddDays(1) }));
             }
             else
             {

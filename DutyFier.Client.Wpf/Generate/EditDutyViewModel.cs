@@ -13,7 +13,8 @@ namespace DutyFier.Client.Wpf.Generate
     class EditDutyViewModel : INotifyPropertyChanged
     {
         private Duty selectedDuty;
-        public Duty ChangeDuty { get; set; }
+        public Duty ChangeDuty { get;
+            set; }
         public ObservableCollection<Person> FullPersonsDuty { get; set; }
         public ObservableCollection<Person> FullPersons { get; set; }
 
@@ -28,9 +29,6 @@ namespace DutyFier.Client.Wpf.Generate
             set
             {
                 test = value;
-                OnPropertyChanged("Test");
-                OnPropertyChanged("Key");
-                OnPropertyChanged("Value");
             }
         }
 
@@ -61,7 +59,8 @@ namespace DutyFier.Client.Wpf.Generate
 
     class MyDictionary
     {
-        public Person Key { get; set; }
+        public Person Key { get; 
+            set; }
         public ObservableCollection<Person> Value { get; set; }
 
         public MyDictionary(Person key, ObservableCollection<Person> values)

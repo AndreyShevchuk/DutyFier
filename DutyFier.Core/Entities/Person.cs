@@ -17,21 +17,6 @@ namespace DutyFier.Core.Entities
             PersonDutyFeedbacks = new HashSet<PersonDutyFeedback>();
         }
 
-        public Person(string firstName, string lastName, double factor) : base()
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Factor = factor;
-        }
-        public Person(Person person) : base()
-        {
-            FirstName = person.FirstName;
-            LastName = person.LastName;
-            Factor = person.Factor;
-            Positions = person.Positions;
-            PersonDutyFeedbacks = person.PersonDutyFeedbacks;
-        }
-
         public override bool Equals(object obj)
         {
             return obj is Person person && Id == person.Id;

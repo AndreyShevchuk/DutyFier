@@ -23,6 +23,7 @@ namespace DutyFier.Core.Models
 
             modelBuilder.Ignore<DutyRequest>();
             modelBuilder.Entity<Duty>().Ignore(c => c.ExecutorsNames);
+            modelBuilder.Ignore<PersonScoreCover>();
             //modelBuilder.Entity<Person>().Ignore(c => c.Score);
             //modelBuilder.Entity<DutyType>()
             //    .HasMany(p => p.Positions)
