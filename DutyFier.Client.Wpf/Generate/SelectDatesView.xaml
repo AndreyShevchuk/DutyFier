@@ -41,14 +41,14 @@
             <TextBlock FontSize="24" Foreground="DodgerBlue" FontWeight="Bold" Text="Chose which duty you needed" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <ListBox Margin="20 40 20 65" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   
                  
-                 ItemsSource="{Binding DatesPosition.Keys}"
+                 ItemsSource="{Binding DatesPosition}"
                  SelectedItem="{Binding SelectPosition}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
-                            <TextBlock FontSize="18" Text="{Binding Path=Name}" />
-                            <TextBlock Text="{Binding Path=Id}" />
-                            <TextBlock Text="{Binding Path=Weight}" />
+                            <TextBlock FontSize="18" Text="{Binding Path=Key.Name}" />
+                            
+                            <TextBlock Text="{Binding Path=Value[], UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

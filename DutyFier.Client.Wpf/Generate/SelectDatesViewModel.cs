@@ -16,7 +16,7 @@ namespace DutyFier.Client.Wpf.Generate
 
         private SelectedDatesCollection selectDates;
 
-        private Position selectPosition;
+        private KeyValuePair<Position, List<DateTime>> selectPosition;
 
         private CalendarUI calendarUI;
         public RelayCommand ComadAcpet { get; set; }
@@ -26,9 +26,9 @@ namespace DutyFier.Client.Wpf.Generate
         {
             GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true) ;
             ComadAcpet = new RelayCommand(SetSelectedDatesForSelectedPosition, CheckActivityButton);
-
+           
             DatesPosition = generateContext.PositionsDate;
-            SelectPosition = DatesPosition.Keys.First();
+            SelectPosition = DatesPosition.First();
         }
         public SelectedDatesCollection SelectDates
         {
@@ -42,7 +42,7 @@ namespace DutyFier.Client.Wpf.Generate
                 OnPropertyChanged("SelectDates");
             }
         }
-        public Position SelectPosition
+        public KeyValuePair<Position,List<DateTime>> SelectPosition
         {
             get
             {
@@ -53,7 +53,7 @@ namespace DutyFier.Client.Wpf.Generate
                 selectPosition = value;
                 if (calendarUI != null)
                 {
-                    calendarUI.UpdateClaendar(DatesPosition[selectPosition]);
+                    calendarUI.UpdateClaendar(DatesPosition[selectPosition.Key]);
                 }
             }
         }
@@ -62,11 +62,12 @@ namespace DutyFier.Client.Wpf.Generate
             selectDates = obj;
             calendarUI = new CalendarUI(selectDates);
         }
-
+        
         private void SetSelectedDatesForSelectedPosition(Object obj)
         {
-            DatesPosition[selectPosition].Clear();
-            DatesPosition[selectPosition] = calendarUI.GetSelectedDates();
+            DatesPosition[selectPosition.Key].Clear();
+            DatesPosition[selectPosition.Key] = calendarUI.GetSelectedDates();
+            OnPropertyChanged("SelectPosition");
         }
 
         private bool CheckActivityButton(Object obj)
@@ -75,18 +76,18 @@ namespace DutyFier.Client.Wpf.Generate
             {
                 return false;
             }
-            if (selectPosition == null)
+            if (selectPosition.Key == null)
             {
                 return false;
             }
             foreach (var item in selectDates)
             {
-                if (!DatesPosition[selectPosition].Contains(item))
+                if (!DatesPosition[selectPosition.Key].Contains(item))
                 {
                     return true;
                 }
             }
-            if (selectDates.Count != DatesPosition[selectPosition].Count)
+            if (selectDates.Count != DatesPosition[selectPosition.Key].Count)
             {
                 return true;
             }
