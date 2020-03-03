@@ -9,10 +9,10 @@ namespace DutyFier.Core.Entities
 
         public HashSet<DateTime> DateTimes { get; private set; }
 
-        public ExcludeDates(Person person, HashSet<DateTime> dateTimes)
+        public ExcludeDates(Person person, IEnumerable<DateTime> dateTimes)
         {
             Person = person;
-            DateTimes = dateTimes;
+            DateTimes = new HashSet<DateTime>(dateTimes);
         }
 
         public override bool Equals(object obj)

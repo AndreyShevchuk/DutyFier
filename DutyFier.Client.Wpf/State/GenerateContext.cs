@@ -34,7 +34,17 @@ namespace DutyFier.Client.Wpf.State
                 ChangeDutyReqest();
                 return dutyRequests;
             } 
-        } 
+        }
+        private List<ExcludeDates> ConvertToListExludeDates()
+        {
+            var resault = new List<ExcludeDates>();
+            foreach (var position in ExludeDates.Keys)
+            {
+                resault.Add(new ExcludeDates(position, ExludeDates[position]));
+            }
+            return resault;
+        }
+
 
         public GenerateContext()
         {
@@ -50,8 +60,8 @@ namespace DutyFier.Client.Wpf.State
             a.Duties.RemoveRange(a.Duties);
             a.SaveChanges();
 
-            //TODO WTF?? new??
-            duties = new ObservableCollection<Duty>(dutyGenerate.Generate(dutyRequests.ToList(), new List<ExcludeDates>(), new List<ChangeOnDateWeigth>().ToList()));
+            //TODO WTF?? new?? 
+            duties = new ObservableCollection<Duty>(dutyGenerate.Generate(dutyRequests.ToList(), ConvertToListExludeDates(), new List<ChangeOnDateWeigth>().ToList()));
             
             a.Duties.AddRange(duties);
             a.SaveChanges();
