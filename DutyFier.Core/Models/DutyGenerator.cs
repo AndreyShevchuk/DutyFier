@@ -43,12 +43,12 @@ namespace DutyFier.Core.Models
             if(requests==null || requests.Count <= 0)
                 throw new ArgumentException("Null or empty request parametr");
             return requests
-                .Select(request => GenerateSingleDuty(coverPerson, daysOfWeekWeights, request, excludes, changeOnDateWeigths, persons))
+                .Select(request => GenerateSingleDuty(ref coverPerson, daysOfWeekWeights, request, ref excludes, changeOnDateWeigths, persons))
                 .ToList()
             ;
         }
 
-        private Duty GenerateSingleDuty(List<PersonScoreCover> personCover, List<DaysOfWeekWeight> daysOfWeekWeights, DutyRequest request, List<ExcludeDates> excludes, List<ChangeOnDateWeigth> changeOnDateWeigths, List<Person> persons)
+        private Duty GenerateSingleDuty(ref List<PersonScoreCover> personCover, List<DaysOfWeekWeight> daysOfWeekWeights, DutyRequest request, ref List<ExcludeDates> excludes, List<ChangeOnDateWeigth> changeOnDateWeigths, List<Person> persons)
         {
             Duty duty = new Duty() { Date = request.Date };
 
@@ -60,7 +60,7 @@ namespace DutyFier.Core.Models
             {
                 // Get best person who can be in this duty
                 person = GetBestCandidate(personCover, request, excludes, request.Positions[i]);
-
+                personCover.Contains(person);
                 //Person can`t be in two or more duty on a single day and it can`t be in a duty two days incommon
                 AddExludeDatesForPersonInDuty(ref excludes, person, request.Date);
 
@@ -107,8 +107,9 @@ namespace DutyFier.Core.Models
                             Contains(request.Date));
                 if (excludeDates.Count() == 0)
                     return true;
-                return  excludeDates.Select(b =>  b.Person).
-                        Contains(personSC.Person);
+                return !excludeDates.Select(b => b.Person).
+                    Contains(personSC.Person);
+                        
             });
             if (tempPersonSCAvailableCollection.Count() == 0)
                 throw new ArgumentException("Can`t find available person to this request");

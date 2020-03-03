@@ -50,6 +50,7 @@ namespace DutyFier.Client.Wpf.State
             a.Duties.RemoveRange(a.Duties);
             a.SaveChanges();
 
+            //TODO WTF?? new??
             duties = new ObservableCollection<Duty>(dutyGenerate.Generate(dutyRequests.ToList(), new List<ExcludeDates>(), new List<ChangeOnDateWeigth>().ToList()));
             
             a.Duties.AddRange(duties);
