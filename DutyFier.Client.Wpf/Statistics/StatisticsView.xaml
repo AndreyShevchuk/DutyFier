@@ -20,10 +20,10 @@
                           ItemsSource="{Binding Persons}"
                           CanUserAddRows="False">
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="Name" Width="*"  Binding="{Binding FirstName}" />
-                        <DataGridTextColumn Header="Last Name" Width="*"  Binding="{Binding LastName}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Score" Width="*"  Binding="{Binding Score}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Factor" Width="*"  Binding="{Binding Factor}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Name" Width="*"  Binding="{Binding Person.FirstName}" />
+                        <DataGridTextColumn Header="Last Name" Width="*"  Binding="{Binding Person.LastName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Score" Width="*"  Binding="{Binding Person.Score}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Factor" Width="*"  Binding="{Binding Person.Factor}" ></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

@@ -5,13 +5,17 @@ using System.Text;
 using System.Linq;
 namespace DutyFier.Core.Models
 {
-    public class PersonScoreCover : Person
+    public class PersonScoreCover 
     {
+        public Person Person { get; set; }
         public double Score { get; set; }
 
-        public PersonScoreCover(string firstName, string lastName, double factor, double score) : base(firstName,lastName,factor) => Score = score;
+        public PersonScoreCover(Person person, double score) 
+        {
+            Person = person;
+            Score = score;
+        }
 
-        public PersonScoreCover(Person person, double score) : base(person) => Score = score;
         public PersonScoreCover() { }
         public static List<PersonScoreCover> GetPersonScoreCoverList(List<Person> persons, List<PersonDutyFeedback> feedbacks, List<Duty> generetedDuty)
         {

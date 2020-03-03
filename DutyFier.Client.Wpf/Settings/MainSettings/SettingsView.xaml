@@ -50,7 +50,7 @@
                             <DataGrid SelectedItem="{Binding SelectedExecutor,UpdateSourceTrigger=PropertyChanged }" CanUserAddRows="False" Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding People, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid" Grid.ColumnSpan="2">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Path=Id}" />
-                                    <DataGridTextColumn IsReadOnly="True"  Header="Name" Binding="{Binding Path=FirstName}" />
+                                    <DataGridTextColumn IsReadOnly="True"  Header="Surname" Binding="{Binding Path=FirstName}" />
                                     <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Path=LastName}" />
                                 </DataGrid.Columns>
                             </DataGrid>
@@ -94,8 +94,9 @@
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
-                                    <Button Command="{Binding AddPositionCommand}" Width="100" Content="Add" />
-                                    <Button Command="{Binding RemovePositionCommand}" Margin="20 0 0 0" Width="100" Content="Remove" />
+                                    <Button Command="{Binding RemovePositionCommand}" Margin="0 0 0 0" Width="100" Content="Remove" />
+                                    <Button Command="{Binding AddPositionCommand}" Margin="20 0 0 0" Width="100" Content="Add" />
+                                    
                                 </StackPanel>
                                 <ListBox SelectedItem="{Binding SelectedPositionToRemove, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="20" ItemsSource="{Binding PersonPositions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                     <ListBox.ItemTemplate>
@@ -117,12 +118,12 @@
                                 <RowDefinition Height="8.5*" />
                                 <RowDefinition Height="1.5*" />
                             </Grid.RowDefinitions>
-                            <DataGrid SelectedItem="{Binding SelectedPositionsToRemove}" CanUserAddRows="False" HorizontalAlignment="Left" Grid.Row="0" ColumnWidth="*" ItemsSource="{Binding Allpositions,  UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="10 10 10 0"   FontSize="14" x:Name="dutiesGrid">
+                            <DataGrid SelectedItem="{Binding SelectedPositionsToRemove}" CanUserAddRows="False" HorizontalAlignment="Left" Grid.Row="0"  ItemsSource="{Binding Allpositions,  UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="10 10 10 0"   FontSize="14" x:Name="dutiesGrid">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path = DutyType}" Header="Type of duty" />
-                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path = Name}" Header="Position" />
-                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path = Weight}" Header="Weight" />
-                                    <DataGridCheckBoxColumn IsReadOnly="True"  Binding="{Binding Path= IsSeniorPosition}" Header="Is senior" />
+                                    <DataGridTextColumn Width="1.5*" IsReadOnly="True" Binding="{Binding Path = DutyType}" Header="Type of duty" />
+                                    <DataGridTextColumn Width="1.5*" IsReadOnly="True" Binding="{Binding Path = Name}" Header="Position" />
+                                    <DataGridTextColumn Width="1*" IsReadOnly="True" Binding="{Binding Path = Weight}" Header="Weight" />
+                                    <DataGridCheckBoxColumn Width="0.5*"   IsReadOnly="True"  Binding="{Binding Path= IsSeniorPosition}" Header="Is senior" />
                                 </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0 0 0 20">

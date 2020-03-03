@@ -10,7 +10,6 @@ namespace DutyFier.Client.Wpf.Settings.MainSettings
 {
     internal class ExecutorsViewModel : INotifyPropertyChanged
     {
-        public PersonRepository PersonReposytory { get; }
 
         private Person selectedExecutor;
 
@@ -18,7 +17,6 @@ namespace DutyFier.Client.Wpf.Settings.MainSettings
         {
             // DutyFierContext = MainWindowViewModel.Container.Resolve<DutyFierContext>();
             SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
-            this.PersonReposytory = new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             People = new ObservableCollection<Person>(SettingsModel.GetAllPerson());
             AddExecutorCommand = new RelayCommands(addExecutorCommand, Can);
             RemovePersonCommand = new RelayCommands(removePersonCommand, Can);
