@@ -12,13 +12,15 @@ namespace DutyFier.Client.Wpf.Generate
 {
     class EditDutyViewModel : INotifyPropertyChanged
     {
-        private Duty selectedDuty;
-        public Duty ChangeDuty { get;
-            set; }
+        public Duty ChangeDuty { get; set; }
         public ObservableCollection<Person> FullPersonsDuty { get; set; }
         public ObservableCollection<Person> FullPersons { get; set; }
 
         private ObservableCollection<MyDictionary> test;
+
+        public RelayCommands AddPersonComand { get; set; }
+        public RelayCommands<MyDictionary> DelPersonComand { get; set; }
+        public RelayCommands OkComand { get; set; }
 
         public ObservableCollection<MyDictionary> Test
         {
@@ -35,10 +37,29 @@ namespace DutyFier.Client.Wpf.Generate
         public EditDutyViewModel(Duty duty, IEnumerable<Person> persons)
         {
             ChangeDuty = duty;
+
             FullPersonsDuty = new ObservableCollection<Person>(duty.Executors.Select(e => e.Person));
             FullPersons = new ObservableCollection<Person>(persons);
             MetodTest(FullPersonsDuty, FullPersons);
+            AddPersonComand = new RelayCommands(() => { Test.Add(new MyDictionary(new Person(), FullPersons)); }, () => true);
+            DelPersonComand = new RelayCommands<MyDictionary>(obj => Test.Remove(obj), obj => true);
+            
+            OkComand = new RelayCommands(ChangeExecutor, () => true);
         }
+
+        private void ChangeExecutor()
+        {
+            var tresh = ChangeDuty.Executors[0].Position;
+            ChangeDuty.Executors.Clear();
+            foreach (var item in Test)
+            {
+                if(item != null)
+                {
+                    ChangeDuty.Executors.Add(new Executor() { Person = item.Key, Position = tresh });
+                }
+            }
+        }
+
         private void MetodTest(ICollection<Person> key, ObservableCollection<Person> value)
         {
             Test = new ObservableCollection<MyDictionary>();
@@ -47,7 +68,6 @@ namespace DutyFier.Client.Wpf.Generate
                 Test.Add( new MyDictionary( item, value));
             }
         }
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -59,10 +79,8 @@ namespace DutyFier.Client.Wpf.Generate
 
     class MyDictionary
     {
-        public Person Key { get; 
-            set; }
+        public Person Key { get; set; }
         public ObservableCollection<Person> Value { get; set; }
-
         public MyDictionary(Person key, ObservableCollection<Person> values)
         {
             Key = key;
