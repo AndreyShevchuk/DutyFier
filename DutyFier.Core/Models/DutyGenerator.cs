@@ -51,6 +51,7 @@ namespace DutyFier.Core.Models
         private Duty GenerateSingleDuty(List<PersonScoreCover> persons, List<DaysOfWeekWeight> daysOfWeekWeights, DutyRequest request, List<ExcludeDates> excludes, List<ChangeOnDateWeigth> changeOnDateWeigths)
         {
             Duty duty = new Duty() { Date = request.Date };
+
             // for each position:
             PersonScoreCover person;
             if (request.Positions == null || request.Positions.Count <= 0)
@@ -61,7 +62,7 @@ namespace DutyFier.Core.Models
                 person = GetBestCandidate(persons, request, excludes, request.Positions[i]);
 
                 //Person can`t be in two or more duty on a single day and it can`t be in a duty two days incommon
-                AddExludeDatesForPersonInDuty(excludes, person, request.Date);
+                AddExludeDatesForPersonInDuty(ref excludes, person, request.Date);
 
                 // Adding new executer with this person
                 duty.Executors.Add(new Executor() { Person = person, Position = request.Positions[i]});
@@ -118,7 +119,7 @@ namespace DutyFier.Core.Models
             ;
         }
 
-        private void AddExludeDatesForPersonInDuty(List<ExcludeDates> excludes , PersonScoreCover person, DateTime requestDate)
+        private void AddExludeDatesForPersonInDuty(ref List<ExcludeDates> excludes , PersonScoreCover person, DateTime requestDate)
         {
             var excludeDatesWithChosenPerson = excludes.Where(a => a.Person.Equals(person));
             if (excludeDatesWithChosenPerson.Count() == 0)

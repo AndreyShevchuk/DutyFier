@@ -119,6 +119,8 @@ namespace DutyFier.Client.Wpf
             Container = new UnityContainer();
             Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
 
+            SeedData.StartData();
+
             StatisticsCommand = new RelayCommands<UIElementCollection>(statisticCommand, CanChange);
             SettingsCommand = new RelayCommands<UIElementCollection>(settingsCommand, CanChange);
             SelectDatesCommand = new RelayCommands<UIElementCollection>(generateCommand, CanChange);
@@ -137,7 +139,7 @@ namespace DutyFier.Client.Wpf
             IsVisible = Visibility.Hidden;
 
             //TODO delete in future
-            SeedData.StartData();
+            
            
             MainWindowModel = new MainWindowModel(new DutyRepository(Container.Resolve<DutyFierContext>()));
         }

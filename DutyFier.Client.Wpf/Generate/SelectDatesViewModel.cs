@@ -28,7 +28,7 @@ namespace DutyFier.Client.Wpf.Generate
             ComadAcpet = new RelayCommand(SetSelectedDatesForSelectedPosition, CheckActivityButton);
 
             DatesPosition = generateContext.PositionsDate;
-            SelectPosition = DatesPosition.Keys.First();
+               SelectPosition = DatesPosition.Keys?.First();
         }
         public SelectedDatesCollection SelectDates
         {
