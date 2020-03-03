@@ -12,19 +12,21 @@ namespace DutyFier.Client.Wpf.Generate
 {
     class SelectDatesViewModel : INotifyPropertyChanged
     {
-        public Dictionary<Position, List<DateTime>> DatesPosition { get; set; }
+        public Dictionary<Position, List<DateTime>> DatesPosition { get => datesPosition; set => datesPosition = value; }
 
         private SelectedDatesCollection selectDates;
 
         private KeyValuePair<Position, List<DateTime>> selectPosition;
 
         private CalendarUI calendarUI;
+        private Dictionary<Position, List<DateTime>> datesPosition;
+
         public RelayCommand ComadAcpet { get; set; }
         public RelayCommands<SelectedDatesCollection> GetSelectedDatesCollectionComand { get; set; }
 
         public SelectDatesViewModel(GenerateContext generateContext)
         {
-            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true) ;
+            GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true);
             ComadAcpet = new RelayCommand(SetSelectedDatesForSelectedPosition, CheckActivityButton);
 
             DatesPosition = generateContext.PositionsDate;
@@ -42,7 +44,7 @@ namespace DutyFier.Client.Wpf.Generate
                 OnPropertyChanged("SelectDates");
             }
         }
-        public KeyValuePair<Position,List<DateTime>> SelectPosition
+        public KeyValuePair<Position, List<DateTime>> SelectPosition
         {
             get
             {
@@ -62,11 +64,14 @@ namespace DutyFier.Client.Wpf.Generate
             selectDates = obj;
             calendarUI = new CalendarUI(selectDates);
         }
-        
+
         private void SetSelectedDatesForSelectedPosition(Object obj)
         {
             DatesPosition[selectPosition.Key].Clear();
             DatesPosition[selectPosition.Key] = calendarUI.GetSelectedDates();
+            selectPosition.Value.AddRange(calendarUI.GetSelectedDates());
+            
+            OnPropertyChanged("DatesPosition");
             OnPropertyChanged("SelectPosition");
         }
 

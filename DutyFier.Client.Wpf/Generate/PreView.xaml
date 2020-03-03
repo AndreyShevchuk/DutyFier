@@ -10,6 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <materialDesign1:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign1:TransitionEffect SlideInFromRight, Duration = 0:0:0.15}">
     <Grid>
         <DataGrid ItemsSource="{Binding DutyRequests, UpdateSourceTrigger=PropertyChanged}"
                   x:Name="dataGrid"
@@ -19,29 +20,34 @@
             <DataGrid.Columns>
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = Date, StringFormat=d}" Header="Date" Width="*" FontSize="20" />
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = DutyType}" Header="Type" Width="*" FontSize="20" />
-                <materialDesign:DataGridTextColumn Binding="{Binding Path = Positions.Count}" Header="Count of executors"  Width="*"/>
-                <DataGridTemplateColumn Header="View" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                    <DataGridTemplateColumn Header="Count of executors"  Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path = Positions.Count}"/>
+                                    <StackPanel Margin="20 0 0 0" Orientation="Horizontal">
 
-                                <Button Height="25" Width="50" Command="{ Binding DataContext.PlusDutyComand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        <Button Padding="0" BorderThickness="0" Background="#0000"  Command="{ Binding DataContext.PlusDutyComand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                                                CommandParameter="{Binding }">
-                                    <materialDesign1:PackIcon  Foreground="WhiteSmoke" Kind="ArrowTopDropCircle"/>
-                                </Button>
+                                            <materialDesign1:PackIcon Height="20" Width="25"  Foreground="CornflowerBlue" Kind="ArrowTopBold"/>
+                                        </Button>
 
-                                <Button Height="25" Width="50" Command="{ Binding DataContext.MinusDutyComand , RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        <Button Padding="0" BorderThickness="0" Background="#0000"  Command="{ Binding DataContext.MinusDutyComand , RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                                                CommandParameter="{Binding }">
-                                    <materialDesign1:PackIcon  Foreground="WhiteSmoke"   Kind="ArrowBottomDropCircle"/>
-                                </Button>
+                                            <materialDesign1:PackIcon Height="20" Width="25"  Foreground="CornflowerBlue"   Kind="ArrowBottomBold"/>
+                                        </Button>
 
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+               
             </DataGrid.Columns>
         </DataGrid>
         <Button Command="{Binding GenerateDuty}" Content= "GenerateDuty" Margin="0 0 30 20"  Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100"/>
     </Grid>
+
+    </materialDesign1:TransitioningContent>
 
 </UserControl>

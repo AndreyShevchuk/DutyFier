@@ -119,7 +119,7 @@
                 <TranslateTransform/>
                 </TransformGroup>
             </Grid.RenderTransform>
-            <materialDesign:TransitioningContent x:Name="TransitionEff"  OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.1}">
+            <materialDesign:TransitioningContent x:Name="TransitionEff"  OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration = 0:0:0.2}" HorizontalAlignment="Right" Width="59">
                 <Grid  x:Name="GridSelecter"   Background="WhiteSmoke" Width="10" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Margin="0 100 0 0"/>
             </materialDesign:TransitioningContent>
             <Button  x:Name="OpenMenu" Margin="0 0 0 0"  VerticalAlignment="Top" HorizontalAlignment="Left" Background="#0000" BorderBrush="#0000">
@@ -150,13 +150,14 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
                             <i:InvokeCommandAction 
-                            Command="{Binding SettingsCommand}"
+                            Command="{Binding FeedbackCommand}"
                             CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Settings" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="Settings" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
+                        <materialDesign:PackIcon Kind="FeedbackOutline" Height="30" Width="30" VerticalAlignment="Center" Margin="5"></materialDesign:PackIcon>
+                        <TextBlock Text="FeedBack" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
+                        <TextBlock Margin="20 0 0 0" FontSize="18" Text="{Binding Path=FeedbacksCount, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="GenerateItem" Height="60">
@@ -176,16 +177,16 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
                             <i:InvokeCommandAction 
-                            Command="{Binding FeedbackCommand}"
+                            Command="{Binding SettingsCommand}"
                             CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FeedbackOutline" Height="30" Width="30" VerticalAlignment="Center" Margin="5"></materialDesign:PackIcon>
-                        <TextBlock Text="FeedBack" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
-                        <TextBlock Margin="20 0 0 0" FontSize="18" Text="{Binding Path=FeedbacksCount, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                        <materialDesign:PackIcon Kind="Settings" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Settings" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </ListViewItem>
+                
             </ListView>
             <StackPanel Margin="10 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
                 <ToggleButton IsChecked="{Binding IsDarkModeOn, UpdateSourceTrigger=PropertyChanged}" Command="{Binding DarkModeCommand}"  VerticalContentAlignment="Center"  x:Name="DarkMode" Width="50" Height=" 50"    VerticalAlignment="Bottom" ToolTip="Default ToggleButton Style"/>

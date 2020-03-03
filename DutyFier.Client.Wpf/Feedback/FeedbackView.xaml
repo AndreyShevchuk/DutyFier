@@ -14,7 +14,7 @@
                     <RowDefinition Height="8.5*"/>
                     <RowDefinition Height="1.5*"/>
                 </Grid.RowDefinitions>
-                <DataGrid ItemsSource="{Binding Dutys}" SelectedItem="{Binding SelectedDuty, Mode=TwoWay}" AutoGenerateColumns="False"  ColumnWidth="*" x:Name="DataGridFeedBack" FontSize="20">
+                <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Dutys}" SelectedItem="{Binding SelectedDuty, Mode=TwoWay}" AutoGenerateColumns="False"  ColumnWidth="*" x:Name="DataGridFeedBack" FontSize="20">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="0"/>
                         <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Date" Binding="{Binding Path = Date}"/>

@@ -30,7 +30,7 @@ namespace DutyFier.Client.Wpf.Generate
             apv.DataContext = new EditDutyViewModel(SelectedDuty, context.personRepository.GetAll());
             if (apv.ShowDialog() == true)
             {
-
+                apv.Close();
             }
         }
     }

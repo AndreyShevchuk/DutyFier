@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DutyFier.Client.Wpf.Generate"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="EditDuty" Height="650" Width="500">
+        Title="EditDuty" Height="350" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
@@ -17,7 +17,7 @@
                 <DataGridTemplateColumn Header="Change" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource = "{Binding Path = Value}" SelectedItem="{Binding Path = Key, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True">
+                            <ComboBox Background="White" ItemsSource = "{Binding Path = Value}" SelectedItem="{Binding Path = Key, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path = FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
@@ -33,7 +33,7 @@
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
             <Button IsCancel="True" Width="100" Content="Cancel" Margin="20 0 0 0"/>
             <Button Margin="20 0 0 0" Width="100" Content="Remove"/>
-            <Button Width="100" Content="Add" Margin="20 0 0 0"/>
+            <Button Width="100" Content="OK" Margin="20 0 0 0"/>
             
         </StackPanel>
     </Grid>

@@ -7,7 +7,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+
+    <materialDesign:TransitioningContent x:Name="TransitionEff" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration = 0:0:0.15}">
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
@@ -23,8 +25,8 @@
                         <DataTemplate>
                             <Button  Command="{ Binding DataContext.ComandChangeExecutors, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                      CommandParameter="{Binding }" 
-                                     HorizontalAlignment="Left" VerticalAlignment="Center" Name="btnEdit"  Width="50" Height="50" >
-                                <materialDesign:PackIcon Kind="CallMade" Width="20" Height="20" />
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" Background="#0000" BorderThickness="0" Name="btnEdit"  Padding="0" >
+                                    <materialDesign:PackIcon Foreground="Black" Kind="PlaylistEdit" Width="40" Height="40" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -34,4 +36,6 @@
         </DataGrid>
 
     </Grid>
+
+    </materialDesign:TransitioningContent>
 </UserControl>
