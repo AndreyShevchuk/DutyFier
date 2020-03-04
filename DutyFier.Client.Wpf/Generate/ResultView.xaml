@@ -18,9 +18,9 @@
                   SelectedItem="{Binding SelectedDuty}" ColumnWidth="*" x:Name="DataGrid4" FontSize="20" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <materialDesign:DataGridTextColumn  CanUserResize="False" Width="*" Header="Date" Binding="{Binding Path = Date}"/>
-                <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Type" Binding="{Binding Path = Type}"/>
+                    <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Positions" Binding="{Binding Path = PositionNames}"/>
                 <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Executors" Binding="{Binding Path = ExecutorsNames}"/>
-                <DataGridTemplateColumn Header="Change" Width="*">
+                <DataGridTemplateColumn Header="Change" Width="0.7*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button  Command="{ Binding DataContext.ComandChangeExecutors, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"

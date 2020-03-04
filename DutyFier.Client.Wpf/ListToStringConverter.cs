@@ -16,9 +16,17 @@ namespace DutyFier.Client.Wpf
         {
             if (targetType != typeof(string))
                 throw new InvalidOperationException("The target must be a String");
-            
-            
-                return String.Join(", ", ((List<DateTime>)value).Select(date => $"[{date.Day}/{date.Month}]").ToArray());
+            string result = "";
+            for (int i = 0; i < ((List<DateTime>)value).Count; i++)
+            {
+                if(i == 10)
+                {
+                    result += "\n";
+                }
+                result += "["+((List<DateTime>)value)[i].ToString("dd/MM") +"] ";
+            }
+
+            return result;
         }
 
         

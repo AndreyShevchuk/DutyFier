@@ -22,7 +22,12 @@ namespace DutyFier.Client.Wpf.Generate
         public EditDutyView()
         {
             InitializeComponent();
+            
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }
