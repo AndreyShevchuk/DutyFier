@@ -22,6 +22,7 @@ namespace DutyFier.Client.Wpf.Generate
         public EditDutyView()
         {
             InitializeComponent();
+
         }
     }
 }
