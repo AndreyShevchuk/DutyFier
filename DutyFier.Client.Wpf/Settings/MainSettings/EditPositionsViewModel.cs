@@ -25,6 +25,8 @@ namespace DutyFier.Client.Wpf.Settings.MainSettings
 
             AddPositionCommand = new RelayCommands(addPositionCommand, Can);
             RemovePositionCommand = new RelayCommands(removePositionCommand, Can);
+            AddPositionToAllCommand = new RelayCommands(addPositionToAllCommand, Can);
+            RemovePositionFromAllCommand = new RelayCommands(removePostionFromAllCommand, Can);
         }
 
         public Person SelectedPerson
@@ -42,6 +44,8 @@ namespace DutyFier.Client.Wpf.Settings.MainSettings
         public Position SelectedPositionToRemove { get; set; }
         public RelayCommands AddPositionCommand { get; set; }
         public RelayCommands RemovePositionCommand { get; set; }
+        public RelayCommands AddPositionToAllCommand { get; set; }
+        public RelayCommands RemovePositionFromAllCommand { get; set; }
         public ObservableCollection<Position> Allpositions { get; set; }
         public ObservableCollection<Person> People { get; set; }
         public ObservableCollection<Position> PersonPositions { get; private set; }
@@ -57,8 +61,33 @@ namespace DutyFier.Client.Wpf.Settings.MainSettings
         private void addPositionCommand()
         {
             SelectedPerson.Positions.Add(SelectedPosition);
-            PersonPositions.Add(SelectedPosition);
+            if (!(PersonPositions.Contains(SelectedPosition)))
+            {
+                PersonPositions.Add(SelectedPosition);
+            }
             SettingsModel.UpdatePersonDependencyToPosition(SelectedPerson);
+        }
+        private void removePostionFromAllCommand()
+        {
+            foreach(var person in People)
+            {
+                person.Positions.Remove(SelectedPosition);
+                SettingsModel.UpdatePersonDependencyToPosition(person);
+            }
+            PersonPositions.Remove(SelectedPosition);
+        }
+        private void addPositionToAllCommand()
+        {
+            foreach(var person in People)
+            {
+                person.Positions.Add(SelectedPosition);
+                SettingsModel.UpdatePersonDependencyToPosition(person);
+            }
+            if (!(PersonPositions.Contains(SelectedPosition)))
+            {
+                PersonPositions.Add(SelectedPosition);
+            }
+
         }
 
         public bool Can()

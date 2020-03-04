@@ -86,32 +86,36 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                             <StackPanel Margin="20" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <ComboBox Background="White" Opacity="1"  Margin="0 0  30 0"  ItemsSource="{Binding Allpositions}" SelectedValue="{Binding SelectedPosition}"    FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Opacity="1" FontSize="18" Text="{Binding Name}" />
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
-                                    <Button Command="{Binding RemovePositionCommand}" Margin="0 0 0 0" Width="100" Content="Remove" />
-                                    <Button Command="{Binding AddPositionCommand}" Margin="20 0 0 0" Width="100" Content="Add" />
-                                    
-                                </StackPanel>
-                                <ListBox SelectedItem="{Binding SelectedPositionToRemove, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="20" ItemsSource="{Binding PersonPositions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel  Margin="5">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox Background="White" Opacity="1"  Margin="0 0  30 0"  ItemsSource="{Binding Allpositions}" SelectedValue="{Binding SelectedPosition}"    FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Opacity="1" FontSize="18" Text="{Binding Name}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
 
-                                                <TextBlock FontSize="14" Text="{Binding Name}" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
+                                        <Button Command="{Binding AddPositionCommand}" Margin="0 0 0 0" Width="100" Content="Add" />
+                                        <Button Command="{Binding RemovePositionCommand}" Margin="20 0 0 0" Width="100" Content="Remove" />
+                                    </StackPanel>
+                                    <StackPanel Margin="230 20 0 0" Orientation="Horizontal">
+                                        <Button Command="{Binding AddPositionToAllCommand}" Margin="0 0 0 0" Width="100" Content="Add to all" />
+                                        <Button  Command="{Binding RemovePositionFromAllCommand}" Margin="20 0 0 0" Width="100" Content="Remove all" />
+                                    </StackPanel>
+                                </StackPanel>
                             </StackPanel>
+                            <ListBox Margin="20 120 20 20" SelectedItem="{Binding SelectedPositionToRemove, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1"  ItemsSource="{Binding PersonPositions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel  Margin="5">
+                                            <TextBlock FontSize="14" Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Grid>
                     </TabItem>
-
                     <TabItem DataContext="{Binding Children[2]}" Header="Positions" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <Grid>
                             <Grid.RowDefinitions>
