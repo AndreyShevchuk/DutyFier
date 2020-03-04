@@ -24,7 +24,10 @@ namespace DutyFier.Core.Entities
             Positions = positions;
             DutyType = dutyType;
         }
-
+        public string Position
+        {
+            get { return Positions[0].Name; }
+        }
         public override bool Equals(object obj)
         {
             return obj is DutyRequest request &&

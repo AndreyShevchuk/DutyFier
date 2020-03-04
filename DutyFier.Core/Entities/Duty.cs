@@ -17,7 +17,6 @@ namespace DutyFier.Core.Entities
             Executors = new List<Executor>();
             PreliminaryAssessmentList = new List<double>();
         }
-
         public Duty(Duty copyDuty)
         {
             this.Id = copyDuty.Id;
@@ -26,7 +25,13 @@ namespace DutyFier.Core.Entities
             this.IsApproved = copyDuty.IsApproved;
             this.PreliminaryAssessmentList = copyDuty.PreliminaryAssessmentList;
         }
-
+        public string PositionNames
+        {
+            get
+            {
+                return Executors[0].Position.Name;
+            }
+        }
         public string ExecutorsNames
         {
             get 

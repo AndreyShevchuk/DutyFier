@@ -49,7 +49,7 @@
                             </Grid.RowDefinitions>
                             <DataGrid SelectedItem="{Binding SelectedExecutor,UpdateSourceTrigger=PropertyChanged }" CanUserAddRows="False" Grid.Row="0" ColumnWidth="*" AutoGenerateColumns="False"  ItemsSource="{Binding People, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Margin="10 10 10 0"  FontSize="14" x:Name="cadetsGrid" Grid.ColumnSpan="2">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Path=Id}" />
+                                    <DataGridTextColumn Width="0.2*" IsReadOnly="True" Header="ID" Binding="{Binding Path=Id}" />
                                     <DataGridTextColumn IsReadOnly="True"  Header="Surname" Binding="{Binding Path=FirstName}" />
                                     <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Path=LastName}" />
                                 </DataGrid.Columns>
