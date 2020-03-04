@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DutyFier.Client.Wpf.Generate"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes"
+
         mc:Ignorable="d"
         Title="EditDuty" Height="350" Width="400">
     <Grid>
@@ -27,14 +29,30 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Count of executors"  Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="20 0 0 0" Orientation="Horizontal">
+                                    <Button Padding="0" Command="{ Binding DataContext.DelPersonComand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding }"
+                                            BorderThickness="0" Background="#0000" >
+                                        <materialDesign1:PackIcon Height="20" Width="25"  Foreground="CornflowerBlue" Kind="ArrowTopBold"/>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
-            
+
         </DataGrid>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
             <Button IsCancel="True" Width="100" Content="Cancel" Margin="20 0 0 0"/>
-            <Button Margin="20 0 0 0" Width="100" Content="Remove"/>
-            <Button Click="Button_Click" Width="100" Content="OK" Margin="20 0 0 0"/>
-            
+            <Button Command="{Binding AddPersonComand}" Margin="20 0 0 0" Width="100" Content="Add"/>
+            <Button Command="{Binding OkComand}" Width="100" Content="OK" Margin="20 0 0 0"/>
         </StackPanel>
     </Grid>
 </Window>
