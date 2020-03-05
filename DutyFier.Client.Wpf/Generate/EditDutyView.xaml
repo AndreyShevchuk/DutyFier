@@ -8,7 +8,7 @@
         xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes"
 
         mc:Ignorable="d"
-        Title="EditDuty" Height="350" Width="400">
+        Title="EditDuty" Height="350" Width="400" WindowStyle="None" MouseDown="Window_MouseDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0" Margin="5" ItemsSource="{Binding Test , UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Change" Width="*">
+                <DataGridTemplateColumn Header="Change" Width="3*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox Background="White" ItemsSource = "{Binding Path = Value}" SelectedItem="{Binding Path = Key, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True">
@@ -30,7 +30,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Count of executors"  Width="*">
+                <DataGridTemplateColumn Header="Remove"  Width="1*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -38,7 +38,7 @@
                                     <Button Padding="0" Command="{ Binding DataContext.DelPersonComand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding }"
                                             BorderThickness="0" Background="#0000" >
-                                        <materialDesign1:PackIcon Height="20" Width="25"  Foreground="CornflowerBlue" Kind="ArrowTopBold"/>
+                                        <materialDesign1:PackIcon Height="20" Width="25"  Foreground="CornflowerBlue" Kind="Close"/>
                                     </Button>
                                 </StackPanel>
                             </StackPanel>

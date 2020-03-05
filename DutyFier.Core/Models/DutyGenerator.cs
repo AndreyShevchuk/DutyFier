@@ -67,20 +67,19 @@ namespace DutyFier.Core.Models
                 // Adding new executer with this person
                 persons.Where(pers => pers.Id == person.Person.Id).First();
                 duty.Executors.Add(new Executor() { Person = person.Person, Position = request.Positions[i]});
-
-                //Adding new score to person
-                if (changeOnDateWeigths.Count>0 && changeOnDateWeigths.Select(a => a.ChangedDateTime).Contains(request.Date))
-                {
-                    person.Score += person.Person.Factor * (changeOnDateWeigths.Find(a => a.ChangedDateTime.DayOfWeek.Equals(request.Date.DayOfWeek)).NewWeigth + request.Positions[i].Weight);
-                }
-                else
-                {
-                    person.Score += person.Person.Factor * (daysOfWeekWeights.Find(a => a.Day.Equals(request.Date.DayOfWeek)).Weight + request.Positions[i].Weight);
-                }
+                person.Score += GetScoreCount(
+                    person.Person.Factor,
+                    request.Positions[i].Weight,
+                    changeOnDateWeigths.Count > 0 && changeOnDateWeigths.Select(a => a.ChangedDateTime).Contains(request.Date) ?
+                        changeOnDateWeigths.Find(a => a.ChangedDateTime.DayOfWeek.Equals(request.Date.DayOfWeek)).NewWeigth:
+                        daysOfWeekWeights.Find(a => a.Day.Equals(request.Date.DayOfWeek)).Weight
+                    );
                 duty.PreliminaryAssessmentList.Add(person.Score);
             }
             return duty;
         }
+
+        private double GetScoreCount(double factor, double positionWeight, double daysOfWeekWeight) => factor * (daysOfWeekWeight + positionWeight);
 
         private PersonScoreCover GetBestCandidate(List<PersonScoreCover> persons, DutyRequest request, List<ExcludeDates> excludes, Position position)
         {
