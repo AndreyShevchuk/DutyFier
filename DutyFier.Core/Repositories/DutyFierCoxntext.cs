@@ -1,4 +1,4 @@
-﻿namespace DutyFier.Core.Repository
+﻿namespace DutyFier.Core
 {
     internal class DutyFierCoxntext
     {

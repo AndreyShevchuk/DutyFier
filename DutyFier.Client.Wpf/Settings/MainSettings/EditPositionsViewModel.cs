@@ -1,6 +1,6 @@
 ﻿using DutyFier.Core.Entities;
 using DutyFier.Core.Models;
-using DutyFier.Core.Repository;
+using DutyFier.Core;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;

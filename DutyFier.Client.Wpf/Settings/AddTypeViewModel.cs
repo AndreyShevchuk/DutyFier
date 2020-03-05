@@ -10,7 +10,7 @@ using Unity;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using DutyFier.Core.Repository;
+using DutyFier.Core;
 using System.Data.Entity;
 
 namespace DutyFier.Client.Wpf.Settings

@@ -31,12 +31,13 @@ namespace DutyFier.Client.Wpf.Generate
             if (apv.ShowDialog()
                 == true)
             {
+                context.Update();
                 apv.Close();
             }
             else if(apv.DialogResult == false)
             {
+                context.Reload();
                 apv.Close();
-                
             }
         }
     }

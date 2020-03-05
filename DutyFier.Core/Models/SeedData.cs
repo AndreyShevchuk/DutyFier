@@ -1,5 +1,5 @@
 ﻿using DutyFier.Core.Entities;
-using DutyFier.Core.Repository;
+using DutyFier.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

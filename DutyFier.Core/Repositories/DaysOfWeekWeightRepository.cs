@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace DutyFier.Core.Repository
+namespace DutyFier.Core
 {
     public class DaysOfWeekWeightRepository : IRepository<DaysOfWeekWeight>
     {
