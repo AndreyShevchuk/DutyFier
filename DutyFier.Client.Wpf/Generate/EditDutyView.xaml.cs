@@ -29,5 +29,15 @@ namespace DutyFier.Client.Wpf.Generate
         {
             DialogResult = true;
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
     }
 }

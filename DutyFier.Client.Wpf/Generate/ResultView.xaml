@@ -23,7 +23,7 @@
                 <DataGridTemplateColumn Header="Change" Width="0.7*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button  Command="{ Binding DataContext.ComandChangeExecutors, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                            <Button   Command="{ Binding DataContext.ComandChangeExecutors, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                      CommandParameter="{Binding }" 
                                      HorizontalAlignment="Left" VerticalAlignment="Center" Background="#0000" BorderThickness="0" Name="btnEdit"  Padding="0" >
                                     <materialDesign:PackIcon Foreground="Black" Kind="PlaylistEdit" Width="40" Height="40" />
