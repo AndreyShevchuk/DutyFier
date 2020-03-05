@@ -55,7 +55,7 @@ namespace DutyFier.Client.Wpf.Generate
             {
                 if(item != null)
                 {
-                    ChangeDuty.Executors.Add(new Executor() { Person = item.Key, Position = tresh });
+                    ChangeDuty.Executors.Add(new Executor() { Person = item.Key, Position = tresh , Duty = ChangeDuty, DutyId = ChangeDuty.Id });
                 }
             }
         }

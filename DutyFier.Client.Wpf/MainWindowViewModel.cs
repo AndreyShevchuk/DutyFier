@@ -13,7 +13,7 @@ using DutyFier.Client.Wpf.Settings;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Unity;
-using DutyFier.Core.Repository;
+using DutyFier.Core;
 using DutyFier.Core.Interfaces;
 using DutyFier.Core.Entities;
 using Unity.Lifetime;

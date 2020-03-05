@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace DutyFier.Core.Repository
+namespace DutyFier.Core
 {
     public class DutyRepository : IRepository<Duty>
     {
@@ -40,7 +40,10 @@ namespace DutyFier.Core.Repository
 
         public ICollection<Duty> GetAll()
         {
-            return context.Duties.ToList();
+            return context
+                .Duties
+                .Include(e => e.Executors)
+                .ToList();
         }
 
         public Duty GetOne(int id)
@@ -53,6 +56,7 @@ namespace DutyFier.Core.Repository
 
         public void Update(Duty value)
         {
+            
             context.Entry(value).State = EntityState.Modified;
             context.SaveChanges();
         }

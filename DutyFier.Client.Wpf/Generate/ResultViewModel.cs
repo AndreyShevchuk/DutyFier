@@ -28,14 +28,16 @@ namespace DutyFier.Client.Wpf.Generate
         {
             EditDutyView apv = new EditDutyView();
             apv.DataContext = new EditDutyViewModel(SelectedDuty, context.personRepository.GetAll());
-            if (apv.ShowDialog() == true)
+            if (apv.ShowDialog()
+                == true)
             {
+                context.Update();
                 apv.Close();
             }
             else if(apv.DialogResult == false)
             {
+                context.Reload();
                 apv.Close();
-                
             }
         }
     }

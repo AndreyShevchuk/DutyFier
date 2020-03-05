@@ -1,6 +1,6 @@
 ﻿using DutyFier.Core.Entities;
 using DutyFier.Core.Models;
-using DutyFier.Core.Repository;
+using DutyFier.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,7 +50,8 @@ namespace DutyFier.Client.Wpf.State
         {
             positionRepository = new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             personRepository = new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
-            dutyGenerate = new DutyGenerator(personRepository,new PersonDutyFeedbackRepository(),new DutyRepository(), new DaysOfWeekWeightRepository());
+            this.DutyRepository = new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
+            dutyGenerate = new DutyGenerator(personRepository,new PersonDutyFeedbackRepository(), DutyRepository, new DaysOfWeekWeightRepository());
             ExludeDates = personRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
             PositionsDate = positionRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
         }
@@ -113,6 +114,25 @@ namespace DutyFier.Client.Wpf.State
             {
                 this.dutyRequests.Add(item);
             }
+        }
+
+        public void Reload()
+        {
+            duties.Clear();
+            foreach (var item in DutyRepository.GetAll())
+            {
+                duties.Add(item);
+            }
+        }
+
+        public void Update()
+        {
+            foreach (var duty  in duties)
+            {
+                DutyRepository.Update(duty);
+            }
+            duties.Add(null);
+            duties.RemoveAt(duties.Count);
         }
     }
 }
