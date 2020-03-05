@@ -39,5 +39,10 @@ namespace DutyFier.Client.Wpf.Generate
         {
             DialogResult = false;
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
