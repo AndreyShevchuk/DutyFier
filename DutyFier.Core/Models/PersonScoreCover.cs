@@ -24,7 +24,7 @@ namespace DutyFier.Core.Models
             for (int i = 0; i < persons.Count; i++)
             {
                 score =
-                    feedbacks.Where(a => a.Person.Equals(persons[i])).Sum(a => a.Source) +
+                    feedbacks.Where(a => a.Person.Equals(persons[i])).Sum(a => a.Score) +
                     generetedDuty.
                     //Select only duties where persons[i] contain
                         Where(duty => duty.Executors.Select(a => a.Person).Contains(persons[i])).
@@ -51,7 +51,7 @@ namespace DutyFier.Core.Models
             for (int i = 0; i < persons.Count; i++)
             {
                 score =
-                    feedbacks.Where(a => a.Person.Equals(persons[i])).Sum(a => a.Source)
+                    feedbacks.Where(a => a.Person.Equals(persons[i])).Sum(a => a.Score)
                     ;
                 personScoreCovers.Add(new PersonScoreCover(persons[i], score));
             }

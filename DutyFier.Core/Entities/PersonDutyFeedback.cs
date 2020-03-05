@@ -8,7 +8,7 @@
         public int PersonId { get; set; }
         public virtual Person Person { get; set; }
         //TODO Change name Source to Score
-        public double Source { get; set; }
+        public double Score { get; set; }
         //TODO find if it use
         public bool IsCheaked { get; set; }
     }
