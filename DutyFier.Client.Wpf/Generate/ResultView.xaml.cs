@@ -27,5 +27,9 @@ namespace DutyFier.Client.Wpf.Generate
             InitializeComponent();
             DataContext = new ResultViewModel(context);
         }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
