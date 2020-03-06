@@ -17,10 +17,10 @@ namespace DutyFier.Core.Models
             dutyRepository = personRepository;
         }
 
-        private void AddExecutor()
-        {
-            duty.Executors.Add(new Executor());
-        }
+        //private void AddExecutor()
+        //{
+        //    duty.Executors.Add(new Executor());
+        //}
 
         private void RemuveExecutor(Executor executor)
         {

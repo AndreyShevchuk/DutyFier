@@ -50,14 +50,19 @@ namespace DutyFier.Client.Wpf.Generate
         private void ChangeExecutor()
         {
             var tresh = ChangeDuty.Executors[0].Position;
-            ChangeDuty.Executors.Clear();
-            foreach (var item in Test)
+           // ChangeDuty.Executors.Clear();
+            for (int i = 0; i < ChangeDuty.Executors.Count; i++)
             {
-                if(item != null)
-                {
-                    ChangeDuty.Executors.Add(new Executor() { Person = item.Key, Position = tresh , Duty = ChangeDuty, DutyId = ChangeDuty.Id });
-                }
+                ChangeDuty.Executors[i].Person = Test.ElementAt(i).Key;
             }
+
+            //foreach (var item in Test)
+            //{
+            //    if(item != null)
+            //    {
+            //        ChangeDuty.Executors.Add(new Executor() {Id =10000, Person = item.Key, Position = tresh , Duty = ChangeDuty, DutyId = ChangeDuty.Id });
+            //    }
+            //}
         }
 
         private void MetodTest(ICollection<Person> key, ObservableCollection<Person> value)

@@ -51,7 +51,10 @@ namespace DutyFier.Client.Wpf.State
             positionRepository = new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             personRepository = new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             this.DutyRepository = new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
-            dutyGenerate = new DutyGenerator(personRepository,new PersonDutyFeedbackRepository(), DutyRepository, new DaysOfWeekWeightRepository());
+            dutyGenerate = new DutyGenerator(personRepository,
+                                             new PersonDutyFeedbackRepository(), 
+                                             DutyRepository, 
+                                             new DaysOfWeekWeightRepository());
             ExludeDates = personRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
             PositionsDate = positionRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
         }
@@ -61,7 +64,6 @@ namespace DutyFier.Client.Wpf.State
             a.Duties.RemoveRange(a.Duties);
             a.SaveChanges();
 
-            //TODO WTF?? new?? 
             duties = new ObservableCollection<Duty>(dutyGenerate.Generate(dutyRequests.ToList(), ConvertToListExludeDates(), new List<ChangeOnDateWeigth>().ToList()));
             
             a.Duties.AddRange(duties);
@@ -127,12 +129,13 @@ namespace DutyFier.Client.Wpf.State
 
         public void Update()
         {
+            //r exRep = new ExecuterRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             foreach (var duty  in duties)
             {
                 DutyRepository.Update(duty);
+
             }
-            duties.Add(null);
-            duties.RemoveAt(duties.Count);
+            //TODO here could be OnPropCH
         }
     }
 }

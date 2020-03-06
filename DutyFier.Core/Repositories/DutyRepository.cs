@@ -56,7 +56,6 @@ namespace DutyFier.Core
 
         public void Update(Duty value)
         {
-            
             context.Entry(value).State = EntityState.Modified;
             context.SaveChanges();
         }

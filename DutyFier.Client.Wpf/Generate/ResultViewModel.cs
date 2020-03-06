@@ -3,14 +3,22 @@ using DutyFier.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DutyFier.Client.Wpf.Generate
 {
-    class ResultViewModel
+    class ResultViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
         public ObservableCollection<Duty> Dutys { get; set; }
         public Duty SelectedDuty { get; set; }
         public GenerateContext context { get; set; }
@@ -33,6 +41,7 @@ namespace DutyFier.Client.Wpf.Generate
             {
                 context.Update();
                 apv.Close();
+                OnPropertyChanged("ExecutorsNames");
             }
             else if(apv.DialogResult == false)
             {

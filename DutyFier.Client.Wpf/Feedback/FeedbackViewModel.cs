@@ -22,8 +22,8 @@ namespace DutyFier.Client.Wpf.Feedback
         FeedbackView.FeedbackChangeCountTrigger FeedbackChangeCount { get; set; }
         public delegate void AcceptFeedbackViewClosingTrigger();
         public AcceptFeedbackViewClosingTrigger ReedFeedbackContext { get; set; }
-        RelayCommands CreateAcceptFeedbackViewCommand;
-        RelayCommands AcceptAllCommand;
+        public RelayCommands CreateAcceptFeedbackViewCommand { get; set; }
+        public RelayCommands AcceptAllCommand { get; set; }
         FeedbacksContext FeedbacksContext { get; set; }
         public List<Duty> Dutys
         {
@@ -32,7 +32,7 @@ namespace DutyFier.Client.Wpf.Feedback
         public FeedbackViewModel(FeedbackView.FeedbackChangeCountTrigger changeCountTrigger)
         {
             FeedbackChangeCount = changeCountTrigger;
-            CreateAcceptFeedbackViewCommand = new RelayCommands(CreateAcceptFeedbackView);
+            CreateAcceptFeedbackViewCommand = new RelayCommands(createAcceptFeedbackView, ()=> true);
             AcceptAllCommand = new RelayCommands(AcceptAll);
             FeedbacksContext = new FeedbacksContext(new List<PersonDutyFeedback>());
             ReedFeedbackContext = GetFeedbackContext;
@@ -50,7 +50,7 @@ namespace DutyFier.Client.Wpf.Feedback
             FeedbacksContext = AcceptFeedbackView.FeedbacksContext;
         }
 
-        private void CreateAcceptFeedbackView()
+       private void createAcceptFeedbackView()
         {
             AcceptFeedbackView = new AcceptFeedbackView( SelectedDuty, FeedbacksContext, ReedFeedbackContext);
 

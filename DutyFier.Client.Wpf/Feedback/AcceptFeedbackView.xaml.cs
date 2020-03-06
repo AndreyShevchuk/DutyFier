@@ -30,7 +30,6 @@ namespace DutyFier.Client.Wpf.Feedback
             FeedbacksContext = FeedbacksContext;
             DataContext = new AcceptFeedbackViewModel(duty, feedbacksContext);
             this.reedFeedbackContext = reedFeedbackContext;
-            DialogResult = true;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

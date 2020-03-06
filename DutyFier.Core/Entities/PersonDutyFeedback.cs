@@ -10,6 +10,5 @@
         //TODO Change name Source to Score
         public double Score { get; set; }
         //TODO find if it use
-        public bool IsCheaked { get; set; }
     }
 }

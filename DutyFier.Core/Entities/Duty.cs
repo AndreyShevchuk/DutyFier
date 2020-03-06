@@ -29,7 +29,9 @@ namespace DutyFier.Core.Entities
         {
             get
             {
-                return Executors[0].Position.Name;
+                if (Executors.Count > 0)
+                    return Executors[0].Position.Name;
+                else return "";
             }
         }
         public string ExecutorsNames

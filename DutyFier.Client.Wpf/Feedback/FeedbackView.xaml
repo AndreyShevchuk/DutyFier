@@ -24,7 +24,7 @@
                         <DataGridTemplateColumn Header="Accept" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Command="{Binding CreateAcceptFeedbackViewCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Name="btnAccept" Width="100" Content="Edit" Height="50" />
+                                    <Button Command="{Binding DataContext.CreateAcceptFeedbackViewCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding }" HorizontalAlignment="Center" VerticalAlignment="Center" Name="btnAccept" Width="100" Content="Edit" Height="50"  />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
