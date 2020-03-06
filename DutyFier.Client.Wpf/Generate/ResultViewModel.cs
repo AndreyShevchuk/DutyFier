@@ -36,14 +36,14 @@ namespace DutyFier.Client.Wpf.Generate
         {
             EditDutyView apv = new EditDutyView();
             apv.DataContext = new EditDutyViewModel(SelectedDuty, context.personRepository.GetAll());
-            if (apv.ShowDialog()
-                == true)
+            if (apv.ShowDialog() == true)
             {
+                Dutys = new ObservableCollection<Duty>(context.DutyRepository.GetAll());
+                OnPropertyChanged("Dutys");
                 context.Update();
                 apv.Close();
-                OnPropertyChanged("ExecutorsNames");
             }
-            else if(apv.DialogResult == false)
+            else if (apv.DialogResult == false)
             {
                 context.Reload();
                 apv.Close();
