@@ -129,6 +129,10 @@
       <DependentUpon>SelectDatesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Generate\SelectDatesViewModel.cs" />
+    <Compile Include="ListOfDutys\ListOfDutysView.xaml.cs">
+      <DependentUpon>ListOfDutysView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfDutys\ListOfDutysViewModel.cs" />
     <Compile Include="ListToStringConverter.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -187,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Generate\SelectDatesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfDutys\ListOfDutysView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

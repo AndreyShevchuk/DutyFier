@@ -150,6 +150,22 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
                             <i:InvokeCommandAction 
+                            Command="{Binding ListCommand}"
+                            CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                    <StackPanel  Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ClipboardListOutline" Height="30" Width="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="List of dutys" Margin="10 0 0 0" VerticalAlignment="Center" FontSize="20">
+
+                        </TextBlock>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Selected">
+                            <i:InvokeCommandAction 
                             Command="{Binding FeedbackCommand}"
                             CommandParameter="{Binding Children, ElementName=GridForWindow}"/>
                         </i:EventTrigger>

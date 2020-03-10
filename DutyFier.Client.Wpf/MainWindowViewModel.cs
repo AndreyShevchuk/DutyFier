@@ -21,6 +21,7 @@ using Unity.Interception;
 using Unity.Interception.Interceptors.InstanceInterceptors.TransparentProxyInterception;
 using DutyFier.Core.Models;
 using System.Data.Entity;
+using DutyFier.Client.Wpf.ListOfDutys;
 
 namespace DutyFier.Client.Wpf
 {
@@ -103,6 +104,7 @@ namespace DutyFier.Client.Wpf
                 OnPropertyChanged("IsDarkModeOn");
             }
         }
+        public RelayCommands<UIElementCollection> ListCommand { get; set; }
         public RelayCommands<UIElementCollection> StatisticsCommand { get; set; }
         public RelayCommands<UIElementCollection> SettingsCommand { get; set; }
         public RelayCommands<UIElementCollection> SelectDatesCommand { get; set; }
@@ -120,7 +122,7 @@ namespace DutyFier.Client.Wpf
             Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
 
             SeedData.StartData();
-
+            ListCommand = new RelayCommands<UIElementCollection>(listCommand, CanChange);
             StatisticsCommand = new RelayCommands<UIElementCollection>(statisticCommand, CanChange);
             SettingsCommand = new RelayCommands<UIElementCollection>(settingsCommand, CanChange);
             SelectDatesCommand = new RelayCommands<UIElementCollection>(generateCommand, CanChange);
@@ -143,7 +145,14 @@ namespace DutyFier.Client.Wpf
            
             MainWindowModel = new MainWindowModel(new DutyRepository(Container.Resolve<DutyFierContext>()));
         }
-
+        public void listCommand(UIElementCollection obj)
+        {
+            childrenPanel = obj;
+            var statistic = new ListOfDutysView();
+            childrenPanel.Clear();
+            childrenPanel.Add(statistic);
+            IsVisible = Visibility.Hidden;
+        }
         public void powerOffCommand()
         {
             Container.Resolve<DutyFierContext>().Dispose();
