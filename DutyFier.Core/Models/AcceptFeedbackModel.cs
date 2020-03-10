@@ -16,7 +16,7 @@ namespace DutyFier.Core.Models
                 {
                     Duty = duty,
                     Person = executor.Person,
-                    Score = duty.PreliminaryAssessmentList[duty.Executors.IndexOf(executor)]
+                    Score = executor.PreliminaryScore
                 })
             );
 

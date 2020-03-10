@@ -9,7 +9,6 @@
         public virtual Person Person { get; set; }
         public int DutyId { get; set; }
         public virtual Duty Duty { get; set; }
-        //TODO (Done) Deleted Score!
-
+        public double PreliminaryScore { get; set; }
     }
 }

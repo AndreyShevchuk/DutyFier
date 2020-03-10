@@ -64,17 +64,19 @@ namespace DutyFier.Core.Models
                 //Person can`t be in two or more duty on a single day and it can`t be in a duty two days incommon
                 AddExludeDatesForPersonInDuty(ref excludes, person, request.Date);
 
-                // Adding new executer with this person
-                persons.Where(pers => pers.Id == person.Person.Id).First();
-                duty.Executors.Add(new Executor() { Person = person.Person, Position = request.Positions[i]});
-                person.Score += GetScoreCount(
+                // Calculating peliminary score for executor
+                var peliminaryScore = GetScoreCount(
                     person.Person.Factor,
                     request.Positions[i].Weight,
                     changeOnDateWeigths.Count > 0 && changeOnDateWeigths.Select(a => a.ChangedDateTime).Contains(request.Date) ?
-                        changeOnDateWeigths.Find(a => a.ChangedDateTime.DayOfWeek.Equals(request.Date.DayOfWeek)).NewWeigth:
+                        changeOnDateWeigths.Find(a => a.ChangedDateTime.DayOfWeek.Equals(request.Date.DayOfWeek)).NewWeigth :
                         daysOfWeekWeights.Find(a => a.Day.Equals(request.Date.DayOfWeek)).Weight
                     );
-                duty.PreliminaryAssessmentList.Add(person.Score);
+                // Adding new executer with this person
+
+                persons.Where(pers => pers.Id == person.Person.Id).First();
+                duty.Executors.Add(new Executor() { Person = person.Person, Position = request.Positions[i], PreliminaryScore = peliminaryScore});
+                person.Score += peliminaryScore;
             }
             return duty;
         }

@@ -32,12 +32,9 @@ namespace DutyFier.Core.Models
                         Where(duty => !duty.IsApproved).
                         //Getting all double values of each person
                         Select(duty => 
-                            duty.PreliminaryAssessmentList[
-                                duty.Executors.
-                                    Select(executor => executor.Person).
-                                    ToList().
-                                    IndexOf(persons[i])
-                                ]).
+                               duty.Executors.Find(exe=> exe.Person == persons[i]).
+                               PreliminaryScore
+                               ).
                         Sum()
                 ;
                 personScoreCovers.Add(new PersonScoreCover(persons[i], score));
