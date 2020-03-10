@@ -12,14 +12,13 @@ namespace DutyFier.Client.Wpf.Generate
 {
     class SelectDatesViewModel : INotifyPropertyChanged
     {
-        public Dictionary<Position, List<DateTime>> DatesPosition { get => datesPosition; set => datesPosition = value; }
+        public Dictionary<Position, List<DateTime>> DatesPosition { get; set; }
 
         private SelectedDatesCollection selectDates;
 
         private KeyValuePair<Position, List<DateTime>> selectPosition;
 
         private CalendarUI calendarUI;
-        private Dictionary<Position, List<DateTime>> datesPosition;
 
         public RelayCommand ComadAcpet { get; set; }
         public RelayCommands<SelectedDatesCollection> GetSelectedDatesCollectionComand { get; set; }
@@ -28,7 +27,7 @@ namespace DutyFier.Client.Wpf.Generate
         {
             GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true);
             ComadAcpet = new RelayCommand(SetSelectedDatesForSelectedPosition, CheckActivityButton);
-
+            context = generateContext;
             DatesPosition = generateContext.PositionsDate;
             SelectPosition = DatesPosition.First();
         }
@@ -59,10 +58,14 @@ namespace DutyFier.Client.Wpf.Generate
                 }
             }
         }
+
+        public GenerateContext context { get; set; }
+
         private void SelectDateColetion(SelectedDatesCollection obj)
         {
             selectDates = obj;
             calendarUI = new CalendarUI(selectDates);
+
         }
 
         private void SetSelectedDatesForSelectedPosition(Object obj)
@@ -70,9 +73,10 @@ namespace DutyFier.Client.Wpf.Generate
             DatesPosition[selectPosition.Key].Clear();
             DatesPosition[selectPosition.Key] = calendarUI.GetSelectedDates();
             selectPosition.Value.AddRange(calendarUI.GetSelectedDates());
-            
+
+            DatesPosition = context.PositionsDate;
             OnPropertyChanged("DatesPosition");
-            OnPropertyChanged("SelectPosition");
+            OnPropertyChanged("selectPosition");
         }
 
         private bool CheckActivityButton(Object obj)

@@ -32,5 +32,10 @@ namespace DutyFier.Client.Wpf.Generate
             InitializeComponent();
             DataContext = new SelectDatesViewModel(generateContext);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PosBox.Items.Refresh();
+        }
     }
 }

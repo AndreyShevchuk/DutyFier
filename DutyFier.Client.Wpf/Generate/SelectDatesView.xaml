@@ -43,7 +43,7 @@
 
         <Grid Grid.Column="1">
             <TextBlock FontSize="24" Foreground="DodgerBlue" FontWeight="Bold" Text="Chose which duty you needed" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <ListBox Margin="20 40 20 65" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   
+            <ListBox x:Name="PosBox" Margin="20 40 20 65" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   
                  
                  ItemsSource="{Binding DatesPosition, UpdateSourceTrigger=PropertyChanged}"
                  SelectedItem="{Binding SelectPosition}">
@@ -52,12 +52,12 @@
                         <StackPanel Margin="5">
                             <TextBlock FontSize="18" Text="{Binding Path=Key.Name}" />
 
-                                <TextBlock Text="{Binding Path=Value,Converter={StaticResource myListConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="{Binding Path=Value,Converter={StaticResource myListConverter}}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 30 20" Command="{Binding ComadAcpet}" 
+            <Button Click="Button_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 30 20" Command="{Binding ComadAcpet}" 
                 Content="Accept"  Width="100"/>
         </Grid>
 
