@@ -26,5 +26,10 @@ namespace DutyFier.Core.Entities
         {
             return 2108858624 + Id.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return this.LastName+ " " + this.FirstName; 
+        }
     }
 }
