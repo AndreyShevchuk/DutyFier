@@ -25,7 +25,7 @@ namespace DutyFier.Client.Wpf.Feedback
             {
                 _executor = value;
                 Position = value.Position.ToString();
-                Grade = value.Duty.PreliminaryAssessmentList[Duty.Executors.IndexOf(value)];
+                Grade = value.PreliminaryScore;
                 OnPropertyChanged(nameof(Position));
                 OnPropertyChanged(nameof(Grade));
             }

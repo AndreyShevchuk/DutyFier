@@ -33,22 +33,16 @@ namespace DutyFier.Client.Wpf.Generate
         }
         public SelectedDatesCollection SelectDates
         {
-            get
-            {
-                return selectDates;
-            }
+            get => selectDates;
             set
             {
                 selectDates = value;
-                OnPropertyChanged("SelectDates");
+                OnPropertyChanged(nameof(SelectDates));
             }
         }
         public KeyValuePair<Position, List<DateTime>> SelectPosition
         {
-            get
-            {
-                return selectPosition;
-            }
+            get=>selectPosition;
             set
             {
                 selectPosition = value;

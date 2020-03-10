@@ -133,9 +133,7 @@ namespace DutyFier.Client.Wpf.State
             foreach (var duty  in duties)
             {
                 DutyRepository.Update(duty);
-
             }
-            //TODO here could be OnPropCH
         }
     }
 }

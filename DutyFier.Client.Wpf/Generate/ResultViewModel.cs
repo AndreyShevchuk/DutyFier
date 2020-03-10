@@ -39,7 +39,7 @@ namespace DutyFier.Client.Wpf.Generate
             if (apv.ShowDialog() == true)
             {
                 Dutys = new ObservableCollection<Duty>(context.DutyRepository.GetAll());
-                OnPropertyChanged("Dutys");
+                OnPropertyChanged(nameof(Dutys));
                 context.Update();
                 apv.Close();
             }

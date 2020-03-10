@@ -27,8 +27,8 @@ namespace DutyFier.Client.Wpf.Feedback
             FeedbackViewModel.AcceptFeedbackViewClosingTrigger reedFeedbackContext)
         {
             InitializeComponent();
-            FeedbacksContext = FeedbacksContext;
-            DataContext = new AcceptFeedbackViewModel(duty, feedbacksContext);
+            FeedbacksContext = feedbacksContext;
+            DataContext = new AcceptFeedbackViewModel(duty, FeedbacksContext);
             this.reedFeedbackContext = reedFeedbackContext;
         }
 
