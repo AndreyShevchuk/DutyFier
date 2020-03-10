@@ -22,5 +22,10 @@ namespace DutyFier.Client.Wpf.Generate
             InitializeComponent();
             DataContext = new ChoseExcludedDates(context);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ExludeBox.Items.Refresh();
+        }
     }
 }

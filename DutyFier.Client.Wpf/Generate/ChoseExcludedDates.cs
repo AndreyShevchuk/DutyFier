@@ -4,7 +4,9 @@ using DutyFier.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,9 +14,9 @@ using System.Windows.Controls;
 
 namespace DutyFier.Client.Wpf.Generate
 {
-    class ChoseExcludedDates
+    class ChoseExcludedDates:INotifyPropertyChanged
     {
-        private Person selctPerson;
+        private KeyValuePair<Person, List<DateTime>> selctPerson;
 
         private SelectedDatesCollection selectedDates;
 
@@ -28,7 +30,7 @@ namespace DutyFier.Client.Wpf.Generate
             ComandAddExludesDares = new RelayCommand(SetExcludeDatesForSelectPerson, CheckActivityButton);
 
             ExcludedDates = generateContext.ExludeDates;
-            SelcetPerson = ExcludedDates.Keys.First();
+            SelcetPerson = ExcludedDates.First();
         }
 
         private void GetSelectedDatesColections(SelectedDatesCollection obj)
@@ -37,7 +39,7 @@ namespace DutyFier.Client.Wpf.Generate
             CalendarUI = new CalendarUI(obj);
         }
 
-        public Person SelcetPerson {
+        public KeyValuePair<Person, List<DateTime>> SelcetPerson {
             get 
             {
                 return selctPerson; 
@@ -47,15 +49,17 @@ namespace DutyFier.Client.Wpf.Generate
                 selctPerson = value;
                 if (CalendarUI != null)
                 {
-                    CalendarUI.UpdateClaendar(ExcludedDates[selctPerson]);
+                    CalendarUI.UpdateClaendar(ExcludedDates[selctPerson.Key]);
                 }
+                OnPropertyChanged("SelcetPerson");
+                
             }
         }
 
         private void SetExcludeDatesForSelectPerson(object obj)
         {
-            ExcludedDates[SelcetPerson].Clear();
-            ExcludedDates[SelcetPerson] = CalendarUI.GetSelectedDates();
+            ExcludedDates[SelcetPerson.Key].Clear();
+            ExcludedDates[SelcetPerson.Key] = CalendarUI.GetSelectedDates();
         }
 
         private bool CheckActivityButton(Object obj)
@@ -64,22 +68,28 @@ namespace DutyFier.Client.Wpf.Generate
             {
                 return false;
             }
-            if (SelcetPerson == null)
+            if (SelcetPerson.Key == null)
             {
                 return false;
             }
             foreach (var item in selectedDates)
             {
-                if (!ExcludedDates[SelcetPerson].Contains(item))
+                if (!ExcludedDates[SelcetPerson.Key].Contains(item))
                 {
                     return true;
                 }
             }
-            if (selectedDates.Count != ExcludedDates[SelcetPerson].Count)
+            if (selectedDates.Count != ExcludedDates[SelcetPerson.Key].Count)
             {
                 return true;
             }
             return false;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
