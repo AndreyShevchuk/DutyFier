@@ -73,7 +73,7 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
-                            Command="{Binding StatisticsCommand}"
+                            Command="{Binding WindowLoadedCommand}"
                             CommandParameter="{Binding Children, ElementName=GridForWindow}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -129,7 +129,7 @@
                 <materialDesign:PackIcon Kind="Close" Height="20" Width="20" />
 
             </Button>
-            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListVievButtons_SelectionChanged" x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke">
+            <ListView IsEnabled="{Binding IsListViewEnabled}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListVievButtons_SelectionChanged" x:Name="ListVievButtons" Margin="0 100" Foreground="WhiteSmoke">
                 <ListViewItem Height="60">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
@@ -146,7 +146,7 @@
                         </TextBlock>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="60">
+                <ListViewItem  Height="60">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Selected">
                             <i:InvokeCommandAction 
