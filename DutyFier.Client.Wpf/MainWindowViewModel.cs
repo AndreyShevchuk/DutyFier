@@ -104,6 +104,9 @@ namespace DutyFier.Client.Wpf
                 OnPropertyChanged("IsDarkModeOn");
             }
         }
+        public bool IsListViewEnabled{get;set;}
+        public PersonModel personModel { get; set; }
+        public RelayCommands<UIElementCollection> WindowLoadedCommand { get; set; }
         public RelayCommands<UIElementCollection> ListCommand { get; set; }
         public RelayCommands<UIElementCollection> StatisticsCommand { get; set; }
         public RelayCommands<UIElementCollection> SettingsCommand { get; set; }
@@ -121,7 +124,9 @@ namespace DutyFier.Client.Wpf
             Container = new UnityContainer();
             Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
 
-            SeedData.StartData();
+            // SeedData.StartData();
+            personModel = new PersonModel(new PersonRepository(Container.Resolve<DutyFierContext>()));
+            WindowLoadedCommand = new RelayCommands<UIElementCollection>(windowLoadedCommand, CanChange);
             ListCommand = new RelayCommands<UIElementCollection>(listCommand, CanChange);
             StatisticsCommand = new RelayCommands<UIElementCollection>(statisticCommand, CanChange);
             SettingsCommand = new RelayCommands<UIElementCollection>(settingsCommand, CanChange);
@@ -144,6 +149,23 @@ namespace DutyFier.Client.Wpf
             
            
             MainWindowModel = new MainWindowModel(new DutyRepository(Container.Resolve<DutyFierContext>()));
+        }
+        private void windowLoadedCommand(UIElementCollection obj)
+        {
+            childrenPanel = obj;
+            if(personModel.GetAllPerson().Count == 0)
+            {
+                IsListViewEnabled = false;
+                OnPropertyChanged(nameof(IsListViewEnabled));
+                childrenPanel.Add(new SettingsView());
+                MessageBox.Show("There is no executors to work, please add executors and restart programm");
+            }
+            else
+            {
+                IsListViewEnabled = true;
+                OnPropertyChanged(nameof(IsListViewEnabled));
+                childrenPanel.Add(new StatisticsView());
+            }
         }
         public void listCommand(UIElementCollection obj)
         {
