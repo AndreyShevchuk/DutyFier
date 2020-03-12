@@ -173,70 +173,80 @@ namespace DutyFier.Core.Models
                         Name = "Черновий курсу",
                         IsSeniorPosition = true,
                         Weight = 2.6,
-                        DutyType = listDutyType[0]
+                        DutyType = listDutyType[0],
+                        DefaultPositionCount = 1
                     },
                     new Position()
                     {
                         Name = "Днювальний курсу",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[0]
+                        DutyType = listDutyType[0],
+                        DefaultPositionCount = 3
                     },
                     new Position()
                     {
                         Name = "ПЧІ",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[2]
+                        DutyType = listDutyType[2],
+                        DefaultPositionCount = 1
                     },
                     new Position()
                     {
                         Name = "ПЧФ",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[1]
+                        DutyType = listDutyType[1],
+                        DefaultPositionCount = 1
                     },
                     new Position()
                     {
                         Name = "Днювальний парку",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[2]
+                        DutyType = listDutyType[2],
+                        DefaultPositionCount = 1
                     },
                     new Position()
                     {
                         Name = "Черговий КПП-1",
                         IsSeniorPosition = true,
                         Weight = 2.6,
-                        DutyType = listDutyType[2]
+                        DutyType = listDutyType[2],
+                        DefaultPositionCount = 1
                     },
                     new Position()
                     {
                         Name = "Помічник чергового КПП-1",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[2]
+                        DutyType = listDutyType[2],
+                        DefaultPositionCount = 3
                     },
                     new Position()
                     {
                         Name = "Черговий КПП-2",
                         IsSeniorPosition = true,
                         Weight = 2.6,
-                        DutyType = listDutyType[2]
+                        DutyType = listDutyType[2],
+                        DefaultPositionCount = 1
                     },
                     new Position()
                     {
                         Name = "Помічник чергового КПП-2",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[2]
+                        DutyType = listDutyType[2],
+                        DefaultPositionCount = 1
                     },
                     new Position()
                     {
                         Name = "Черговий спортзалу",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[2]
+                        DutyType = listDutyType[2],
+                        DefaultPositionCount = 1
                     },
 
                     new Position()
@@ -244,7 +254,8 @@ namespace DutyFier.Core.Models
                         Name = "Черговий БП",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[3]
+                        DutyType = listDutyType[3],
+                        DefaultPositionCount = 1
                     },
 
                     new Position()
@@ -252,7 +263,16 @@ namespace DutyFier.Core.Models
                         Name = "Помічник чергового БП",
                         IsSeniorPosition = false,
                         Weight = 2.6,
-                        DutyType = listDutyType[3]
+                        DutyType = listDutyType[3],
+                        DefaultPositionCount = 1
+                    },
+                    new Position()
+                    {
+                        Name = "Патрульний ВСП",
+                        IsSeniorPosition = false,
+                        Weight = 1.5,
+                        DutyType = listDutyType[1],
+                        DefaultPositionCount = 6
                     }
                 };
                 tt.Positions.AddRange(listPosition);

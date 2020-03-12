@@ -19,6 +19,11 @@ namespace DutyFier.Client.Wpf.Feedback
         public string DutyType { get; set; }
         public AcceptFeedbackModel AcceptFeedbackModel { get; set; }
         private Executor _executor;
+
+        public bool IsLast 
+        {
+            get => Duty.Executors.Count == 1;
+        }
         public Executor ChosenExecutor { 
             get=> _executor;
             set 
@@ -61,7 +66,10 @@ namespace DutyFier.Client.Wpf.Feedback
 
         private void CreateFeedback()
         {
-            FeedbacksContext.PersonDutyFeedbacks.Add(AcceptFeedbackModel.CreateFeedback(Duty, ChosenExecutor, Grade)); 
+            FeedbacksContext.PersonDutyFeedbacks.Add(AcceptFeedbackModel.CreateFeedback(Duty, ChosenExecutor, Grade));
+            Duty.Executors.Remove(ChosenExecutor);
+            OnPropertyChanged(nameof(IsLast));
+            OnPropertyChanged(nameof(Duty));
         }
 
         private void Cansel()

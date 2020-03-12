@@ -14,8 +14,9 @@
     <Grid>
         <DataGrid ItemsSource="{Binding DutyRequests, UpdateSourceTrigger=PropertyChanged}"
                   x:Name="dataGrid"
-                  SelectedItem ="{Binding SelectDutyReqest, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem ="{Binding SelectDutyReqest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                   CanUserAddRows="False"
+                  IsSynchronizedWithCurrentItem="True"
                   AutoGenerateColumns="False" ColumnWidth="*" FontSize="20" Margin="0 0 0 70" >
             <DataGrid.Columns>
                 <materialDesign:DataGridTextColumn Binding="{Binding Path = Date, StringFormat=d}" Header="Date" Width="*" FontSize="20" />
@@ -27,12 +28,12 @@
                                     <TextBlock VerticalAlignment="Center" Text="{Binding Path = Positions.Count}"/>
                                     <StackPanel Margin="20 0 0 0" Orientation="Horizontal">
 
-                                        <Button Padding="0" BorderThickness="0" Background="#0000"  Command="{ Binding DataContext.PlusDutyComand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        <Button Click="Button_Click" Padding="0" BorderThickness="0" Background="#0000"  Command="{ Binding DataContext.PlusDutyComand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                                                CommandParameter="{Binding }">
                                             <materialDesign1:PackIcon Height="20" Width="25"  Foreground="CornflowerBlue" Kind="ArrowTopBold"/>
                                         </Button>
 
-                                        <Button Padding="0" BorderThickness="0" Background="#0000"  Command="{ Binding DataContext.MinusDutyComand , RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        <Button Click="Button_Click" Padding="0" BorderThickness="0" Background="#0000"  Command="{ Binding DataContext.MinusDutyComand , RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                                                CommandParameter="{Binding }">
                                             <materialDesign1:PackIcon Height="20" Width="25"  Foreground="CornflowerBlue"   Kind="ArrowBottomBold"/>
                                         </Button>

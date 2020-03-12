@@ -27,5 +27,11 @@ namespace DutyFier.Client.Wpf.Feedback
             DataContext = new FeedbackViewModel(changeCountTrigger);
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO DO not refreshed
+            DataGridFeedBack.Items.Refresh();
+        }
     }
 }

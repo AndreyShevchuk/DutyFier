@@ -42,5 +42,10 @@ namespace DutyFier.Core.Entities
             hashCode = hashCode * -1521134295 + DutyTypeId.GetHashCode();
             return hashCode;
         }
+
+        public Position First()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

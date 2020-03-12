@@ -15,43 +15,35 @@ namespace DutyFier.Client.Wpf.Generate
     {
         private DutyRequest selectDutyReqest;
         public ObservableCollection<DutyRequest> DutyRequests { get; set; }
-        public RelayCommands<DutyRequest> PlusDutyComand { get; set; }
-        public RelayCommands<DutyRequest> MinusDutyComand { get; set; }
+        public RelayCommands PlusDutyComand { get; set; }
+        public RelayCommands MinusDutyComand { get; set; }
         public RelayCommands GenerateDuty { get; set; }
-        public DutyRequest SelectDutyReqest {
-            get
-            {
-                return selectDutyReqest;
-            }
+        public DutyRequest SelectDutyReqest
+        {
+            get => selectDutyReqest;
             set
             {
                 selectDutyReqest = value;
-                OnPropertyChanged("SelectDutyReqest");
+                OnPropertyChanged(nameof(SelectDutyReqest));
             }
         }
         public PreViewModel(GenerateContext context)
         {
             DutyRequests = context.DutyRequests;
             GenerateDuty = new RelayCommands(context.GeneratorRun, () => true);
-            PlusDutyComand = new RelayCommands<DutyRequest>(PlusDuty, x => true);
-            MinusDutyComand = new RelayCommands<DutyRequest>(MinusDuty, x => true);
+            PlusDutyComand = new RelayCommands(PlusDuty, () => true);
+            MinusDutyComand = new RelayCommands(MinusDuty, () => true);
         }
 
-        public void PlusDuty(DutyRequest obj)
+        public void PlusDuty()
         {
-            SelectDutyReqest.Positions.Add(SelectDutyReqest.Positions[0]);
-            var index = DutyRequests.IndexOf(SelectDutyReqest);
-            DutyRequests.Insert(index, SelectDutyReqest);
-            DutyRequests.RemoveAt(index+1);
+            SelectDutyReqest.Positions.Add(SelectDutyReqest.Positions.First());
         }
-        public void MinusDuty(DutyRequest obj)
+        public void MinusDuty()
         {
             if (SubtractionIsPossible())
             {
-                SelectDutyReqest.Positions.RemoveAt(SelectDutyReqest.Positions.Count - 1); // Remove
-                var index = DutyRequests.IndexOf(SelectDutyReqest);
-                DutyRequests.Insert(index, SelectDutyReqest);
-                DutyRequests.RemoveAt(index + 1);
+                SelectDutyReqest.Positions.Remove(SelectDutyReqest.Positions.Last()); // Remove
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DutyFier.Core.Entities
 {
@@ -26,9 +27,9 @@ namespace DutyFier.Core.Entities
         {
             get
             {
-                if (Executors.Count > 0)
-                    return Executors[0].Position.Name;
-                else return "";
+                StringBuilder names = new StringBuilder();
+                Executors.ForEach(ex => names.Append(ex.Position.Name + "\n\r"));
+                return names.ToString();
             }
         }
         public string ExecutorsNames

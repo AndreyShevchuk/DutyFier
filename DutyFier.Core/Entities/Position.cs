@@ -10,6 +10,7 @@ namespace DutyFier.Core.Entities
         public virtual DutyType DutyType { get; set; }
         public int DutyTypeId { get; set; }
         public bool IsSeniorPosition { get; set; }
+        public int DefaultPositionCount { get; set; }
         public ICollection<Person> Persons { get; set; }
         public Position()
         {

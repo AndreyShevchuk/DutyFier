@@ -12,11 +12,11 @@ namespace DutyFier.Client.Wpf.Generate
 {
     class SelectDatesViewModel : INotifyPropertyChanged
     {
-        public Dictionary<Position, List<DateTime>> DatesPosition { get; set; }
+        public Dictionary<DutyType, List<DateTime>> DatesDutyTypes { get; set; }
 
         private SelectedDatesCollection selectDates;
 
-        private KeyValuePair<Position, List<DateTime>> selectPosition;
+        private KeyValuePair<DutyType, List<DateTime>> selectedDutyType;
 
         private CalendarUI calendarUI;
 
@@ -28,8 +28,8 @@ namespace DutyFier.Client.Wpf.Generate
             GetSelectedDatesCollectionComand = new RelayCommands<SelectedDatesCollection>(SelectDateColetion, x => true);
             ComadAcpet = new RelayCommand(SetSelectedDatesForSelectedPosition, CheckActivityButton);
             context = generateContext;
-            DatesPosition = generateContext.PositionsDate;
-            SelectPosition = DatesPosition.First();
+            DatesDutyTypes = generateContext.DutyTypeDate;
+            SelectedDutyType = DatesDutyTypes.First();
         }
         public SelectedDatesCollection SelectDates
         {
@@ -40,15 +40,15 @@ namespace DutyFier.Client.Wpf.Generate
                 OnPropertyChanged(nameof(SelectDates));
             }
         }
-        public KeyValuePair<Position, List<DateTime>> SelectPosition
+        public KeyValuePair<DutyType, List<DateTime>> SelectedDutyType
         {
-            get=>selectPosition;
+            get=>selectedDutyType;
             set
             {
-                selectPosition = value;
+                selectedDutyType = value;
                 if (calendarUI != null)
                 {
-                    calendarUI.UpdateClaendar(DatesPosition[selectPosition.Key]);
+                    calendarUI.UpdateClaendar(DatesDutyTypes[selectedDutyType.Key]);
                 }
             }
         }
@@ -64,11 +64,11 @@ namespace DutyFier.Client.Wpf.Generate
 
         private void SetSelectedDatesForSelectedPosition(Object obj)
         {
-            DatesPosition[selectPosition.Key].Clear();
-            DatesPosition[selectPosition.Key] = calendarUI.GetSelectedDates();
-            selectPosition.Value.AddRange(calendarUI.GetSelectedDates());
+            DatesDutyTypes[selectedDutyType.Key].Clear();
+            DatesDutyTypes[selectedDutyType.Key] = calendarUI.GetSelectedDates();
+            selectedDutyType.Value.AddRange(calendarUI.GetSelectedDates());
 
-            DatesPosition = context.PositionsDate;
+            DatesDutyTypes = context.DutyTypeDate;
             OnPropertyChanged("DatesPosition");
             OnPropertyChanged("selectPosition");
         }
@@ -79,18 +79,18 @@ namespace DutyFier.Client.Wpf.Generate
             {
                 return false;
             }
-            if (selectPosition.Key == null)
+            if (selectedDutyType.Key == null)
             {
                 return false;
             }
             foreach (var item in selectDates)
             {
-                if (!DatesPosition[selectPosition.Key].Contains(item))
+                if (!DatesDutyTypes[selectedDutyType.Key].Contains(item))
                 {
                     return true;
                 }
             }
-            if (selectDates.Count != DatesPosition[selectPosition.Key].Count)
+            if (selectDates.Count != DatesDutyTypes[selectedDutyType.Key].Count)
             {
                 return true;
             }
@@ -98,10 +98,6 @@ namespace DutyFier.Client.Wpf.Generate
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
+        public void OnPropertyChanged([CallerMemberName]string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
 }

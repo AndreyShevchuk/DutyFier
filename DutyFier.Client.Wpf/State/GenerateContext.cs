@@ -15,9 +15,12 @@ namespace DutyFier.Client.Wpf.State
     {
         private DutyGenerator dutyGenerate;
         public PositionRepository positionRepository { get; set; }
+
+        private DutyTypeRepository dutyTypeRepository;
+
         public PersonRepository personRepository { get; set; }
         public DutyRepository DutyRepository { get; set; } 
-        public Dictionary<Position, List<DateTime>> PositionsDate { get; set; }
+        public Dictionary<DutyType, List<DateTime>> DutyTypeDate { get; set; }
         public Dictionary<Person, List<DateTime>> ExludeDates { get; set; }
 
         public ObservableCollection<Duty> duties;
@@ -49,14 +52,16 @@ namespace DutyFier.Client.Wpf.State
         public GenerateContext()
         {
             positionRepository = new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
+            dutyTypeRepository = new DutyTypeRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             personRepository = new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             this.DutyRepository = new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             dutyGenerate = new DutyGenerator(personRepository,
-                                             new PersonDutyFeedbackRepository(), 
+                                             new PersonDutyFeedbackRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), 
                                              DutyRepository, 
-                                             new DaysOfWeekWeightRepository());
+                                             new DaysOfWeekWeightRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
             ExludeDates = personRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
-            PositionsDate = positionRepository.GetAll().ToDictionary(x => x, x => new List<DateTime>());
+            var dtypes = dutyTypeRepository.GetAll().ToList();
+            DutyTypeDate = dtypes.ToDictionary(x => x, x => new List<DateTime>());
         }
         public void GeneratorRun()
         {
@@ -64,10 +69,30 @@ namespace DutyFier.Client.Wpf.State
             a.Duties.RemoveRange(a.Duties);
             a.SaveChanges();
 
-            duties = new ObservableCollection<Duty>(dutyGenerate.Generate(dutyRequests.ToList(), ConvertToListExludeDates(), new List<ChangeOnDateWeigth>().ToList()));
+            duties = new ObservableCollection<Duty>(dutyGenerate.Generate(GetUnitedDutyRequsets(dutyRequests.ToList()), ConvertToListExludeDates(), new List<ChangeOnDateWeigth>().ToList()));
             
             a.Duties.AddRange(duties);
             a.SaveChanges();
+        }
+
+        private List<DutyRequest> GetUnitedDutyRequsets(List<DutyRequest> dutyRequests)
+        {
+            List<DutyRequest> res = new List<DutyRequest>();
+            while (dutyRequests.Count>0)
+            {
+                res.Add(GetDutyUnitedRequest(ref dutyRequests, dutyRequests.First().DutyType, dutyRequests.First().Date));
+            }
+            
+            return res;
+        }
+
+        private DutyRequest GetDutyUnitedRequest(ref List<DutyRequest> dutyRequests, DutyType dutyType, DateTime date)
+        {
+            var bar = dutyRequests;
+            var requests = dutyRequests.Where(request => request.Date.Equals(date) && request.DutyType.Equals(dutyType)).ToList();
+            var positions = dutyRequests.SelectMany(request => request.Positions).ToList();
+            requests.ForEach(request => bar.Remove(request));
+            return new DutyRequest() { Date = date, DutyType = dutyType, DutyTypeId = dutyType.Id, Positions = positions };
         }
 
         public void GeneratorRunWhereNoDutys()
@@ -81,19 +106,32 @@ namespace DutyFier.Client.Wpf.State
         private ObservableCollection<DutyRequest> DutyRequestsOnTheCalendar()
         {
             var dutyRequestsOnTheCalendar = new ObservableCollection<DutyRequest>();
-            foreach (var SelectedPositionCalendar in PositionsDate.Keys)
+            DutyRequest dutyRequest;
+            List<Position> positionsDublicateList;
+            for (int i = 0; i < DutyTypeDate.Keys.Count; i++)
             {
-                foreach (var SelectedDatesforPosition in PositionsDate[SelectedPositionCalendar])
+                for (int j = 0; j < DutyTypeDate[DutyTypeDate.Keys.ElementAt(i)].Count; j++)
                 {
-                    var duteReqest = new DutyRequest();
-                    duteReqest.Date = SelectedDatesforPosition;
-                    duteReqest.Positions.Add(SelectedPositionCalendar);
-                    duteReqest.DutyType = SelectedPositionCalendar.DutyType;
-                    duteReqest.DutyTypeId = SelectedPositionCalendar.DutyTypeId;
-                    dutyRequestsOnTheCalendar.Add(duteReqest);
+                    for (int k = 0; k < DutyTypeDate.Keys.ElementAt(i).Positions.Count; k++)
+                    {
+                        positionsDublicateList = new List<Position>();
+                        for (int l = 0; l < DutyTypeDate.Keys.ElementAt(i).Positions[k].DefaultPositionCount; l++)
+                        {
+                            positionsDublicateList.Add(DutyTypeDate.Keys.ElementAt(i).Positions[k]);
+                        }
+
+                        dutyRequest = new DutyRequest
+                        {
+                            Date = DutyTypeDate[DutyTypeDate.Keys.ElementAt(i)][j],
+                            Positions = positionsDublicateList,
+                            DutyType = DutyTypeDate.Keys.ElementAt(i),
+                            DutyTypeId = DutyTypeDate.Keys.ElementAt(i).Id
+                        };
+                        dutyRequestsOnTheCalendar.Add(dutyRequest);
+                    }
                 }
             }
-            return  dutyRequestsOnTheCalendar;
+            return dutyRequestsOnTheCalendar;
         }
         private void ChangeDutyReqest()
         {

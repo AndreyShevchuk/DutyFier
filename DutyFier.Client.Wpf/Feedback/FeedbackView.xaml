@@ -30,7 +30,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Command="{Binding AcceptAllCommand}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Content="Accept All" FontSize="14" Margin="0 0 50 0"/>
+                <Button Click="Button_Click" Command="{Binding AcceptAllCommand}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Content="Accept All" FontSize="14" Margin="0 0 50 0"/>
             </Grid>
         </materialDesign:TransitioningContent>
     </Grid>

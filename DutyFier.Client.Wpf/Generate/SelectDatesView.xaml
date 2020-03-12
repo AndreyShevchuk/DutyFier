@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
              xmlns:local="clr-namespace:DutyFier.Client.Wpf"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
@@ -21,7 +22,10 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Calendar Margin="0 40 0 0"  VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="Calendar" SelectionMode="MultipleRange"  >
-                <i:Interaction.Triggers>
+                    <Calendar.BlackoutDates>
+                        <CalendarDateRange Start="01.01.0001" End="{x:Static sys:DateTime.Now}"/>
+                    </Calendar.BlackoutDates>
+                    <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedDatesChanged">
                         <i:InvokeCommandAction 
                 Command="{Binding ComandSelectDates}"
@@ -45,8 +49,8 @@
             <TextBlock FontSize="24" Foreground="DodgerBlue" FontWeight="Bold" Text="Chose which duty you needed" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <ListBox x:Name="PosBox" Margin="20 40 20 65" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   
                  
-                 ItemsSource="{Binding DatesPosition, UpdateSourceTrigger=PropertyChanged}"
-                 SelectedItem="{Binding SelectPosition}">
+                 ItemsSource="{Binding DatesDutyTypes, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedDutyType}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">

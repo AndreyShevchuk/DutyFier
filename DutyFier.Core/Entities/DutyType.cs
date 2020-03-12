@@ -10,8 +10,6 @@ namespace DutyFier.Core.Entities
 
         public virtual List<Position> Positions { get; set; }
 
-        public int DefaultCount { get; set; }
-
         public override string ToString()
         {
             return this.Name;

@@ -25,5 +25,10 @@ namespace DutyFier.Client.Wpf.Generate
             InitializeComponent();
             DataContext = new PreViewModel(context);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            dataGrid.Items.Refresh();
+        }
     }
 }
