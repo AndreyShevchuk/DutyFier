@@ -70,7 +70,16 @@ namespace DutyFier.Client.Wpf.State
             
             dutyRepository.AddRange(duties);
         }
-
+        public IEnumerable<Person> GetOnlyAviablePersons(Duty selectedDuty)
+        {
+            var allPersons = personRepository.GetAll();
+            var executors = selectedDuty.Executors;
+            foreach(var executor in executors)
+            {
+                allPersons.Remove(executor.Person);
+            }
+            return allPersons;
+        }
         private List<DutyRequest> GetUnitedDutyRequsets(List<DutyRequest> dutyRequests)
         {
             List<DutyRequest> res = new List<DutyRequest>();

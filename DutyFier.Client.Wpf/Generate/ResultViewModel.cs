@@ -35,7 +35,7 @@ namespace DutyFier.Client.Wpf.Generate
         private void ShowDialogWindowChangeDuty()
         {
             EditDutyView apv = new EditDutyView();
-            apv.DataContext = new EditDutyViewModel(SelectedDuty, context.personRepository.GetAll());
+            apv.DataContext = new EditDutyViewModel(SelectedDuty, context.GetOnlyAviablePersons(SelectedDuty));
             if (apv.ShowDialog() == true)
             {
                 Dutys = new ObservableCollection<Duty>(context.DutyRepository.GetAll());
