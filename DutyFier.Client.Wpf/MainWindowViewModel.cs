@@ -124,7 +124,8 @@ namespace DutyFier.Client.Wpf
             Container = new UnityContainer();
             Container.RegisterType<DutyFierContext>(new ContainerControlledLifetimeManager());
 
-            SeedData.StartData();
+            SeedData.StartData(Container.Resolve<DutyFierContext>());
+            DefaultDaysAndPositionBDWrite.WriteToData(Container.Resolve<DutyFierContext>());
             personModel = new PersonModel(new PersonRepository(Container.Resolve<DutyFierContext>()));
             WindowLoadedCommand = new RelayCommands<UIElementCollection>(windowLoadedCommand, CanChange);
             ListCommand = new RelayCommands<UIElementCollection>(listCommand, CanChange);

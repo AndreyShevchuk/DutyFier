@@ -65,14 +65,10 @@ namespace DutyFier.Client.Wpf.State
         }
         public void GeneratorRun()
         {
-            var a = MainWindowViewModel.Container.Resolve<DutyFierContext>();
-            a.Duties.RemoveRange(a.Duties);
-            a.SaveChanges();
-
+            var dutyRepository =  new DutyRepository( MainWindowViewModel.Container.Resolve<DutyFierContext>());
             duties = new ObservableCollection<Duty>(dutyGenerate.Generate(GetUnitedDutyRequsets(dutyRequests.ToList()), ConvertToListExludeDates(), new List<ChangeOnDateWeigth>().ToList()));
             
-            a.Duties.AddRange(duties);
-            a.SaveChanges();
+            dutyRepository.AddRange(duties);
         }
 
         private List<DutyRequest> GetUnitedDutyRequsets(List<DutyRequest> dutyRequests)

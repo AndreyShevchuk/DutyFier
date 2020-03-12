@@ -69,7 +69,7 @@ namespace DutyFier.Client.Wpf.Feedback
             FeedbacksContext.PersonDutyFeedbacks.Add(AcceptFeedbackModel.CreateFeedback(Duty, ChosenExecutor, Grade));
             Duty.Executors.Remove(ChosenExecutor);
             OnPropertyChanged(nameof(IsLast));
-            OnPropertyChanged(nameof(Duty));
+            OnPropertyChanged("Executors");
         }
 
         private void Cansel()

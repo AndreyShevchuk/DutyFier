@@ -36,5 +36,10 @@ namespace DutyFier.Client.Wpf.Feedback
         {
             reedFeedbackContext?.Invoke();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            executorsCombobox.Items.Refresh();
+        }
     }
 }

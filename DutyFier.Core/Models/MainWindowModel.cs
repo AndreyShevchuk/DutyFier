@@ -15,7 +15,10 @@ namespace DutyFier.Core.Models
             this.dutyRepository = dutyRepository;
         }
 
-        public int GetUncreatedFeedbackCount()=>dutyRepository.GetAll().Where(duty => !duty.IsApproved).Count();
+        public int GetUncreatedFeedbackCount()=>dutyRepository.GetAll().
+                                                    Where(duty => !duty.IsApproved).
+                                                    Where(duty=> duty.Date>DateTime.Now.AddDays(1)).
+                                                    Count();
     }
 
 }

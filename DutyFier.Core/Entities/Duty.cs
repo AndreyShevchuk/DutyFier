@@ -63,9 +63,9 @@ namespace DutyFier.Core.Entities
             get
             {
                 string preliminaryAssessments = "";
-                foreach (var item in preliminaryAssessments)
+                foreach (var item in Executors)
                 {
-                    preliminaryAssessments += $"{item} \n\r";
+                    preliminaryAssessments += $"{item.PreliminaryScore} \n\r";
                 }
                 return preliminaryAssessments;
             }
