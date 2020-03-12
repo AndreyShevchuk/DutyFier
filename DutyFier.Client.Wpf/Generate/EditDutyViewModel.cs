@@ -24,7 +24,6 @@ namespace DutyFier.Client.Wpf.Generate
         public RelayCommands AddPersonComand { get; set; }
         public RelayCommands<MyDictionary> DelPersonComand { get; set; }
         public RelayCommands OkComand { get; set; }
-
         public ObservableCollection<MyDictionary> Test
         {
             get
@@ -47,7 +46,6 @@ namespace DutyFier.Client.Wpf.Generate
             DelPersonComand = new RelayCommands<MyDictionary>(RemuveExecutor, obj => true);
             OkComand = new RelayCommands(ChangeExecutor, () => true);
         }
-
         private void RemuveExecutor(MyDictionary myDictionary)
         {
             Test.Remove(myDictionary);
@@ -100,8 +98,17 @@ namespace DutyFier.Client.Wpf.Generate
     {
         public Person Key { get; set; }
         public ObservableCollection<Person> Value { get; set; }
+        public string GetFullName
+        {
+            get => Key.FirstName + Key.LastName; 
+            set
+            {
+                
+            }
+        }
         public MyDictionary(Person key, ObservableCollection<Person> values)
         {
+            
             Key = key;
             Value = values;
         }

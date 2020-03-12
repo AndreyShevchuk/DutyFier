@@ -19,7 +19,7 @@
                 <DataGridTemplateColumn Header="Change" Width="3*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Background="White" ItemsSource = "{Binding Path = Value}" SelectedItem="{Binding Path = Key, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True">
+                            <ComboBox Background="White" ItemsSource = "{Binding Path = Value}" SelectedItem="{Binding Path=Key, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path = FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
