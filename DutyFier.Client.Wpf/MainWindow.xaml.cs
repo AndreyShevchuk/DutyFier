@@ -30,7 +30,6 @@ namespace DutyFier.Client.Wpf
             
             InitializeComponent();
             this.DataContext = new MainWindowViewModel();
-            Core.Models.SeedData.StartData(); 
         }
         private void MoveSelecter(int index)
         {
