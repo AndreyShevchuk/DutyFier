@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity;
+using DutyFier.Core.Exeptions;
+using System.Windows;
 
 namespace DutyFier.Client.Wpf.State
 {
@@ -66,9 +68,15 @@ namespace DutyFier.Client.Wpf.State
         public void GeneratorRun()
         {
             var dutyRepository =  new DutyRepository( MainWindowViewModel.Container.Resolve<DutyFierContext>());
-            duties = new ObservableCollection<Duty>(dutyGenerate.Generate(GetUnitedDutyRequsets(dutyRequests.ToList()), ConvertToListExludeDates(), new List<ChangeOnDateWeigth>().ToList()));
-            
-            dutyRepository.AddRange(duties);
+            try
+            {
+                duties = new ObservableCollection<Duty>(dutyGenerate.Generate(GetUnitedDutyRequsets(dutyRequests.ToList()), ConvertToListExludeDates(), new List<ChangeOnDateWeigth>().ToList()));
+                dutyRepository.AddRange(duties);
+            }
+            catch(PersonAvalibleException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         public IEnumerable<Person> GetOnlyAviablePersons(Duty selectedDuty)
         {

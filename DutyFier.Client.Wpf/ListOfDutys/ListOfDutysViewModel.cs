@@ -18,7 +18,7 @@ namespace DutyFier.Client.Wpf.ListOfDutys
         {
             FeedbackModel = new FeedbackModel(new DutyRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()),
                                             new PersonDutyFeedbackRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
-            Dutys = FeedbackModel.GetDutiesWitchHasNoFeedbacks();
+            Dutys = FeedbackModel.GetDuties();
         }
     }
 }

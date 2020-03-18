@@ -28,7 +28,14 @@ namespace DutyFier.Core.Models
         public List<Duty> GetDutiesWitchHasNoFeedbacks() => GetDutiesWitchHasNoFeedbacks(DutyRepository);
 
         private List<Duty> GetDutiesWitchHasNoFeedbacks(DutyRepository dutyRepository)=>dutyRepository.GetAll().Where(duty => !duty.IsApproved).ToList();
+        public List<Duty> GetDuties() => GetDuties(DutyRepository);
 
+        private List<Duty> GetDuties(DutyRepository dutyRepository)
+        {
+            var dutys = dutyRepository.GetAll().ToList().ToList();
+            dutys.Sort((a, b) => a.Date.CompareTo(b.Date));
+            return dutys;
+        }
         public void CreateDutyFeedbacksFromDutyModelWithDefauld(Duty selectedDuty)
         {
             selectedDuty.IsApproved = true;

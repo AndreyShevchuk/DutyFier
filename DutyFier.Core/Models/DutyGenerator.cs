@@ -1,4 +1,5 @@
 ﻿using DutyFier.Core.Entities;
+using DutyFier.Core.Exeptions;
 using DutyFier.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace DutyFier.Core.Models
             var coverPerson = PersonScoreCover.GetPersonScoreCoverList(persons, feedbacks, generetedDuty);
 
             if(requests==null || requests.Count <= 0)
-                throw new ArgumentException("Null or empty request parametr");
+                throw new EmptyRequestException("Null or empty request parametr");
             return requests
                 .Select(request => GenerateSingleDuty(ref coverPerson, daysOfWeekWeights, request, ref excludes, changeOnDateWeigths, persons))
                 .ToList()
@@ -55,7 +56,7 @@ namespace DutyFier.Core.Models
             // for each position:
             PersonScoreCover person;
             if (request.Positions == null || request.Positions.Count <= 0)
-                throw new ArgumentException("Null or empty request position parametr");
+                throw new EpmtyPositionException("Null or empty request position parametr");
             for (int i = 0; i < request.Positions.Count; i++)
             {
                 // Get best person who can be in this duty
@@ -95,7 +96,7 @@ namespace DutyFier.Core.Models
                 return person.Person.Positions.Contains(position);
             });
             if(tempPersonSCAvailableCollection.Count()==0)
-                throw new ArgumentException("Can`t find available person to this request");
+                throw new PersonAvalibleException("Can`t find available person to this request");
             if(excludes.Count==0)
                 return tempPersonSCAvailableCollection.OrderBy(a => a.Score).First();
             IEnumerable<ExcludeDates> excludeDates;
@@ -113,7 +114,7 @@ namespace DutyFier.Core.Models
                         
             });
             if (tempPersonSCAvailableCollection.Count() == 0)
-                throw new ArgumentException("Can`t find available person to this request");
+                throw new PersonAvalibleException("Can`t find available person to this request");
 
             return tempPersonSCAvailableCollection.
                 // Sort that persons

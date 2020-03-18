@@ -45,7 +45,7 @@ namespace DutyFier.Core.Entities
             }
             private set { }
         }
-        public string ExecutorsPositions
+        public string PositionsNames
         {
             get
             {
