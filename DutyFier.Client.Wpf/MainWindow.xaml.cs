@@ -2,6 +2,7 @@
 using DutyFier.Client.Wpf.Generate;
 using DutyFier.Client.Wpf.Settings;
 using DutyFier.Client.Wpf.Statistics;
+using DutyFier.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity;
 
 namespace DutyFier.Client.Wpf
 {
@@ -30,7 +32,7 @@ namespace DutyFier.Client.Wpf
             
             InitializeComponent();
             this.DataContext = new MainWindowViewModel();
-            Core.Models.SeedData.StartData(); 
+            SeedData.StartData(MainWindowViewModel.Container.Resolve<DutyFierContext>()); 
         }
         private void MoveSelecter(int index)
         {
