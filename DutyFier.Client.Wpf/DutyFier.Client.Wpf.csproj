@@ -149,6 +149,7 @@
       <DependentUpon>AddTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\AddTypeViewModel.cs" />
+    <Compile Include="Settings\MainSettings\DeysWeightViewModel.cs" />
     <Compile Include="Settings\MainSettings\EditPositionsViewModel.cs" />
     <Compile Include="Settings\MainSettings\ExecutorsViewModel.cs" />
     <Compile Include="Settings\MainSettings\PositionsViewModel.cs" />

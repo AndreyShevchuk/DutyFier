@@ -1,5 +1,8 @@
 ﻿using DutyFier.Client.Wpf.Settings.MainSettings;
+using DutyFier.Core;
+using DutyFier.Core.Models;
 using System.Collections.ObjectModel;
+using Unity;
 
 namespace DutyFier.Client.Wpf.Settings
 {
@@ -8,12 +11,15 @@ namespace DutyFier.Client.Wpf.Settings
         private ObservableCollection<object> _children;
         public ObservableCollection<object> Children { get { return _children; } }
 
+
         public SettingsViewModel()
         {
+            var SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), new DaysOfWeekWeightRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
             _children = new ObservableCollection<object>();
-            _children.Add(new ExecutorsViewModel());
-            _children.Add(new EditPositionsViewModel());
-            _children.Add(new PositionsViewModel());
+            _children.Add(new ExecutorsViewModel(SettingsModel));
+            _children.Add(new EditPositionsViewModel(SettingsModel));
+            _children.Add(new PositionsViewModel(SettingsModel));
+            _children.Add(new DeysWeightViewModel(SettingsModel));
         }
 
         //public PersonRepository PersonReposytory { get; }

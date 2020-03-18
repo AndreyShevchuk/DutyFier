@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
              xmlns:local="clr-namespace:DutyFier.Client.Wpf"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
@@ -22,6 +22,9 @@
       
         <Grid Grid.Column="0">
             <Calendar x:Name="Calendar" SelectionMode="MultipleRange" Margin="20 40 0 0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Calendar.BlackoutDates>
+                        <CalendarDateRange Start="01.01.0001" End="{x:Static sys:DateTime.Now}"/>
+                    </Calendar.BlackoutDates>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectedDatesChanged">
                     <i:InvokeCommandAction 

@@ -70,8 +70,9 @@
                                 <RowDefinition Height="1.5*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="324*" />
+                                <ColumnDefinition Width="179*" />
+                                <ColumnDefinition Width="307*"/>
                             </Grid.ColumnDefinitions>
                             <ListBox Grid.Row="0" Grid.Column="0" Margin="40 20 20 20" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
@@ -85,7 +86,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            <StackPanel Margin="20" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                            <StackPanel Margin="20" Grid.Row="0" Grid.Column="1" Orientation="Vertical" Grid.ColumnSpan="2">
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <ComboBox Background="White" Opacity="1"  Margin="0 0  30 0"  ItemsSource="{Binding Allpositions}" SelectedValue="{Binding SelectedPosition}"    FontSize="14" Width="200" IsEditable="True" materialDesign:HintAssist.Hint="Chose type" materialDesign:TextFieldAssist.HasClearButton="True">
@@ -105,7 +106,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                            <ListBox Margin="20 120 20 20" SelectedItem="{Binding SelectedPositionToRemove, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1"  ItemsSource="{Binding PersonPositions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox Margin="20 120 20 20" SelectedItem="{Binding SelectedPositionToRemove, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1"  ItemsSource="{Binding PersonPositions, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel  Margin="5">
@@ -137,16 +138,16 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="Days Weght" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <TabItem DataContext="{Binding Children[3]}" Header="Days Weght" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="8.5*" />
                                 <RowDefinition Height="1.5*" />
                             </Grid.RowDefinitions>
-                            <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Grid.Row="0" ColumnWidth="*" ItemsSource="{Binding Allpositions,  UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="10 10 10 0"   FontSize="14">
+                            <DataGrid SelectedItem="{Binding SelectedDays}" CanUserAddRows="False" HorizontalAlignment="Left" Grid.Row="0" ColumnWidth="*" ItemsSource="{Binding Days,Mode = TwoWay,  UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="10 10 10 0"   FontSize="14">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn IsReadOnly="True" />
-                                    <DataGridTextColumn IsReadOnly="True" />
+                                    <DataGridTextColumn Header="Day" IsReadOnly="True" Binding="{Binding Path = Day}"/>
+                                    <DataGridTextColumn Header="Weigth" IsReadOnly="True" Binding="{Binding Path = Weight}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
