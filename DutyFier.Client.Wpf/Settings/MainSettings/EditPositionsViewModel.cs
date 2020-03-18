@@ -16,9 +16,10 @@ namespace DutyFier.Client.Wpf.Settings.MainSettings
 
         public SettingsModel SettingsModel { get; set; }
 
-        public EditPositionsViewModel()
+        public EditPositionsViewModel(SettingsModel settingsModel)
         {
-            SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
+            SettingsModel = settingsModel;
+
             this.PersonReposytory = new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             Allpositions = new ObservableCollection<Position>(SettingsModel.GetAllPosition());
             People = new ObservableCollection<Person>(SettingsModel.GetAllPerson());

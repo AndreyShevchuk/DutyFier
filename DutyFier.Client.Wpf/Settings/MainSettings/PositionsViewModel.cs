@@ -19,9 +19,10 @@ namespace DutyFier.Client.Wpf.Settings.MainSettings
 
         public RelayCommands AddTypeCommand { get; set; }
 
-        public PositionsViewModel()
+        public PositionsViewModel(SettingsModel settingsModel)
         {
-            SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
+            SettingsModel = settingsModel;
+
             this.PersonReposytory = new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>());
             Allpositions = new ObservableCollection<Position>(SettingsModel.GetAllPosition());
 

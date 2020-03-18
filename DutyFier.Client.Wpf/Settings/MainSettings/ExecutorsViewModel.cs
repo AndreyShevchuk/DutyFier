@@ -12,11 +12,10 @@ namespace DutyFier.Client.Wpf.Settings.MainSettings
     {
 
         private Person selectedExecutor;
-
-        public ExecutorsViewModel()
+        public ExecutorsViewModel(SettingsModel settingsModel)
         {
             // DutyFierContext = MainWindowViewModel.Container.Resolve<DutyFierContext>();
-            SettingsModel = new SettingsModel(new PersonRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()), new PositionRepository(MainWindowViewModel.Container.Resolve<DutyFierContext>()));
+            SettingsModel = settingsModel;
             People = new ObservableCollection<Person>(SettingsModel.GetAllPerson());
             AddExecutorCommand = new RelayCommands(addExecutorCommand, Can);
             RemovePersonCommand = new RelayCommands(removePersonCommand, Can);
