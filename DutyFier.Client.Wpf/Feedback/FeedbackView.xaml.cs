@@ -28,10 +28,6 @@ namespace DutyFier.Client.Wpf.Feedback
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO DO not refreshed
-            DataGridFeedBack.Items.Refresh();
-        }
+       
     }
 }

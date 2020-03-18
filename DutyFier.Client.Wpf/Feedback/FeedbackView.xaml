@@ -14,7 +14,7 @@
                     <RowDefinition Height="8.5*"/>
                     <RowDefinition Height="1.5*"/>
                 </Grid.RowDefinitions>
-                <DataGrid VerticalScrollBarVisibility="Visible" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Dutys}" SelectedItem="{Binding SelectedDuty, Mode=TwoWay}" AutoGenerateColumns="False"  ColumnWidth="*" x:Name="DataGridFeedBack" FontSize="20">
+                <DataGrid  CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Dutys}" SelectedItem="{Binding SelectedDuty, Mode=TwoWay}" AutoGenerateColumns="False"  ColumnWidth="*" x:Name="DataGridFeedBack" FontSize="20">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="0"/>
                         <materialDesign:DataGridTextColumn CanUserResize="False" Width="*" Header="Date" Binding="{Binding Path = Date}"/>
@@ -30,7 +30,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Click="Button_Click" Command="{Binding AcceptAllCommand}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Content="Accept All" FontSize="14" Margin="0 0 50 0"/>
+                <Button Command="{Binding AcceptAllCommand}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Content="Accept All" FontSize="14" Margin="0 0 50 0"/>
             </Grid>
         </materialDesign:TransitioningContent>
     </Grid>

@@ -8,41 +8,46 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace DutyFier.Client.Wpf.Feedback
 {
-    public class AcceptFeedbackViewModel :INotifyPropertyChanged
+    public class AcceptFeedbackViewModel : INotifyPropertyChanged
     {
         public Duty Duty { get; set; }
         public string Position { get; set; }
         public string Date { get; set; }
         public string DutyType { get; set; }
         public AcceptFeedbackModel AcceptFeedbackModel { get; set; }
-        private Executor _executor;
+        private Person _person;
+        public ObservableCollection<Person> People {get;set;}
 
         public bool IsLast 
         {
-            get => Duty.Executors.Count == 1;
+            get => People.Count == 1;
         }
-        public Executor ChosenExecutor { 
-            get=> _executor;
+        public Person SelectedPerson { 
+            get=> _person;
             set 
             {
-                _executor = value;
-                Position = value.Position.ToString();
-                Grade = value.PreliminaryScore;
-                OnPropertyChanged(nameof(Position));
-                OnPropertyChanged(nameof(Grade));
+                if (value != null)
+                {
+                    _person = value;
+                    Position = Duty.Executors.Find(ex => ex.Person.Equals(_person)).Position.ToString();
+                    Grade = Duty.Executors.Find(ex => ex.Person.Equals(_person)).PreliminaryScore;
+                    OnPropertyChanged(nameof(Position));
+                    OnPropertyChanged(nameof(Grade));
+                }
             }
         }
         public double Grade { get; set; }
-        RelayCommands CanselComand { get; set; }
-        RelayCommands AcceptCommand { get; set; }
-        RelayCommands AcceptAllCommand { get; set; }
+        public RelayCommands CanselComand { get; set; }
+        public RelayCommands AcceptCommand { get; set; }
+        public RelayCommands AcceptAllCommand { get; set; }
         FeedbacksContext FeedbacksContext { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
+        {   
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
@@ -51,12 +56,13 @@ namespace DutyFier.Client.Wpf.Feedback
             Duty = duty;
             Date = duty.Date.ToShortDateString();
             AcceptFeedbackModel = new AcceptFeedbackModel();
-
+            People = new ObservableCollection<Person>(duty.Executors.Select(ex => ex.Person));
             DutyType = duty.Executors[0].Position.DutyType.ToString();
             CanselComand = new RelayCommands(Cansel);
             AcceptCommand = new RelayCommands(CreateFeedback);
             AcceptAllCommand = new RelayCommands(CreateFeedbacksForAll);
             FeedbacksContext = feedbacksContext;
+            SelectedPerson = People.First();
         }
 
         private void CreateFeedbacksForAll()
@@ -66,8 +72,12 @@ namespace DutyFier.Client.Wpf.Feedback
 
         private void CreateFeedback()
         {
-            FeedbacksContext.PersonDutyFeedbacks.Add(AcceptFeedbackModel.CreateFeedback(Duty, ChosenExecutor, Grade));
-            Duty.Executors.Remove(ChosenExecutor);
+
+            FeedbacksContext.PersonDutyFeedbacks.Add(AcceptFeedbackModel.CreateFeedback(Duty, Duty.Executors.Find(ex => ex.Person.Equals(SelectedPerson)), Grade));
+            People.Remove(SelectedPerson);
+            if(People.Count>0)
+            SelectedPerson = People.First();
+            OnPropertyChanged("SelectePerson");
             OnPropertyChanged(nameof(IsLast));
             OnPropertyChanged("Executors");
         }

@@ -34,12 +34,14 @@ namespace DutyFier.Client.Wpf.Feedback
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            
             reedFeedbackContext?.Invoke();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            executorsCombobox.Items.Refresh();
+            DialogResult = true;
         }
     }
 }
