@@ -8,18 +8,19 @@
         xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes"
 
         mc:Ignorable="d"
-        Title="EditDuty" Height="350" Width="400" WindowStyle="None" MouseDown="Window_MouseDown">
+        Title="EditDuty" Height="450" Width="500" Background="WhiteSmoke" ResizeMode="NoResize" WindowStyle="None" MouseDown="Window_MouseDown" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" Margin="5" ItemsSource="{Binding Test , UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+        <DataGrid  Grid.Row="0" Margin="5" ItemsSource="{Binding Test , UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Change" Width="3*">
+                <DataGridTextColumn Binding="{Binding Path=Key.Position}" Width="1.5*" Header="Position"></DataGridTextColumn>
+                <DataGridTemplateColumn  Header="Executor" Width="3*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Background="White" ItemsSource = "{Binding Path = Value}" SelectedItem="{Binding Path=Key, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True">
+                            <ComboBox Background="White" ItemsSource = "{Binding Path = Value}" SelectedItem="{Binding Path=Key.Person, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path = FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBlock>

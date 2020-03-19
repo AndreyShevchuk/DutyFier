@@ -16,7 +16,7 @@ namespace DutyFier.Client.Wpf.Generate
     class EditDutyViewModel : INotifyPropertyChanged
     {
         public Duty ChangeDuty { get; set; }
-        public ObservableCollection<Person> FullPersonsDuty { get; set; }
+        public ObservableCollection<Executor> FullExecutorsDuty { get; set; }
         public ObservableCollection<Person> FullPersons { get; set; }
 
         private ObservableCollection<MyDictionary> test;
@@ -39,9 +39,9 @@ namespace DutyFier.Client.Wpf.Generate
         public EditDutyViewModel(Duty duty, IEnumerable<Person> persons)
         {
             ChangeDuty = duty;
-            FullPersonsDuty = new ObservableCollection<Person>(duty.Executors.Select(e => e.Person));
+            FullExecutorsDuty = new ObservableCollection<Executor>(duty.Executors);
             FullPersons = new ObservableCollection<Person>(persons);
-            MetodTest(FullPersonsDuty, FullPersons);
+            MetodTest(FullExecutorsDuty, FullPersons);
             AddPersonComand = new RelayCommands(AddExecutor, () => true);
             DelPersonComand = new RelayCommands<MyDictionary>(RemuveExecutor, obj => true);
             OkComand = new RelayCommands(ChangeExecutor, () => true);
@@ -55,8 +55,8 @@ namespace DutyFier.Client.Wpf.Generate
         }
         private void AddExecutor()
         {
-            Test.Add(new MyDictionary(new Person(), FullPersons));
-            ChangeDuty.Executors.Add(new Executor { Position = ChangeDuty.Executors.Count>0? ChangeDuty.Executors.First().Position: null, Duty = ChangeDuty});
+            Test.Add(new MyDictionary(new Executor { Position = ChangeDuty.Executors.Count > 0 ? ChangeDuty.Executors.First().Position : null, Duty = ChangeDuty }, FullPersons));
+            ChangeDuty.Executors.Add(Test.Last().Key);
         }
 
         private void ChangeExecutor()
@@ -65,7 +65,7 @@ namespace DutyFier.Client.Wpf.Generate
            // ChangeDuty.Executors.Clear();  
             for (int i = 0; i < ChangeDuty.Executors.Count; i++)
             {
-                ChangeDuty.Executors[i].Person = Test.ElementAt(i).Key;
+                ChangeDuty.Executors[i] = Test.ElementAt(i).Key;
             }
 
             //foreach (var item in Test)
@@ -77,7 +77,7 @@ namespace DutyFier.Client.Wpf.Generate
             //}
         }
 
-        private void MetodTest(ICollection<Person> key, ObservableCollection<Person> value)
+        private void MetodTest(ICollection<Executor> key, ObservableCollection<Person> value)
         {
             Test = new ObservableCollection<MyDictionary>();
             foreach (var item in key)
@@ -96,17 +96,17 @@ namespace DutyFier.Client.Wpf.Generate
 
     class MyDictionary
     {
-        public Person Key { get; set; }
+        public Executor Key { get; set; }
         public ObservableCollection<Person> Value { get; set; }
         public string GetFullName
         {
-            get => Key.FirstName + Key.LastName; 
+            get => Key.Person.FirstName + Key.Person.LastName; 
             set
             {
                 
             }
         }
-        public MyDictionary(Person key, ObservableCollection<Person> values)
+        public MyDictionary(Executor key, ObservableCollection<Person> values)
         {
             
             Key = key;
