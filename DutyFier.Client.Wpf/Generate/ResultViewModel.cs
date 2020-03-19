@@ -38,7 +38,7 @@ namespace DutyFier.Client.Wpf.Generate
             apv.DataContext = new EditDutyViewModel(SelectedDuty, context.GetOnlyAviablePersons(SelectedDuty));
             if (apv.ShowDialog() == true)
             {
-                Dutys = new ObservableCollection<Duty>(context.DutyRepository.GetAll());
+                //Dutys = new ObservableCollection<Duty>(context.DutyRepository.GetAll());
                 OnPropertyChanged(nameof(Dutys));
                 context.Update();
                 apv.Close();
